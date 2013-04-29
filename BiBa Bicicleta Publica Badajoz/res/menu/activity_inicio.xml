@@ -1,0 +1,58 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 
+        android:icon="@drawable/ic_menu_moreoverflow" -->
+    <item
+        android:id="@+id/menu"
+        android:showAsAction="always"
+        android:title="Menu">
+        <menu>
+            <item
+                android:id="@+id/ver_mapa"
+                android:title="Ver Mapa"/>
+            <item
+                android:id="@+id/instrucciones"
+                android:title="Instrucciones"/>
+            <item
+                android:id="@+id/donate"
+                android:title="Donar"/>
+            <item
+                android:id="@+id/update"
+                android:title="Actualizar"/>
+            <item
+                android:id="@+id/share"
+                android:title="Compartir"/>
+        </menu>
+    </item>
+    <item
+        android:id="@id/update"
+        android:icon="@drawable/ic_menu_refresh"
+        android:showAsAction="always"
+        android:title="Actualizar"/>
+    <item
+        android:id="@id/ver_mapa"
+        android:icon="@drawable/ic_menu_mapmode"
+        android:showAsAction="ifRoom"
+        android:title="Ver Mapa"/>
+    <item
+        android:id="@id/instrucciones"
+        android:icon="@drawable/ic_menu_info_details"
+        android:showAsAction="ifRoom"
+        android:title="Instrucciones"/>
+    <item
+        android:id="@id/donate"
+        android:icon="@drawable/money_euro"
+        android:showAsAction="ifRoom"
+        android:title="Donar"/>
+    <item
+        android:id="@id/update"
+        android:icon="@drawable/ic_menu_refresh"
+        android:showAsAction="ifRoom"
+        android:title="Actualizar"/>
+        <item
+        android:id="@id/share"
+        android:icon="@drawable/ic_menu_share"
+        android:showAsAction="ifRoom"
+        android:title="Compartir"/>
+
+</menu>

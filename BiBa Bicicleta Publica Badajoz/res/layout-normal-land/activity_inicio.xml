@@ -1,0 +1,66 @@
+<!-- Layout vertical -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <!-- Layout horizontal lista y mapa -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="5"
+        android:orientation="horizontal" >
+
+        <!-- LISTA -->
+
+        <FrameLayout
+            android:id="@+id/listaestaciones_f_container"
+            android:layout_width="0px"
+            android:layout_height="fill_parent"
+            android:layout_weight="10" />
+
+        <!-- LISTA -->
+
+
+        <!-- MAPA -->
+
+        <fragment
+            android:id="@+id/map"
+            android:layout_width="0px"
+            android:layout_height="fill_parent"
+            android:layout_weight="15"
+            class="com.google.android.gms.maps.SupportMapFragment"/>
+
+        <!--
+                map:cameraTargetLat="38.874463"
+                map:cameraTargetLng="-6.974258"
+                map:cameraZoom="12"
+                map:uiTiltGestures="false"
+        -->
+
+
+        <!--
+                 <FrameLayout
+                android:id="@+id/mapa_f_container"
+                android:layout_width="0px"
+                android:layout_height="fill_parent"
+                android:layout_weight="15" />
+        -->
+
+
+        <!--
+            <TextView
+                android:layout_width="0px"
+                android:layout_height="fill_parent"
+                android:layout_weight="15"
+                android:text="HOLA!" />
+        -->
+
+
+        <!-- MAPA -->
+    </LinearLayout>
+    <!-- Layout horizontal lista y mapa -->
+
+</LinearLayout><!-- Layout vertical -->
