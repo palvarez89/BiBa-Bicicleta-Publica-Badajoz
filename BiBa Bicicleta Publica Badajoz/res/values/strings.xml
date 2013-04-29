@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BiBa Bicicleta Publica Badajoz</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_inicio">BiBa Bicicleta Publica Badajoz</string>
+    <string name="Update">Actualizar</string>
+    <string name="title_activity_info">InfoActivity</string>
+    <string name="info0">Para poser usar el sistema de préstamo de bicicletas es necesario darse de alta en el servicio, recibiendo así una tarjeta de usuario BIBA.</string>
+    <string name="info1">Para coger una bicicleta con su tarjeta de usuario en una Estacion de bicicletas:</string>
+    <string name="info11">- Pasar la tarjeta de usuario por el lector de la columna informática e introudicr el código PIN facilitado en el momento de efectuar el alta.</string>
+    <string name="info12">- Para realizar un préstamo, seleccionar una bicileta entre las disponibles.</string>
+    <string name="info13">- El  candado liberará la bicicleta automáticamente y dispondrá de 30 segundos para retirarla de su anclaje.</string>
+    <string name="info14">- Se dispone de dos horas para disfrutar de la bicicleta.</string>
+    <string name="info2">Para devolver una bicicleta:</string>
+    <string name="info21">Devolver la bicicleta en cualquiera de los candados libres del punto de préstamo elegido. Es responsabilidad del usuario asegurarse del correcto anclaje de la bicicleta y que ésta no quede suelta.</string>
+    <string name="info22">Se podrá realizar otro préstamo pasados 5 minutos</string>
+    <string name="info3">Media hora antes de la finalización del servicio BIBA, no se podrá retirar las bicicletas de los puntos de préstamo</string>
+    <string name="info">Información</string>
+    <string name="title_activity_mapa_google">Mapa Google</string>
+    <string name="RateNow">Puntuar</string>
+    <string name="Later">Luego</string>
+    <string name="NoThanks">No, gracias.</string>
+    <string name="RateDialog">Si te gustó la aplicación, toma un minuto de tu tiempo para puntuarla. Tu opinión nos interesa. ¡Gracias!</string>
+    <string name="RateTitle">Puntúame</string>
+    <string name="DonateDialog">¡Vaya! Usas a menudo la aplicación. ¿Quieres hacer una pequeña donación?</string>
+    <string name="DonateNow">Donar</string>
+    <string name="DonateTitle">Donación</string>
+    <string name="title_activity_lista_estaciones">ListaEstaciones</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

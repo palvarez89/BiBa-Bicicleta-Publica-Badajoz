@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <ImageView
+        android:id="@+id/wifierror"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/wifierror"
+        android:visibility="gone" />
+
+    <!-- Layout vertical -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <!-- Layout horizontal lista y mapa -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px"
+            android:layout_weight="5"
+            android:orientation="horizontal" >
+
+            <!-- LISTA -->
+
+            <FrameLayout
+                android:id="@+id/listaestaciones_f_container"
+                android:layout_width="0px"
+                android:layout_height="fill_parent"
+                android:layout_weight="10" />
+
+            <!-- LISTA -->
+
+
+            <!-- MAPA 
+
+            <fragment
+                xmlns:map="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/mapInicio"
+                android:layout_width="0px"
+                android:layout_height="fill_parent"
+                android:layout_weight="15"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                map:cameraTargetLat="38.874463"
+                map:cameraTargetLng="-6.974258"
+                map:cameraZoom="12"
+                map:uiTiltGestures="false" />
+            -->
+
+			<TextView
+			    android:layout_width="0px"
+                android:layout_height="fill_parent"
+                android:layout_weight="15"
+			    android:text="hola" />
+
+            <!-- MAPA -->
+        </LinearLayout>
+        <!-- Layout horizontal lista y mapa -->
+
+
+        <!-- Bicicletas graficos -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0px"
+                android:layout_height="fill_parent"
+                android:layout_weight="6"
+                android:gravity="center"
+                android:text="ristra de estaciones"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <!-- Bicicletas graficos -->
+    </LinearLayout>
+    <!-- Layout vertical -->
+
+</RelativeLayout>
