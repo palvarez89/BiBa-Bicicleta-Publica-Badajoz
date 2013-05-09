@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="biba.bicicleta.publica.badajoz"
     android:installLocation="auto"
-    android:versionCode="8220"
-    android:versionName="2.2" >
+    android:versionCode="8301"
+    android:versionName="3.01" >
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -30,18 +30,16 @@
         android:theme="@style/Theme.Styled" >
 
         <!-- Firma debug -->
-
+<!--
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyD1-wWp4md1AyKiqc7vlwJ0oreNfPybIOM" />
-
+ -->
         <!-- Firma distribucion -->
-        <!--
+        
          <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAqRncQUIZQXh7hfEi9aiO1Ene4-uCLX8s" />
- android:configChanges="keyboardHidden|orientation|screenSize"
-        -->
         <activity
             android:name="biba.bicicleta.publica.badajoz.BiBaActivity"
            
