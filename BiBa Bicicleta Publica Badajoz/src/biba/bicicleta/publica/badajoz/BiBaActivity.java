@@ -19,7 +19,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptor;
@@ -29,6 +28,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class BiBaActivity extends SherlockFragmentActivity implements
 		ActivityCommunicator {
+	boolean iniciado = false;
 	static int currentOption = 0;
 	static Fragment listFragment = null;
 	String deb = "DEBUG";
@@ -254,18 +254,22 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.w(deb, "BiBa Activity onPause");
-		if (listFragment != null) {
-			getSupportFragmentManager().beginTransaction().remove(listFragment)
-					.commit();
-			listFragment = null;
-		}
+		
 	}
 
 	@Override
 	public void onResume() {
+		
+		Log.w(deb, "BiBa Activity onPause");
+		if (listFragment != null) {
+			getSupportFragmentManager().beginTransaction().remove(listFragment)
+					.commit();
+//			listFragment = null;
+			iniciado = false;
+		}
+		
 		super.onResume();
-		if (listFragment == null) {
+		if (iniciado == false) {
 			listFragment = new ListaEstaciones(enFavs);
 
 			 listFragment.setRetainInstance(true);
@@ -273,6 +277,7 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 					.beginTransaction();
 			transList.add(R.id.listaestaciones_f_container, listFragment);
 			transList.commit();
+			iniciado = true;
 
 //			((ListaEstaciones) listFragment).mostrarFavs(enFavs);
 		}

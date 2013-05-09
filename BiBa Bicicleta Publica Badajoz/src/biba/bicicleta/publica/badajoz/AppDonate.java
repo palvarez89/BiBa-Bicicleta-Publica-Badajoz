@@ -82,7 +82,8 @@ public class AppDonate {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int which) {
-								editor.putLong("launch_count", 5);
+								editor.putLong("launch_count", 0);
+								editor.commit();
 								dialog.dismiss();
 
 							}
