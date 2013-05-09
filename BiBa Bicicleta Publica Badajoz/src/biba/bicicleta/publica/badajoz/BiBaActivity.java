@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 import biba.bicicleta.publica.badajoz.fragments.ActivityCommunicator;
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
 
@@ -30,7 +31,7 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 		ActivityCommunicator {
 	boolean iniciado = false;
 	static int currentOption = 0;
-	static Fragment listFragment = null;
+	Fragment listFragment = null;
 	String deb = "DEBUG";
 	GoogleMap map;
 	BitmapDescriptor markerRed, markerGreen;
@@ -69,11 +70,18 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
+		Log.w(deb, "BiBa Activity onCreate ");
+		
 		Log.e(deb, "listFragment: " + (listFragment == null) + " Bundle: "
 				+ (savedInstanceState == null));
-		setupNavBar();
-		Log.w(deb, "BiBa Activity onCreate ");
+		if(listFragment == null){
+			savedInstanceState=null;
+		}
 		super.onCreate(savedInstanceState);
+
+		Log.w(deb, "BiBa Activity onCreate 2");
+		setupNavBar();
+
 		setContentView(R.layout.activity_inicio);
 		Log.w(deb, "BiBa Activity onCreate INFLATED");
 
@@ -101,9 +109,37 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 		//
 		// }
 		//
+
+		// ///////////////////////
+
 		if (savedInstanceState != null) {
+
+			listFragment = getSupportFragmentManager().findFragmentById(
+					R.id.listaestaciones_f_container);
+
+			if (listFragment == null) {
+				Toast.makeText(this, "aaaaaqui", Toast.LENGTH_LONG).show();
+				listFragment = new ListaEstaciones(enFavs);
+
+				listFragment.setRetainInstance(true);
+				FragmentTransaction transList = getSupportFragmentManager()
+						.beginTransaction();
+				transList.add(R.id.listaestaciones_f_container, listFragment);
+				transList.commit();
+			}
 			return;
 		}
+
+		// if(listFragment==null){
+		listFragment = new ListaEstaciones(enFavs);
+
+		listFragment.setRetainInstance(true);
+		FragmentTransaction transList = getSupportFragmentManager()
+				.beginTransaction();
+		transList.add(R.id.listaestaciones_f_container, listFragment);
+		transList.commit();
+		// }
+
 		AppRater.app_launched(this);
 		AppDonate.app_launched(this);
 
@@ -185,12 +221,12 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 
 	public void update() {
 
-//		if (listFragment == null) {
-//			listFragment = new ListaEstaciones();
-//			// ((ListaEstaciones) listFragment).newInstance();
-//
-//			listFragment.setRetainInstance(true);
-//		}
+		// if (listFragment == null) {
+		// listFragment = new ListaEstaciones();
+		// // ((ListaEstaciones) listFragment).newInstance();
+		//
+		// listFragment.setRetainInstance(true);
+		// }
 
 		((ListaEstaciones) listFragment).update();
 		// FragmentTransaction transaction = getSupportFragmentManager()
@@ -254,35 +290,35 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 	@Override
 	public void onPause() {
 		super.onPause();
-		
+
 	}
 
-	@Override
-	public void onResume() {
-		
-		Log.w(deb, "BiBa Activity onPause");
-		if (listFragment != null) {
-			getSupportFragmentManager().beginTransaction().remove(listFragment)
-					.commit();
-//			listFragment = null;
-			iniciado = false;
-		}
-		
-		super.onResume();
-		if (iniciado == false) {
-			listFragment = new ListaEstaciones(enFavs);
-
-			 listFragment.setRetainInstance(true);
-			FragmentTransaction transList = getSupportFragmentManager()
-					.beginTransaction();
-			transList.add(R.id.listaestaciones_f_container, listFragment);
-			transList.commit();
-			iniciado = true;
-
-//			((ListaEstaciones) listFragment).mostrarFavs(enFavs);
-		}
-		Log.w(deb, "BiBa Activity onResume");
-	}
+	// @Override
+	// public void onResume() {
+	//
+	// Log.w(deb, "BiBa Activity onPause");
+	// if (listFragment != null) {
+	// getSupportFragmentManager().beginTransaction().remove(listFragment)
+	// .commit();
+	// // listFragment = null;
+	// iniciado = false;
+	// }
+	//
+	// super.onResume();
+	// if (iniciado == false) {
+	// listFragment = new ListaEstaciones(enFavs);
+	//
+	// listFragment.setRetainInstance(true);
+	// FragmentTransaction transList = getSupportFragmentManager()
+	// .beginTransaction();
+	// transList.add(R.id.listaestaciones_f_container, listFragment);
+	// transList.commit();
+	// iniciado = true;
+	//
+	// // ((ListaEstaciones) listFragment).mostrarFavs(enFavs);
+	// }
+	// Log.w(deb, "BiBa Activity onResume");
+	// }
 
 	@Override
 	public void onStart() {
@@ -331,7 +367,7 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 	public void passDataToActivity(Vector<Estacion> estaciones) {
 		Log.w(deb, "BiBa Activity passDataToActivity");
 		if (map != null && estaciones != null) {
-			
+
 			final Vector<Estacion> stations = estaciones;
 			Log.w(deb, "BiBa Activity hayMapa");
 
