@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.StaticLayout;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,6 +33,7 @@ public class MapaGoogle extends SherlockFragmentActivity {
 	InfoEstaciones infoEstaciones;
 	Vector<Estacion> estaciones;
 	BitmapDescriptor markerRed, markerGreen;
+	BitmapDescriptor markerFullBikes, markerFullParking, markerBikeAndParking;
 	Runnable readJSON;
 	SherlockFragmentActivity activity;
 	String deb = "DEBUG";
@@ -96,6 +98,23 @@ public class MapaGoogle extends SherlockFragmentActivity {
 					markerGreen = BitmapDescriptorFactory
 							.fromResource(R.drawable.greenmark);
 				}
+				
+				if (markerFullBikes == null) {
+					markerFullBikes = BitmapDescriptorFactory
+							.fromResource(R.drawable.fullbike);
+				}
+
+				if (markerFullParking == null) {
+					markerFullParking = BitmapDescriptorFactory
+							.fromResource(R.drawable.fullparking);
+				}
+				
+				if (markerBikeAndParking == null) {
+					markerBikeAndParking = BitmapDescriptorFactory
+							.fromResource(R.drawable.bikeandparking);
+				}
+				
+				
 			}
 		}
 
@@ -225,11 +244,31 @@ public class MapaGoogle extends SherlockFragmentActivity {
 			if (map != null) {
 				BitmapDescriptor marker;
 
-				if (station.getEstado().indexOf("FUERA") != -1) {
-					marker = markerRed;
+				// if (station.getEstado().indexOf("FUERA") != -1) {
+				// marker = markerRed;
+				// } else {
+				// marker = markerGreen;
+				// }
+				boolean i;
+				int cap = station.getCapacidad();
+				if (station.getDisponibles() == 0) {
+
+					// fullparking
+					marker = markerFullParking;
 				} else {
-					marker = markerGreen;
+
+					if (station.getEspacio() == 0) {
+
+						// fullbikes
+						marker = markerFullBikes;
+					} else {
+						
+						//bikeandparking
+						marker = markerBikeAndParking;
+					}
 				}
+
+			
 				map.addMarker(new MarkerOptions()
 						.position(
 								new LatLng(station.getLatitude(), station

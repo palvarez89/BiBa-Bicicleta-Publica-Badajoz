@@ -27,8 +27,16 @@ import biba.bicicleta.publica.badajoz.MiAdaptador;
 import biba.bicicleta.publica.badajoz.R;
 
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.GAServiceManager;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 
 public class ListaEstaciones extends SherlockListFragment {
+
+	private Tracker mGaTracker;
+	private GoogleAnalytics mGaInstance;
+
 	private ActivityCommunicator activityCommunicator;
 
 	static String deb = "DEBUG";
@@ -50,11 +58,18 @@ public class ListaEstaciones extends SherlockListFragment {
 
 	public ListaEstaciones(boolean enfavs) {
 		mostrarFavs = enfavs;
+		
 		Log.w(deb, "ListaEstaciones constructor");
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+
+		mGaInstance = GoogleAnalytics.getInstance(getActivity());
+
+		mGaTracker = mGaInstance.getTracker("UA-41109565-1");
+
+		mGaInstance.setDefaultTracker(mGaTracker);
 
 		Log.w(deb, "ListaEstaciones onCreate ");
 		super.onCreate(savedInstanceState);
@@ -204,10 +219,12 @@ public class ListaEstaciones extends SherlockListFragment {
 	}
 
 	public class LoadJson extends AsyncTask<Void, Integer, Vector<Estacion>> {
+		long loadTime;
+		long startTime;
 
 		@Override
 		protected Vector<Estacion> doInBackground(Void... params) {
-
+			startTime = System.currentTimeMillis();
 			// TODO Auto-generated method stub
 
 			Thread thread = new Thread() {
@@ -248,11 +265,13 @@ public class ListaEstaciones extends SherlockListFragment {
 			if (progressBar != null) {
 				progressBar.setBackgroundColor(col);
 			}
+
 		}
 
 		@Override
 		protected void onPostExecute(Vector<Estacion> result) {
 
+			String loaded;
 			myProgress = 100;
 
 			if (result != null) {
@@ -280,10 +299,12 @@ public class ListaEstaciones extends SherlockListFragment {
 
 				col = Color.parseColor("#A1FCA4");
 				text = "Actualizado: " + currentDateTimeString;
+				loaded = "Cargado";
 
 			} else {
 				col = Color.parseColor("#FF8585");
 				text = "Fallo al actualizar";
+				loaded = "No cargado";
 
 			}
 
@@ -298,6 +319,14 @@ public class ListaEstaciones extends SherlockListFragment {
 
 			activityCommunicator.passDataToActivity(result);
 			iniciado = true;
+
+			// mGaTracker.sendView("/ListaEstaciones");
+			//
+
+			loadTime = System.currentTimeMillis() - startTime;
+			mGaTracker.sendEvent("Tiempo", loaded, loaded, loadTime);
+			mGaTracker.sendTiming("LoadTime", loadTime, "high_scores", null);
+			GAServiceManager.getInstance().dispatch();
 
 		}
 

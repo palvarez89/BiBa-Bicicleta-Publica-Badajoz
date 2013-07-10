@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import biba.bicicleta.publica.badajoz.fragments.ActivityCommunicator;
@@ -18,6 +19,9 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -29,6 +33,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class BiBaActivity extends SherlockFragmentActivity implements
 		ActivityCommunicator {
+	
+	
+	
 	boolean iniciado = false;
 	static int currentOption = 0;
 	Fragment listFragment = null;
@@ -72,10 +79,13 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 
 		Log.w(deb, "BiBa Activity onCreate ");
 		
+
+	
+
 		Log.e(deb, "listFragment: " + (listFragment == null) + " Bundle: "
 				+ (savedInstanceState == null));
-		if(listFragment == null){
-			savedInstanceState=null;
+		if (listFragment == null) {
+			savedInstanceState = null;
 		}
 		super.onCreate(savedInstanceState);
 
@@ -211,12 +221,47 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 		Log.w(deb, "Biba Activity onDestroy2");
 	}
 
+	private Menu mainMenu;
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.activity_inicio, menu);
+		mainMenu = menu;
 		Log.w(deb, "BiBa Activity onCreateOptionsMenu ");
 		return true;
+	}
+
+	// @Override
+	// public boolean onKeyUp(int keyCode, KeyEvent event) {
+	// if(keyCode == KeyEvent.KEYCODE_MENU){
+	// if (event.getAction() == KeyEvent.ACTION_DOWN && mainMenu != null &&
+	// mainMenu.findItem(R.id.submenu) != null)
+	// {
+	// Log.w(deb, "BiBa Activity onKeyUp	 ");
+	//
+	// mainMenu.performIdentifierAction(R.id.submenu, 0);
+	// return true;
+	// }
+	// }
+	// return super.onKeyUp(keyCode, event);
+	// }
+
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		Log.w(deb, "BiBa Activity onKeyUp	 ");
+		if (event.getAction() == KeyEvent.ACTION_UP) {
+			Log.w(deb, "BiBa Activity onKeyUp2	 ");
+			switch (keyCode) {
+			case KeyEvent.KEYCODE_MENU:
+				Log.w(deb, "BiBa Activity onKeyUp3	 ");
+
+				mainMenu.performIdentifierAction(R.id.submenu, 0);
+
+				return true;
+			}
+		}
+		return super.onKeyUp(keyCode, event);
 	}
 
 	public void update() {
@@ -240,6 +285,7 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Log.w(deb, "BiBa Activity onOptionsItemSelected ");
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.ver_mapa:
@@ -269,7 +315,7 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 		sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
 				"APP - Bicicleta Publica de Badajoz");
 		sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-		startActivity(Intent.createChooser(sharingIntent, "Share via"));
+		startActivity(Intent.createChooser(sharingIntent, "Compartir vía..."));
 	}
 
 	private void verMapa() {
@@ -345,6 +391,8 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 		// transList.commit();
 		//
 		// }
+		EasyTracker.getInstance().activityStart(this);
+
 		Log.w(deb, "BiBa Activity onStart");
 	}
 
@@ -353,6 +401,8 @@ public class BiBaActivity extends SherlockFragmentActivity implements
 
 		Log.w(deb, "BiBa Activity onStop");
 		super.onStop();
+
+	    EasyTracker.getInstance().activityStop(this); 
 
 	}
 

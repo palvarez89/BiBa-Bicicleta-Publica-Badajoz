@@ -19,6 +19,8 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -30,19 +32,19 @@
         android:theme="@style/Theme.Styled" >
 
         <!-- Firma debug -->
-<!--
+
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyD1-wWp4md1AyKiqc7vlwJ0oreNfPybIOM" />
- -->
+
         <!-- Firma distribucion -->
-        
+        <!--
          <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAqRncQUIZQXh7hfEi9aiO1Ene4-uCLX8s" />
+        -->
         <activity
             android:name="biba.bicicleta.publica.badajoz.BiBaActivity"
-           
             android:label="@string/title_activity_inicio" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,7 +58,6 @@
         </activity>
         <activity
             android:name="biba.bicicleta.publica.badajoz.MapaGoogle"
-            
             android:label="@string/title_activity_mapa_google" >
         </activity>
         <activity
