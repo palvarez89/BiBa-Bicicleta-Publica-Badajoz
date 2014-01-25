@@ -16,7 +16,7 @@ public class InfoEstaciones {
 	String tag = "INFOESTACIONES";
 	Vector<Estacion> Estaciones = null;
 
-	String urls[] = { "http://biba.p.ht/3/getEstaciones.php",
+	String urls[] = { "http://biba.w.pw/3/getEstaciones.php",
 			"http://biba2.hol.es/3/getEstaciones.php",
 			"http://biba.webuda.com/3/getEstaciones.php" };
 

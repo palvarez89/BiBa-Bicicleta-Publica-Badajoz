@@ -129,7 +129,7 @@ public class ListaEstaciones extends SherlockListFragment {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						getActivity());
 				builder.setMessage("¿Mostrar en favoritos?")
-						.setPositiveButton("Yes", dialogClickListener)
+						.setPositiveButton("Si", dialogClickListener)
 						.setNegativeButton("No", dialogClickListener).show();
 				// /////////
 				return true;
@@ -144,7 +144,7 @@ public class ListaEstaciones extends SherlockListFragment {
 	}
 
 	public void addToFavs(int i) {
-		cargarFavs(23);
+		cargarFavs(24);
 		SharedPreferences prefs = getActivity().getSharedPreferences(
 				"biba.bicicleta.publica.badajoz", Context.MODE_PRIVATE);
 		prefs.edit().putBoolean("fav" + i, true).commit();
@@ -152,13 +152,13 @@ public class ListaEstaciones extends SherlockListFragment {
 	}
 
 	public void removeFromFavs(int i) {
-		cargarFavs(23);
+		cargarFavs(24);
 		boolean encontrado = false;
 		int fixedpos = 0;
 
 		if (mostrarFavs) {
 			int pos = i;
-			for (int j = 0; j < 23 && !encontrado; j++) {
+			for (int j = 0; j < 24 && !encontrado; j++) {
 				if (favs[j] == true) {
 					if (pos == 0) {
 						encontrado = true;
