@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 
+        android:icon="@drawable/ic_menu_moreoverflow" -->
+
+    <item
+        android:id="@+id/update"
+        android:icon="@drawable/ic_menu_refresh"
+        android:showAsAction="always"
+        android:title="Actualizar"/>
+   
+    <item
+        android:id="@+id/instrucciones"
+        android:icon="@drawable/ic_menu_info_details"
+        android:showAsAction="never"
+        android:title="Instrucciones"/>
+    <item
+        android:id="@+id/donate"
+        android:icon="@drawable/money_euro"
+        android:showAsAction="never"
+        android:title="Donar"/>
+   
+      <item
+        android:id="@+id/share"
+        android:icon="@drawable/ic_menu_share"
+        android:showAsAction="never"
+        android:title="Compartir"/>
+
+</menu>
