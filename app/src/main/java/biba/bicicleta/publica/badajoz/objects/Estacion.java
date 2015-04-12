@@ -1,4 +1,4 @@
-package biba.bicicleta.publica.badajoz;
+package biba.bicicleta.publica.badajoz.objects;
 
 public class Estacion {
     int numero;

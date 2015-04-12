@@ -1,4 +1,4 @@
-package biba.bicicleta.publica.badajoz;
+package biba.bicicleta.publica.badajoz.adapters;
 
 import java.util.Vector;
 
@@ -10,14 +10,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.R;
 
-public class MiAdaptador extends BaseAdapter {
+
+public class ListaEstacionesAdapter extends BaseAdapter {
     private final Activity actividad;
 
     private final Vector<Estacion> lista;
 
-    public MiAdaptador(Activity actividad, Vector<Estacion> lista) {
+    public ListaEstacionesAdapter(Activity actividad, Vector<Estacion> lista) {
         super();
         this.actividad = actividad;
         this.lista = lista;
@@ -42,11 +44,7 @@ public class MiAdaptador extends BaseAdapter {
 
         int rojo = Color.rgb(245, 110, 119);
         int verde = Color.rgb(182, 254, 185);
-        // if (position % 2 == 0) {
-        // vi.setBackgroundColor(Color.rgb(grisoscuro, grisoscuro, grisoscuro));
-        // } else {
-        // vi.setBackgroundColor(Color.rgb(grisclaro, grisclaro, grisclaro));
-        // }
+
 
         if (position % 2 == 0) {
             vi.setBackgroundResource(R.drawable.selector1);
@@ -84,14 +82,8 @@ public class MiAdaptador extends BaseAdapter {
             holder.parking.setTextColor(Color.WHITE);
         }
 
-        // vi.set
-        // vi.setLabelFor(lista.elementAt(position).getNumero() - 1);
         return vi;
 
-    }
-
-    public int getNumber() {
-        return 5;
     }
 
     public int getCount() {
