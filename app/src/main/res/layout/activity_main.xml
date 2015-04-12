@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <biba.bicicleta.publica.badajoz.GeneralSwipeRefreshLayout
+    <biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout
         android:id="@+id/activity_main_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -27,6 +27,6 @@
             <!--</RelativeLayout>-->
         <!--</ScrollView>-->
 
-    </biba.bicicleta.publica.badajoz.GeneralSwipeRefreshLayout>
+    </biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout>
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package biba.bicicleta.publica.badajoz;
+package biba.bicicleta.publica.badajoz.objects;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -10,21 +10,19 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import biba.bicicleta.publica.badajoz.utils.JSONManager;
+
 public class InfoEstaciones {
 
     private static InfoEstaciones infoEstaciones;
     String tag = "INFOESTACIONES";
     Vector<Estacion> Estaciones = null;
 
-    String urls[] = { "http://biba.w.pw/3/getEstaciones.php",
-            "http://biba2.hol.es/3/getEstaciones.php",
+    String urls[] = { "http://biba2.hol.es/3/getEstaciones.php",
+            "http://biba.w.pw/3/getEstaciones.php",
             "http://biba.webuda.com/3/getEstaciones.php" };
 
     String currentDateTimeString;
-
-    private InfoEstaciones() {
-        // Optional Code
-    }
 
     public static InfoEstaciones getInstance() {
         if (infoEstaciones == null) {
@@ -85,8 +83,8 @@ public class InfoEstaciones {
 
             Estaciones.add(new Estacion(jNum, jNomb, jEstado, jDisp, jCap,
                     jLat, jLon));
-
         }
+        
         return Estaciones;
     }
 }
