@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import biba.bicicleta.publica.badajoz2.R;
+import biba.bicicleta.publica.badajoz.R;
 
 public class MiAdaptador extends BaseAdapter {
     private final Activity actividad;
