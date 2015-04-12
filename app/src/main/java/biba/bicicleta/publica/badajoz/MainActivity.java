@@ -5,19 +5,20 @@ import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.RecyclerView;
+//import android.support.v4.app.Fragment;
+//import android.support.v4.app.FragmentActivity;
+//import android.support.v4.app.FragmentTransaction;
+//import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
 import java.util.Vector;
 
-import biba.bicicleta.publica.badajoz2.R;
+import biba.bicicleta.publica.badajoz.R;
 
 //import biba.bicicleta.publica.badajoz.fragments.ActivityCommunicator;
 //import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
@@ -35,7 +36,7 @@ public class MainActivity extends Activity {
     MiAdaptador adaptador;
 
     String deb = "DEBUG";
-    Fragment listFragment = null;
+//    Fragment listFragment = null;
     boolean enFavs = false;
 
     private GeneralSwipeRefreshLayout mSwipeRefreshLayout;
@@ -206,11 +207,10 @@ public class MainActivity extends Activity {
 
         @Override
         protected Vector<Estacion> doInBackground(Void... params) {
-
-
+            Log.w(deb, "BiBa Activity doinbackround");
             try {
                 estaciones = new Vector<Estacion>();
-                estaciones = infoEstaciones.getInfo(false);
+                estaciones = infoEstaciones.getInfo(true); // True to force refresh
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -222,9 +222,11 @@ public class MainActivity extends Activity {
         protected void onPostExecute(Vector<Estacion> result) {
 
 
+
             adaptador = new MiAdaptador(activity, result);
-            adaptador.notifyDataSetChanged();
             listView.setAdapter(adaptador);
+            adaptador.notifyDataSetChanged();
+
 
             swipeLayout.setRefreshing(false);
 
