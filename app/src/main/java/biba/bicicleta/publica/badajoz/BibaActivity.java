@@ -14,10 +14,13 @@ import java.util.Vector;
 import biba.bicicleta.publica.badajoz.adapters.ListaEstacionesAdapter;
 import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.objects.InfoEstaciones;
+import biba.bicicleta.publica.badajoz.utils.Analytics;
 import biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout;
 
 
 public class BibaActivity extends Activity {
+
+    Analytics analytics;
 
     Vector<Estacion> estaciones;
     InfoEstaciones infoEstaciones;
@@ -36,6 +39,9 @@ public class BibaActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         activity = this;
+        analytics = new Analytics(activity);
+
+        analytics.screenView("biba.bicicleta.publica.badajoz/BibaActivity");
 
         estaciones = new Vector<Estacion>();
         infoEstaciones = InfoEstaciones.getInstance();
