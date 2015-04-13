@@ -84,7 +84,7 @@ public class InfoEstaciones {
             Estaciones.add(new Estacion(jNum, jNomb, jEstado, jDisp, jCap,
                     jLat, jLon));
         }
-        
+
         return Estaciones;
     }
 }
