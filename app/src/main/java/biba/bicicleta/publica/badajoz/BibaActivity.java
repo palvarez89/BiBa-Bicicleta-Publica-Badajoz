@@ -49,7 +49,7 @@ public class BibaActivity extends Activity {
         final ListView listView;
         listView = (ListView) findViewById(R.id.list);
 
-        new AsyncUpdateListaEstaciones(activity, listView).execute();
+        new AsyncUpdateListaEstaciones(activity, listView, false).execute();
 
 
         // Setup swipeLayout colors
@@ -72,7 +72,7 @@ public class BibaActivity extends Activity {
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
-                        new AsyncUpdateListaEstaciones(activity, listView).execute();
+                        new AsyncUpdateListaEstaciones(activity, listView, true).execute();
                     }
                 });
             }
@@ -84,20 +84,20 @@ public class BibaActivity extends Activity {
         Activity activity;
         ListView listView;
         GeneralSwipeRefreshLayout swipeLayout;
+        boolean forceUpdate;
 
-        public AsyncUpdateListaEstaciones(Activity activity, ListView listView){
+        public AsyncUpdateListaEstaciones(Activity activity, ListView listView, boolean forceUpdate){
             this.activity = activity;
             this.listView = listView;
+            this.forceUpdate = forceUpdate;
             swipeLayout = (GeneralSwipeRefreshLayout) activity.findViewById(R.id.activity_main_swipe_refresh_layout);
 
         }
 
         @Override
         protected Vector<Estacion> doInBackground(Void... params) {
-            Log.w(deb, "BiBa Activity doinbackround");
             try {
-                estaciones = new Vector<Estacion>();
-                estaciones = infoEstaciones.getInfo(true); // True to force refresh
+                estaciones = infoEstaciones.getInfo(forceUpdate);
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
