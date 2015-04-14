@@ -43,7 +43,6 @@ public class BibaActivity extends Activity {
 
         analytics.screenView("biba.bicicleta.publica.badajoz/BibaActivity");
 
-        estaciones = new Vector<Estacion>();
         infoEstaciones = InfoEstaciones.getInstance();
 
         final ListView listView;
