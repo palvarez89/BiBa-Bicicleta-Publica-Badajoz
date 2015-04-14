@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -107,11 +108,22 @@ public class BibaActivity extends Activity {
         @Override
         protected void onPostExecute(Vector<Estacion> result) {
 
-            adaptador = new ListaEstacionesAdapter(activity, result);
-            listView.setAdapter(adaptador);
-            adaptador.notifyDataSetChanged();
+            if (result == null){
+                Toast.makeText(getApplicationContext(), R.string.failed_update,
+                        Toast.LENGTH_LONG).show();
+            }
+            else {
+                adaptador = new ListaEstacionesAdapter(activity, result);
+                listView.setAdapter(adaptador);
+                adaptador.notifyDataSetChanged();
+            }
 
-            swipeLayout.setRefreshing(false);
+            swipeLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    swipeLayout.setRefreshing(false);
+                }
+            });
         }
 
         @Override
