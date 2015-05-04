@@ -1,6 +1,8 @@
 package biba.bicicleta.publica.badajoz.objects;
 
 import java.text.DateFormat;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Vector;
 
@@ -23,6 +25,10 @@ public class InfoEstaciones {
             "http://biba.webuda.com/3/getEstaciones.php" };
 
     String currentDateTimeString;
+
+    private InfoEstaciones() {
+        Collections.shuffle(Arrays.asList(urls));
+    }
 
     public static InfoEstaciones getInstance() {
         if (infoEstaciones == null) {
