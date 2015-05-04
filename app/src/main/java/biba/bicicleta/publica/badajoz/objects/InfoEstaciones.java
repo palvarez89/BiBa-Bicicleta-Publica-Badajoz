@@ -50,16 +50,16 @@ public class InfoEstaciones {
     private Vector<Estacion> readJSONBiba() throws JSONException {
 
         for (int i = 0; i < urls.length; i++) {
-            Log.w(tag, "Empezando " + (i + 1));
+            Log.w(tag, "Empezando " + (i + 1) + " URL: " + urls[i]);
             JSONArray jArray = JSONManager.getJSONfromURL(urls[i]);
             if (jArray != null) {
-                Log.w(tag, "RECIBIDO");
+                Log.w(tag, "RECIBIDO " + (i + 1) + " URL: " + urls[i]);
                 currentDateTimeString = DateFormat.getDateTimeInstance()
                         .format(new Date());
                 return parseJSONBiba(jArray);
 
             } else {
-                Log.w(tag, "Falla " + (i + 1));
+                Log.w(tag, "Falla " + (i + 1) + " URL: " + urls[i]);
             }
         }
 
