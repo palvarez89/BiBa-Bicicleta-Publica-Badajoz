@@ -32,10 +32,14 @@ public class InfoEstaciones {
     }
 
     public Vector<Estacion> getInfo(boolean force) throws JSONException {
+        Vector<Estacion> NuevasEstaciones = Estaciones;
         if (force || (Estaciones == null)) {
-            Estaciones = readJSONBiba();
+            NuevasEstaciones = readJSONBiba();
+            if (NuevasEstaciones != null) {
+                Estaciones = NuevasEstaciones;
+            }
         }
-        return Estaciones;
+        return NuevasEstaciones;
 
     }
 
