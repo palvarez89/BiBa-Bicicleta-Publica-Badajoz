@@ -1,8 +1,18 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".BibaActivity"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="#2196F3"
+        android:elevation="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.Toolbar>
 
     <biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout
         android:id="@+id/activity_main_swipe_refresh_layout"
@@ -15,6 +25,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:background="@color/white"
                 android:id="@+id/cabecera"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -29,6 +40,7 @@
                     android:maxLines="1"
                     android:padding="5dp"
                     android:text="Nº"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -40,6 +52,7 @@
                     android:gravity="center"
                     android:lines="1"
                     android:text="ESTACIÓN"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -72,4 +85,4 @@
 
     </biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout>
 
-</RelativeLayout>
+</LinearLayout>

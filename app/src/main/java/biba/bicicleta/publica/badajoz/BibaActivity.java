@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,7 +21,7 @@ import biba.bicicleta.publica.badajoz.utils.Analytics;
 import biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout;
 
 
-public class BibaActivity extends Activity {
+public class BibaActivity extends ActionBarActivity {
 
     Analytics analytics;
 
@@ -48,6 +50,12 @@ public class BibaActivity extends Activity {
 
         final ListView listView;
         listView = (ListView) findViewById(R.id.list);
+
+        // Set a toolbar to replace the action bar.
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
 
         new AsyncUpdateListaEstaciones(activity, listView, false).execute();
 
@@ -127,7 +135,7 @@ public class BibaActivity extends Activity {
         }
 
         @Override
-        protected void onPreExecute(){
+        protected void onPreExecute() {
 
             swipeLayout.post(new Runnable() {
                 @Override
