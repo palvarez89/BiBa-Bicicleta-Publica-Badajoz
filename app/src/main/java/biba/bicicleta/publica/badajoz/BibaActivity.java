@@ -39,7 +39,7 @@ public class BibaActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.biba_main);
 
         activity = this;
         analytics = new Analytics(activity);
