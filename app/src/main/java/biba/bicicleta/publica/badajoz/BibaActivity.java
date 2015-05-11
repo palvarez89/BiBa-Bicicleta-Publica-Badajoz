@@ -3,7 +3,9 @@ package biba.bicicleta.publica.badajoz;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
@@ -26,6 +28,17 @@ public class BibaActivity extends ActionBarActivity {
         // Set a toolbar to replace the action bar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        );
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mDrawerToggle.syncState();
+
 
         if (savedInstanceState != null) {
 
