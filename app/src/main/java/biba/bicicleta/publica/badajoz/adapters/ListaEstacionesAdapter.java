@@ -52,9 +52,9 @@ public class ListaEstacionesAdapter extends BaseAdapter {
             vi.setBackgroundResource(R.drawable.selector2);
         }
 
-        String estado = lista.elementAt(position).getEstado();
+        boolean estado = lista.elementAt(position).getEstado();
         holder.nombre.setText(lista.elementAt(position).getNombre());
-        if (estado.indexOf("FUERA") != -1) {
+        if (estado == false) {
             holder.nombre.setTextColor(rojo);
         } else {
             holder.nombre.setTextColor(verde);

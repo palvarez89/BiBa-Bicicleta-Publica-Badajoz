@@ -3,7 +3,7 @@ package biba.bicicleta.publica.badajoz.objects;
 public class Estacion {
     int numero;
     String nombre;
-    String estado;
+    boolean estado;
     int disponible;
     int capacidad;
     float lat;
@@ -13,11 +13,14 @@ public class Estacion {
                     float latit, float longit) {
         numero = n;
         nombre = nom;
-        estado = est;
         disponible = disp;
         capacidad = cap;
         lat = latit;
         lon = longit;
+        estado = true;
+        if (est.indexOf("FUERA") != -1) {
+            estado = false;
+        }
     }
 
     public int getNumero() {
@@ -28,7 +31,7 @@ public class Estacion {
         return nombre;
     }
 
-    public String getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
