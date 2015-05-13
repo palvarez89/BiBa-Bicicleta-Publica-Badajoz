@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ListFragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,14 @@ public class ListaEstaciones extends ListFragment {
                 });
             }
         });
+
+        // Calculate ActionBar height and set offset for refreshing animation
+        TypedValue tv = new TypedValue();
+        int actionBarHeight=300;
+        if (activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+        }
+        swipeLayout.setProgressViewOffset(false, 0, actionBarHeight+150);
     }
 
     @Override

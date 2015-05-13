@@ -1,5 +1,6 @@
 <biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main_swipe_refresh_layout"
+    android:paddingTop="?attr/actionBarSize"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
