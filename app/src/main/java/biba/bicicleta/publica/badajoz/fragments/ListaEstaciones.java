@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ListFragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,7 @@ public class ListaEstaciones extends ListFragment {
 
     Activity activity;
     ListView listView;
+    RecyclerView recyclerView;
 
     ListaEstacionesAdapter adaptador;
     String deb = "DEBUG";
@@ -44,10 +47,12 @@ public class ListaEstaciones extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         activity = getActivity();
-
-        listView = (ListView) getView().findViewById(android.R.id.list);
-        swipeLayout = (GeneralSwipeRefreshLayout) getView().findViewById(
+        View view = getView();
+        listView = (ListView) view.findViewById(android.R.id.list);
+        swipeLayout = (GeneralSwipeRefreshLayout) view.findViewById(
                 R.id.activity_main_swipe_refresh_layout);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+
 
 
         analytics = new Analytics(activity);
@@ -95,6 +100,12 @@ public class ListaEstaciones extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_lista_estaciones, container, false);
+    }
+
+    private void initRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(createItemList());
+        recyclerView.setAdapter(recyclerAdapter);
     }
 
     public class AsyncUpdateListaEstaciones extends AsyncTask<Void, Integer, Vector<Estacion>> {
