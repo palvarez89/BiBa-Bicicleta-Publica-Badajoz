@@ -25,7 +25,11 @@ public class BibaActivity extends ActionBarActivity {
         analytics = new Analytics(this);
         analytics.screenView(this.getClass().getSimpleName());
 
-        // Set a toolbar to replace the action bar.
+        initToolbar();
+        initFragment(savedInstanceState);
+    }
+
+    private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -38,17 +42,16 @@ public class BibaActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         mDrawerToggle.syncState();
+    }
 
-
+    private void initFragment (Bundle savedInstanceState){
         if (savedInstanceState != null) {
 
             listFragment = getSupportFragmentManager().findFragmentById(
                     R.id.listaestaciones_f_container);
 
             if (listFragment == null) {
-
                 listFragment = new ListaEstaciones();
-
                 listFragment.setRetainInstance(true);
                 FragmentTransaction transList = getSupportFragmentManager()
                         .beginTransaction();
