@@ -1,6 +1,5 @@
 <biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main_swipe_refresh_layout"
-    android:paddingTop="?attr/actionBarSize"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,63 +8,65 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:background="@color/white"
-            android:id="@+id/cabecera"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <!--<LinearLayout-->
+            <!--android:background="@color/white"-->
+            <!--android:id="@+id/cabecera"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
 
-            <TextView
-                android:id="@+id/numeroh"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:maxLines="1"
-                android:padding="5dp"
-                android:text="Nº"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/numeroh"-->
+                <!--android:layout_width="0px"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:maxLines="1"-->
+                <!--android:padding="5dp"-->
+                <!--android:text="Nº"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textStyle="bold" />-->
 
-            <TextView
-                android:id="@+id/tituloh"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:gravity="center"
-                android:lines="1"
-                android:text="ESTACIÓN"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/tituloh"-->
+                <!--android:layout_width="0px"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="6"-->
+                <!--android:gravity="center"-->
+                <!--android:lines="1"-->
+                <!--android:text="ESTACIÓN"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textStyle="bold" />-->
 
-            <ImageView
-                android:id="@+id/bicish"
-                android:layout_width="0px"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:contentDescription="Bicis"
-                android:gravity="center"
-                android:src="@drawable/bike" />
+            <!--<ImageView-->
+                <!--android:id="@+id/bicish"-->
+                <!--android:layout_width="0px"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:contentDescription="Bicis"-->
+                <!--android:gravity="center"-->
+                <!--android:src="@drawable/bike" />-->
 
-            <ImageView
-                android:id="@+id/parkingh"
-                android:layout_width="0px"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:contentDescription="Parking"
-                android:gravity="center"
-                android:src="@drawable/parking" />
-        </LinearLayout>
+            <!--<ImageView-->
+                <!--android:id="@+id/parkingh"-->
+                <!--android:layout_width="0px"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:contentDescription="Parking"-->
+                <!--android:gravity="center"-->
+                <!--android:src="@drawable/parking" />-->
+        <!--</LinearLayout>-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:paddingTop="?attr/actionBarSize"
+            android:clipToPadding="false"/>
 
     </LinearLayout>
 </biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout>
