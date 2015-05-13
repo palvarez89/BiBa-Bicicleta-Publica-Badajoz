@@ -23,6 +23,7 @@ import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.objects.InfoEstaciones;
 import biba.bicicleta.publica.badajoz.utils.Analytics;
 import biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout;
+import biba.bicicleta.publica.badajoz.utils.HidingScrollListener;
 
 public class ListaEstaciones extends Fragment {
 
@@ -38,13 +39,12 @@ public class ListaEstaciones extends Fragment {
     String deb = "DEBUG";
 
     private GeneralSwipeRefreshLayout swipeLayout;
-
+    private ShowViewListener showViewListener;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        activity = getActivity();
         View view = getView();
         swipeLayout = (GeneralSwipeRefreshLayout) view.findViewById(
                 R.id.activity_main_swipe_refresh_layout);
@@ -64,7 +64,7 @@ public class ListaEstaciones extends Fragment {
         swipeLayout.setOnChildScrollUpListener(new GeneralSwipeRefreshLayout.OnChildScrollUpListener() {
             @Override
             public boolean canChildScrollUp() {
-                LinearLayoutManager layoutManager = ((LinearLayoutManager)recyclerView.getLayoutManager());
+                LinearLayoutManager layoutManager = ((LinearLayoutManager) recyclerView.getLayoutManager());
                 int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
                 return firstVisiblePosition > 0;
             }
@@ -84,11 +84,11 @@ public class ListaEstaciones extends Fragment {
 
         // Calculate ActionBar height and set offset for refreshing animation
         TypedValue tv = new TypedValue();
-        int actionBarHeight=300;
+        int actionBarHeight = 300;
         if (activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
         }
-        swipeLayout.setProgressViewOffset(false, 0, actionBarHeight+150);
+        swipeLayout.setProgressViewOffset(false, 0, actionBarHeight + 150);
 
         initRecyclerView();
     }
@@ -99,8 +99,26 @@ public class ListaEstaciones extends Fragment {
         return inflater.inflate(R.layout.fragment_lista_estaciones, container, false);
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = activity;
+        showViewListener = (ShowViewListener) activity;
+    }
+
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        recyclerView.setOnScrollListener(new HidingScrollListener() {
+            @Override
+            public void onHide() {
+                showViewListener.showView(false);
+            }
+
+            @Override
+            public void onShow() {
+                showViewListener.showView(true);
+            }
+        });
     }
 
     public class AsyncUpdateListaEstaciones extends AsyncTask<Void, Integer, Vector<Estacion>> {
