@@ -12,7 +12,7 @@ import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.views.EstacionViewHolder;
 
 public class ListaEstacionesAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final Vector<Estacion> mListaEstaciones;
+    private Vector<Estacion> mListaEstaciones;
 
     public ListaEstacionesAdapter2(Vector<Estacion> listaEstaciones) {
         mListaEstaciones = listaEstaciones;
@@ -40,4 +40,7 @@ public class ListaEstacionesAdapter2 extends RecyclerView.Adapter<RecyclerView.V
         return mListaEstaciones == null ? 0 : mListaEstaciones.size();
     }
 
+    public void replaceItems(Vector<Estacion> listaEstaciones) {
+        mListaEstaciones = listaEstaciones;
+    }
 }

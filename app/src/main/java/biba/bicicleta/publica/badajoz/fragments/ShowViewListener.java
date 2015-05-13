@@ -1,5 +1,5 @@
 package biba.bicicleta.publica.badajoz.fragments;
 
 public interface ShowViewListener {
-    public void showView(boolean show);
+    public void showView(int distance);
 }

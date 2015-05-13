@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,7 @@ public class ListaEstaciones extends Fragment {
     Activity activity;
     RecyclerView recyclerView;
 
-    ListaEstacionesAdapter2 adaptador;
+    ListaEstacionesAdapter2 adaptador = null;
     String deb = "DEBUG";
 
     private GeneralSwipeRefreshLayout swipeLayout;
@@ -65,7 +66,7 @@ public class ListaEstaciones extends Fragment {
             @Override
             public boolean canChildScrollUp() {
                 LinearLayoutManager layoutManager = ((LinearLayoutManager) recyclerView.getLayoutManager());
-                int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+                int firstVisiblePosition = layoutManager.findFirstCompletelyVisibleItemPosition();
                 return firstVisiblePosition > 0;
             }
         });
@@ -108,15 +109,12 @@ public class ListaEstaciones extends Fragment {
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        recyclerView.setOnScrollListener(new HidingScrollListener() {
+        recyclerView.setOnScrollListener(new HidingScrollListener(activity) {
             @Override
-            public void onHide() {
-                showViewListener.showView(false);
-            }
-
-            @Override
-            public void onShow() {
-                showViewListener.showView(true);
+            public void onMoved(int distance) {
+                showViewListener.showView(distance);
+                String s = Integer.toString(distance);
+                Log.w("DEB", s);
             }
         });
     }
@@ -154,8 +152,12 @@ public class ListaEstaciones extends Fragment {
                 Toast.makeText(activity.getApplicationContext(), R.string.failed_update,
                         Toast.LENGTH_LONG).show();
             } else {
-                adaptador = new ListaEstacionesAdapter2(result);
-                recyclerView.setAdapter(adaptador);
+                if (adaptador == null) {
+                    adaptador = new ListaEstacionesAdapter2(result);
+                    recyclerView.setAdapter(adaptador);
+                } else {
+                    adaptador.replaceItems(result);
+                }
                 adaptador.notifyDataSetChanged();
             }
 

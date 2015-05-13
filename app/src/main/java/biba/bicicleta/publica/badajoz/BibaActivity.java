@@ -7,9 +7,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.FrameLayout;
 
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
 import biba.bicicleta.publica.badajoz.fragments.ShowViewListener;
@@ -49,7 +46,7 @@ public class BibaActivity extends ActionBarActivity implements ShowViewListener 
         mDrawerToggle.syncState();
     }
 
-    private void initFragment (Bundle savedInstanceState){
+    private void initFragment(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
 
             listFragment = getSupportFragmentManager().findFragmentById(
@@ -75,19 +72,9 @@ public class BibaActivity extends ActionBarActivity implements ShowViewListener 
     }
 
     @Override
-    public void showView(boolean show) {
-        if(android.os.Build.VERSION.SDK_INT >= 14) {
-            if (show == false) {
-                toolbar.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
-
-//            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mFabButton.getLayoutParams();
-//            int fabBottomMargin = lp.bottomMargin;
-//            mFabButton.animate().translationY(mFabButton.getHeight()+fabBottomMargin).setInterpolator(new AccelerateInterpolator(2)).start();
-            }
-            else {
-                toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
-//            mFabButton.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-            }
+    public void showView(int distance) {
+        if (android.os.Build.VERSION.SDK_INT >= 11) {
+            toolbar.setTranslationY(-distance);
         }
     }
 }
