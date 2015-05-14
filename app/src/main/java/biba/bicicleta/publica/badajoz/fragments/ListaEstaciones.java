@@ -113,8 +113,6 @@ public class ListaEstaciones extends Fragment {
             @Override
             public void onMoved(int distance) {
                 showViewListener.showView(distance);
-                String s = Integer.toString(distance);
-                Log.w("DEB", s);
             }
         });
     }

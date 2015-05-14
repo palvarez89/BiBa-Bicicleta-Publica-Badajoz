@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
 import biba.bicicleta.publica.badajoz.fragments.ShowViewListener;
@@ -47,12 +48,14 @@ public class BibaActivity extends ActionBarActivity implements ShowViewListener 
     }
 
     private void initFragment(Bundle savedInstanceState) {
+        Log.w("DEB", "initiating gragment");
         if (savedInstanceState != null) {
-
+            Log.w("DEB", "initiating gragment - but saved instance");
             listFragment = getSupportFragmentManager().findFragmentById(
                     R.id.listaestaciones_f_container);
 
             if (listFragment == null) {
+                Log.w("DEB", "initiating gragment - and listfragment was null");
                 listFragment = new ListaEstaciones();
                 listFragment.setRetainInstance(true);
                 FragmentTransaction transList = getSupportFragmentManager()
@@ -62,6 +65,8 @@ public class BibaActivity extends ActionBarActivity implements ShowViewListener 
             }
             return;
         }
+
+        Log.w("DEB", "initiating gragment - without savedinstance");
 
         listFragment = new ListaEstaciones();
         listFragment.setRetainInstance(true);
