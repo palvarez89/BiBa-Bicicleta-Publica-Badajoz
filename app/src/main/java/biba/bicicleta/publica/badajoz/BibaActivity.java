@@ -44,29 +44,19 @@ public class BibaActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
     }
 
-    private void initFragment (Bundle savedInstanceState){
-        if (savedInstanceState != null) {
+    private void initFragment(Bundle savedInstanceState) {
 
-            listFragment = getSupportFragmentManager().findFragmentById(
-                    R.id.listaestaciones_f_container);
-
-            if (listFragment == null) {
-                listFragment = new ListaEstaciones();
-                listFragment.setRetainInstance(true);
-                FragmentTransaction transList = getSupportFragmentManager()
-                        .beginTransaction();
-                transList.add(R.id.listaestaciones_f_container, listFragment);
-                transList.commit();
-            }
-            return;
+        if (savedInstanceState == null) {
+            listFragment = new ListaEstaciones();
+            listFragment.setArguments(getIntent().getExtras());
+            FragmentTransaction transList = getSupportFragmentManager()
+                    .beginTransaction();
+            transList.replace(R.id.listaestaciones_f_container, listFragment, "lista_estaciones_tag").commit();
         }
-
-        listFragment = new ListaEstaciones();
-        listFragment.setRetainInstance(true);
-        FragmentTransaction transList = getSupportFragmentManager()
-                .beginTransaction();
-        transList.add(R.id.listaestaciones_f_container, listFragment);
-        transList.commit();
+        else {
+            listFragment = (ListaEstaciones) getSupportFragmentManager()
+                    .findFragmentByTag("lista_estaciones_tag");
+        }
     }
 
     @Override
