@@ -1,124 +1,46 @@
 package biba.bicicleta.publica.badajoz.adapters;
 
-import java.util.Vector;
-
-import android.app.Activity;
-import android.graphics.Color;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
-import biba.bicicleta.publica.badajoz.objects.Estacion;
+import java.util.Vector;
+
 import biba.bicicleta.publica.badajoz.R;
+import biba.bicicleta.publica.badajoz.objects.Estacion;
+import biba.bicicleta.publica.badajoz.views.EstacionViewHolder;
 
+public class ListaEstacionesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private Vector<Estacion> mListaEstaciones;
 
-public class ListaEstacionesAdapter extends BaseAdapter {
-    private final Activity actividad;
-
-    private final Vector<Estacion> lista;
-
-    public ListaEstacionesAdapter(Activity actividad, Vector<Estacion> lista) {
-        super();
-        this.actividad = actividad;
-        this.lista = lista;
+    public ListaEstacionesAdapter(Vector<Estacion> listaEstaciones) {
+        mListaEstaciones = listaEstaciones;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        // notifyDataSetChanged();
-        ViewHolder holder;
-        LayoutInflater inflater = actividad.getLayoutInflater();
-        View vi = convertView;
-
-        // View Recycling
-        if (vi == null || vi.getTag() == null) {
-            vi = inflater.inflate(R.layout.elemento_lista, null);
-            holder = getHolder(vi);
-            vi.setTag(holder);
-        } else {
-            // View Holder pattern
-            holder = (ViewHolder) vi.getTag();
-        }
-
-        int rojo = Color.rgb(245, 110, 119);
-        int verde = Color.rgb(182, 254, 185);
-
-
-        if (position % 2 == 0) {
-            vi.setBackgroundResource(R.drawable.selector1);
-        } else {
-            vi.setBackgroundResource(R.drawable.selector2);
-        }
-
-        boolean estado = lista.elementAt(position).getEstado();
-        holder.nombre.setText(lista.elementAt(position).getNombre());
-        if (estado == false) {
-            holder.nombre.setTextColor(rojo);
-        } else {
-            holder.nombre.setTextColor(verde);
-
-        }
-
-        holder.numero.setText(Integer.toString(lista.elementAt(position)
-                .getNumero()));
-
-        holder.numero.setTextColor(Color.WHITE);
-
-        int bicis = lista.elementAt(position).getDisponibles();
-        holder.bicis.setText(Integer.toString(bicis));
-        if (bicis == 0) {
-            holder.bicis.setTextColor(rojo);
-        } else {
-            holder.bicis.setTextColor(Color.WHITE);
-        }
-
-        int parking = lista.elementAt(position).getEspacio();
-        holder.parking.setText(Integer.toString(parking));
-        if (parking == 0) {
-            holder.parking.setTextColor(rojo);
-        } else {
-            holder.parking.setTextColor(Color.WHITE);
-        }
-
-        return vi;
-
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.estacion_card, parent, false);
+        return EstacionViewHolder.newInstance(view);
     }
 
-    public int getCount() {
-
-        return lista.size();
-
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        EstacionViewHolder holder = (EstacionViewHolder) viewHolder;
+        int numero = mListaEstaciones.get(position).getNumero();
+        String nombre = mListaEstaciones.get(position).getNombre();
+        int bicis = mListaEstaciones.get(position).getDisponibles();
+        int parkings = mListaEstaciones.get(position).getEspacio();
+        boolean estado = mListaEstaciones.get(position).getEstado();
+        holder.setEstacionInfo(numero, nombre, bicis, parkings, estado);
     }
 
-    public Object getItem(int arg0) {
-
-        return lista.elementAt(arg0);
-
+    @Override
+    public int getItemCount() {
+        return mListaEstaciones == null ? 0 : mListaEstaciones.size();
     }
 
-    public long getItemId(int position) {
-
-        return position;
-
+    public void replaceItems(Vector<Estacion> listaEstaciones) {
+        mListaEstaciones = listaEstaciones;
     }
-
-    private ViewHolder getHolder(View vi) {
-        ViewHolder holder = new ViewHolder();
-        holder.numero = (TextView) vi.findViewById(R.id.numero);
-        holder.nombre = (TextView) vi.findViewById(R.id.titulo);
-        holder.bicis = (TextView) vi.findViewById(R.id.bicis);
-        holder.parking = (TextView) vi.findViewById(R.id.parking);
-
-        return holder;
-    }
-
-    public static class ViewHolder {
-        TextView numero;
-        TextView nombre;
-        TextView bicis;
-        TextView parking;
-    }
-
 }

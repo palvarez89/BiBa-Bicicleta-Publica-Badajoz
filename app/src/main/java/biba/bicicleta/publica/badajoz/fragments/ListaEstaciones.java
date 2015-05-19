@@ -11,14 +11,13 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import biba.bicicleta.publica.badajoz.R;
-import biba.bicicleta.publica.badajoz.adapters.ListaEstacionesAdapter2;
+import biba.bicicleta.publica.badajoz.adapters.ListaEstacionesAdapter;
 import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.objects.InfoEstaciones;
 import biba.bicicleta.publica.badajoz.utils.Analytics;
@@ -34,7 +33,7 @@ public class ListaEstaciones extends Fragment {
     Activity activity;
     RecyclerView recyclerView;
 
-    ListaEstacionesAdapter2 adaptador = null;
+    ListaEstacionesAdapter adaptador = null;
     String deb = "DEBUG";
 
     private GeneralSwipeRefreshLayout swipeLayout;
@@ -133,7 +132,7 @@ public class ListaEstaciones extends Fragment {
                         Toast.LENGTH_LONG).show();
             } else {
                 if (adaptador == null) {
-                    adaptador = new ListaEstacionesAdapter2(result);
+                    adaptador = new ListaEstacionesAdapter(result);
                     recyclerView.setAdapter(adaptador);
                 } else {
                     adaptador.replaceItems(result);
