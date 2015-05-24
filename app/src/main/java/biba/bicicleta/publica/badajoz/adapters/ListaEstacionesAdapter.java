@@ -28,7 +28,7 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         EstacionViewHolder holder = (EstacionViewHolder) viewHolder;
         int numero = mListaEstaciones.get(position).getNumero();
-        String nombre = mListaEstaciones.get(position).getNombre();
+        String nombre = toLowerCase(mListaEstaciones.get(position).getNombre());
         int bicis = mListaEstaciones.get(position).getDisponibles();
         int parkings = mListaEstaciones.get(position).getEspacio();
         boolean estado = mListaEstaciones.get(position).getEstado();
@@ -42,5 +42,29 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public void replaceItems(Vector<Estacion> listaEstaciones) {
         mListaEstaciones = listaEstaciones;
+    }
+
+    private String toLowerCase(String str) {
+        String[] words = str.split("\\s");
+        String out = "";
+
+        for (int i = 0; i < words.length - 1; i++) {
+            out = out + toLowerCaseWord(words[i]) + " ";
+        }
+        out = out + toLowerCaseWord(words[words.length - 1]);
+        return out;
+    }
+
+    private String toLowerCaseWord(String str) {
+
+        if (str.length() == 0) return "";
+
+        if (str.length() == 1) return str.toUpperCase();
+
+        if (!Character.isLetter(str.charAt(0))) {
+            return str.substring(0, 1) + str.substring(1, 2).toUpperCase() + str.substring(2).toLowerCase();
+        } else {
+            return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+        }
     }
 }
