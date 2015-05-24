@@ -19,6 +19,7 @@ public class InfoEstaciones {
     private static InfoEstaciones infoEstaciones;
     String tag = "INFOESTACIONES";
     Vector<Estacion> Estaciones = null;
+    Vector<Estacion> default_values;
 
     String urls[] = { "http://biba2.hol.es/3/getEstaciones.php",
             "http://biba.w.pw/3/getEstaciones.php",
@@ -28,6 +29,27 @@ public class InfoEstaciones {
 
     private InfoEstaciones() {
         Collections.shuffle(Arrays.asList(urls));
+        default_values = new Vector<Estacion>();
+        default_values.add(new Estacion(1, "EL CORTE INGLÉS (CALLE ENRIQUE SEGURA OTAÑO)", "FUERA de linea", 8, 10, 0, 0));
+        default_values.add(new Estacion(2, "ESTACION DE AUTOBUSES", "de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(3, "SINFORIANO MADROÑERO 1", "de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(4, "Estacion numero cuatro", "de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(5, "Estacion numero cinco", "de linea", 8, 10, 0, 0));
+        default_values.add(new Estacion(6, "Estacion numero seis", "FUERA de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(1, "Estacion numero uno", "FUERA de linea", 8, 10, 0, 0));
+        default_values.add(new Estacion(2, "Estacion numero dos", "de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(3, "Estacion numero tres", "de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(4, "Estacion numero cuatro", "de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(5, "Estacion numero cinco", "de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(6, "Estacion numero seis", "FUERA de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(1, "Estacion numero uno", "FUERA de linea", 8, 10, 0, 0));
+        default_values.add(new Estacion(2, "Estacion numero dos", "de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(3, "Estacion numero tres", "de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(4, "Estacion numero cuatro", "de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(5, "Estacion numero cinco", "de linea", 8, 10, 0,0));
+        default_values.add(new Estacion(6, "Estacion numero seis", "FUERA de linea", 8, 10, 0,0));
+
+
     }
 
     public static InfoEstaciones getInstance() {
@@ -55,21 +77,21 @@ public class InfoEstaciones {
 
     private Vector<Estacion> readJSONBiba() throws JSONException {
 
-        for (int i = 0; i < urls.length; i++) {
-            Log.w(tag, "Empezando " + (i + 1) + " URL: " + urls[i]);
-            JSONArray jArray = JSONManager.getJSONfromURL(urls[i]);
-            if (jArray != null) {
-                Log.w(tag, "RECIBIDO " + (i + 1) + " URL: " + urls[i]);
-                currentDateTimeString = DateFormat.getDateTimeInstance()
-                        .format(new Date());
-                return parseJSONBiba(jArray);
-
-            } else {
-                Log.w(tag, "Falla " + (i + 1) + " URL: " + urls[i]);
-            }
-        }
-
-        return null;
+//        for (int i = 0; i < urls.length; i++) {
+//            Log.w(tag, "Empezando " + (i + 1) + " URL: " + urls[i]);
+//            JSONArray jArray = JSONManager.getJSONfromURL(urls[i]);
+//            if (jArray != null) {
+//                Log.w(tag, "RECIBIDO " + (i + 1) + " URL: " + urls[i]);
+//                currentDateTimeString = DateFormat.getDateTimeInstance()
+//                        .format(new Date());
+//                return parseJSONBiba(jArray);
+//
+//            } else {
+//                Log.w(tag, "Falla " + (i + 1) + " URL: " + urls[i]);
+//            }
+//        }
+        Collections.shuffle(default_values);
+        return default_values;
     }
 
     private Vector<Estacion> parseJSONBiba(JSONArray dataarray)
