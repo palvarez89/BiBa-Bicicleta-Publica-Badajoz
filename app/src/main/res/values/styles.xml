@@ -1,8 +1,27 @@
 <resources>
-
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:textColorPrimary">@color/c50</item>
+        <item name="colorControlNormal">@color/c50</item>
+        <item name="actionBarTheme">@style/Toolbar</item>
     </style>
 
+    <style name="Drawer.base" parent="AppTheme">
+        <item name="android:choiceMode">singleChoice</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">2dp</item>
+        <item name="android:background">@color/c400</item>
+    </style>
+
+    <style name="Drawer" parent="Drawer.base">
+        <item name="android:background">@color/c400</item>
+    </style>
+
+    <style name="Toolbar.base" parent="AppTheme">
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+
+    <style name="Toolbar" parent="Toolbar.base">
+        <item name="android:background">@color/c500</item>
+    </style>
 </resources>

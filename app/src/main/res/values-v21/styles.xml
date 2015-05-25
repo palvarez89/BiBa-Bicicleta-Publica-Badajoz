@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/c500</item>
+        <item name="android:colorPrimaryDark">@color/c700</item>
+
+    </style>
+
+    <style name="Toolbar" parent="Toolbar.base">
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="android:popupTheme">@style/Theme.AppCompat.Light</item>
+        <item name="android:background">?android:colorPrimary</item>
     </style>
 </resources>

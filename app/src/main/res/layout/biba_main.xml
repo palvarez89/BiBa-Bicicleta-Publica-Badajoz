@@ -9,7 +9,7 @@
         android:id="@+id/toolbar"
         android:elevation="4dp"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+        style="@style/Toolbar"/>
 
     <android.support.v4.widget.DrawerLayout
         android:layout_width="match_parent"
@@ -27,9 +27,7 @@
             android:layout_width="240dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:choiceMode="singleChoice"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="0dp" />
+            style="@style/Drawer" />
 
     </android.support.v4.widget.DrawerLayout>
 
