@@ -2,8 +2,6 @@ package biba.bicicleta.publica.badajoz.fragments;
 
 import java.util.Vector;
 
-import org.json.JSONException;
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +16,7 @@ import android.widget.Toast;
 
 import biba.bicicleta.publica.badajoz.R;
 import biba.bicicleta.publica.badajoz.adapters.ListaEstacionesAdapter;
+import biba.bicicleta.publica.badajoz.objects.AsyncUpdateListaEstaciones;
 import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.objects.InfoEstaciones;
 import biba.bicicleta.publica.badajoz.utils.Analytics;
@@ -98,33 +97,18 @@ public class ListaEstaciones extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
     }
 
-    public class AsyncUpdateListaEstaciones extends AsyncTask<Void, Integer, Vector<Estacion>> {
+    public class AsyncUpdateListaEstaciones
+            extends biba.bicicleta.publica.badajoz.objects.AsyncUpdateListaEstaciones {
 
-        Activity activity;
-        GeneralSwipeRefreshLayout swipeLayout;
-        RecyclerView recyclerView;
-        boolean forceUpdate;
+        private GeneralSwipeRefreshLayout swipeLayout;
+        private RecyclerView recyclerView;
 
-        public AsyncUpdateListaEstaciones(Activity activity, RecyclerView recyclerView,
-                                          boolean forceUpdate, GeneralSwipeRefreshLayout swipeLayout) {
-            this.activity = activity;
+        public AsyncUpdateListaEstaciones(Activity activity, RecyclerView recyclerView, boolean forceUpdate, GeneralSwipeRefreshLayout swipeLayout) {
+            super(activity, forceUpdate);
             this.recyclerView = recyclerView;
-            this.forceUpdate = forceUpdate;
             this.swipeLayout = swipeLayout;
         }
 
-        @Override
-        protected Vector<Estacion> doInBackground(Void... params) {
-            try {
-                estaciones = infoEstaciones.getInfo(forceUpdate);
-            } catch (JSONException e) {
-                e.printStackTrace();
-                return null;
-            }
-            return estaciones;
-        }
-
-        @Override
         protected void onPostExecute(Vector<Estacion> result) {
 
             if (result == null) {
@@ -148,7 +132,7 @@ public class ListaEstaciones extends Fragment {
             });
         }
 
-        @Override
+
         protected void onPreExecute() {
             swipeLayout.post(new Runnable() {
                 @Override
