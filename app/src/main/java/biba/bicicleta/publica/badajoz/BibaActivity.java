@@ -68,10 +68,10 @@ public class BibaActivity extends ActionBarActivity {
             selectItem(0);
         } else {
             if (getSupportFragmentManager().findFragmentByTag("map_fragment") != null) {
-                mainFragment = (Map) getSupportFragmentManager().findFragmentByTag("map_fragment");
+                mainFragment = getSupportFragmentManager().findFragmentByTag("map_fragment");
             }
             else if (getSupportFragmentManager().findFragmentByTag("list_fragment") != null) {
-                mainFragment = (ListaEstaciones) getSupportFragmentManager().findFragmentByTag("list_fragment");
+                mainFragment = getSupportFragmentManager().findFragmentByTag("list_fragment");
             }
         }
     }
