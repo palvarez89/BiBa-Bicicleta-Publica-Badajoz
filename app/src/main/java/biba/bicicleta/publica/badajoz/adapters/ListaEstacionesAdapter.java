@@ -16,6 +16,18 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         mListaEstaciones = listaEstaciones;
     }
 
+    public void filterFavs(boolean[] favList) {
+        if (favList != null) {
+            EstacionList el = new EstacionList();
+            for (int i = 0; i < mListaEstaciones.size(); i++) {
+                if (favList.length > i && favList[i]) {
+                    el.add(mListaEstaciones.get(i));
+                }
+            }
+            mListaEstaciones = el;
+        }
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.estacion_card, parent, false);
