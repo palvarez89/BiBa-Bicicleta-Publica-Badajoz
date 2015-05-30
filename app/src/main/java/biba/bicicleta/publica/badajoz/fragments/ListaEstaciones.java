@@ -1,9 +1,6 @@
 package biba.bicicleta.publica.badajoz.fragments;
 
-import java.util.Vector;
-
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -14,28 +11,73 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.octo.android.robospice.JacksonSpringAndroidSpiceService;
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+
+import biba.bicicleta.publica.badajoz.BibaApp;
 import biba.bicicleta.publica.badajoz.R;
-import biba.bicicleta.publica.badajoz.adapters.ListaEstacionesAdapter;
-import biba.bicicleta.publica.badajoz.objects.AsyncUpdateListaEstaciones;
-import biba.bicicleta.publica.badajoz.objects.Estacion;
-import biba.bicicleta.publica.badajoz.objects.InfoEstaciones;
+import biba.bicicleta.publica.badajoz.adapters.ListaEstacionesAdapter2;
 import biba.bicicleta.publica.badajoz.utils.Analytics;
+import biba.bicicleta.publica.badajoz.utils.EstacionList;
 import biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout;
+import biba.bicicleta.publica.badajoz.utils.StationsRequest;
 
 public class ListaEstaciones extends Fragment {
 
     Analytics analytics;
-
-    Vector<Estacion> estaciones;
-    InfoEstaciones infoEstaciones;
-
     Activity activity;
     RecyclerView recyclerView;
-
-    ListaEstacionesAdapter adaptador = null;
-    String deb = "DEBUG";
-
+    ListaEstacionesAdapter2 adaptador = null;
+    BibaApp bibaApp;
     private GeneralSwipeRefreshLayout swipeLayout;
+
+    protected SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
+
+
+    @Override
+    public void onStart() {
+        bibaApp = (BibaApp) activity.getApplicationContext();
+        super.onStart();
+        spiceManager.start(activity);
+        performRequest(false);
+    }
+
+    @Override
+    public void onStop() {
+        if (spiceManager.isStarted()) {
+            spiceManager.shouldStop();
+        }
+        super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (swipeLayout != null) {
+            swipeLayout.setRefreshing(false);
+            swipeLayout.destroyDrawingCache();
+            swipeLayout.clearAnimation();
+        }
+    }
+
+    private void performRequest(boolean force) {
+        if (!force && bibaApp.estaciones != null){
+            updateList(bibaApp.estaciones);
+            return;
+        }
+        StationsRequest request = new StationsRequest();
+        swipeLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeLayout.setRefreshing(true);
+            }
+        });
+        spiceManager.execute(request, "cache", DurationInMillis.ONE_MINUTE, new EstacionListRequestListener());
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -49,10 +91,28 @@ public class ListaEstaciones extends Fragment {
         analytics = new Analytics(activity);
         analytics.screenView(this.getClass().getSimpleName());
 
-        infoEstaciones = InfoEstaciones.getInstance();
+        initSwipeLayout();
+        initRecyclerView();
+    }
 
-        new AsyncUpdateListaEstaciones(activity, recyclerView, false, swipeLayout).execute();
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_lista_estaciones, container, false);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = activity;
+    }
+
+    private void initRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+    }
+
+    private void initSwipeLayout(){
         // Setup swipeLayout colors
         swipeLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
 
@@ -72,74 +132,52 @@ public class ListaEstaciones extends Fragment {
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
-                        new AsyncUpdateListaEstaciones(activity, recyclerView, true, swipeLayout).execute();
+                        performRequest(true);
                     }
                 });
             }
         });
-
-        initRecyclerView();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_lista_estaciones, container, false);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = activity;
-    }
-
-    private void initRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-    }
-
-    public class AsyncUpdateListaEstaciones
-            extends biba.bicicleta.publica.badajoz.objects.AsyncUpdateListaEstaciones {
-
-        private GeneralSwipeRefreshLayout swipeLayout;
-        private RecyclerView recyclerView;
-
-        public AsyncUpdateListaEstaciones(Activity activity, RecyclerView recyclerView, boolean forceUpdate, GeneralSwipeRefreshLayout swipeLayout) {
-            super(activity, forceUpdate);
-            this.recyclerView = recyclerView;
-            this.swipeLayout = swipeLayout;
-        }
-
-        protected void onPostExecute(Vector<Estacion> result) {
-
-            if (result == null) {
-                Toast.makeText(activity.getApplicationContext(), R.string.failed_update,
-                        Toast.LENGTH_LONG).show();
-            } else {
+    public void updateList(EstacionList estaciones) {
+        if (isAdded()) {
+            if (estaciones != null) {
                 if (adaptador == null) {
-                    adaptador = new ListaEstacionesAdapter(result);
+                    adaptador = new ListaEstacionesAdapter2(estaciones);
                     recyclerView.setAdapter(adaptador);
                 } else {
-                    adaptador.replaceItems(result);
+                    adaptador.replaceItems(estaciones);
                 }
                 adaptador.notifyDataSetChanged();
             }
-
             swipeLayout.post(new Runnable() {
                 @Override
                 public void run() {
                     swipeLayout.setRefreshing(false);
                 }
             });
+
         }
+    }
 
-
-        protected void onPreExecute() {
+    private class EstacionListRequestListener implements RequestListener<EstacionList> {
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            Toast.makeText(activity.getApplicationContext(), R.string.failed_update,
+                    Toast.LENGTH_LONG).show();
             swipeLayout.post(new Runnable() {
                 @Override
                 public void run() {
-                    swipeLayout.setRefreshing(true);
+                    swipeLayout.setRefreshing(false);
                 }
             });
+            updateList(null);
+        }
+
+        @Override
+        public void onRequestSuccess(EstacionList estaciones) {
+            bibaApp.updateEstaciones(estaciones);
+            updateList(estaciones);
         }
     }
 }
