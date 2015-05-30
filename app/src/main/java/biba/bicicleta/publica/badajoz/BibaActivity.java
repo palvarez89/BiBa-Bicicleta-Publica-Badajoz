@@ -16,6 +16,8 @@ import android.widget.ListView;
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
 import biba.bicicleta.publica.badajoz.fragments.Map;
 import biba.bicicleta.publica.badajoz.utils.Analytics;
+import biba.bicicleta.publica.badajoz.utils.AppDonate;
+import biba.bicicleta.publica.badajoz.utils.AppRater;
 
 
 public class BibaActivity extends ActionBarActivity {
@@ -36,6 +38,8 @@ public class BibaActivity extends ActionBarActivity {
 
         initToolbar();
         initFragment(savedInstanceState);
+        AppRater.app_launched(this);
+        AppDonate.app_launched(this);
     }
 
     private void initToolbar() {

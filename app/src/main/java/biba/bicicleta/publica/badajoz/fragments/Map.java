@@ -25,6 +25,7 @@ import biba.bicicleta.publica.badajoz.BibaApp;
 import biba.bicicleta.publica.badajoz.R;
 import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.objects.EstacionList;
+import biba.bicicleta.publica.badajoz.utils.Analytics;
 import biba.bicicleta.publica.badajoz.utils.StationsRequest;
 
 public class Map extends Fragment {
@@ -33,6 +34,7 @@ public class Map extends Fragment {
     private Activity activity;
     private CameraPosition camerePosition;
     BibaApp bibaApp;
+    Analytics analytics;
     protected SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
 
 
@@ -66,6 +68,8 @@ public class Map extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setUpMapIfNeeded();
+        analytics = new Analytics(activity);
+        analytics.screenView(this.getClass().getSimpleName());
     }
 
     @Override
