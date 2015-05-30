@@ -3,21 +3,28 @@ package biba.bicicleta.publica.badajoz;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
+import biba.bicicleta.publica.badajoz.fragments.Map;
 import biba.bicicleta.publica.badajoz.utils.Analytics;
 
 
 public class BibaActivity extends ActionBarActivity {
 
     Analytics analytics;
-    Fragment listFragment;
+    Fragment mainFragment;
     ActionBarDrawerToggle mDrawerToggle;
+    ListView mDrawerList;
+    DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,27 +42,37 @@ public class BibaActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+
+        String[] drawerList = getResources().getStringArray(R.array.drawer_menu_list);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        // Set the adapter for the list view
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, drawerList));
+        // Set the list's click listener
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
     }
 
     private void initFragment(Bundle savedInstanceState) {
 
         if (savedInstanceState == null) {
-            listFragment = new ListaEstaciones();
-            listFragment.setArguments(getIntent().getExtras());
-            FragmentTransaction transList = getSupportFragmentManager()
-                    .beginTransaction();
-            transList.replace(R.id.listaestaciones_f_container, listFragment, "lista_estaciones_tag").commit();
-        }
-        else {
-            listFragment = (ListaEstaciones) getSupportFragmentManager()
-                    .findFragmentByTag("lista_estaciones_tag");
+            selectItem(0);
+        } else {
+            if (getSupportFragmentManager().findFragmentByTag("map_fragment") != null) {
+                mainFragment = getSupportFragmentManager().findFragmentByTag("map_fragment");
+            }
+            else if (getSupportFragmentManager().findFragmentByTag("list_fragment") != null) {
+                mainFragment = getSupportFragmentManager().findFragmentByTag("list_fragment");
+            }
         }
     }
 
@@ -71,6 +88,37 @@ public class BibaActivity extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    private void selectItem(int position) {
+        String tag = "void";
+        switch (position) {
+            case 0:
+                mainFragment = new ListaEstaciones();
+                tag = "list_fragment";
+                break;
+            case 1:
+                mainFragment = new Map();
+                tag = "map_fragment";
+                break;
+        }
+
+
+        mainFragment.setArguments(getIntent().getExtras());
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.listaestaciones_f_container, mainFragment, tag)
+                .commit();
+
+        // Highlight the selected item, update the title, and close the drawer
+        mDrawerList.setItemChecked(position, true);
+        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
 }
-
-
