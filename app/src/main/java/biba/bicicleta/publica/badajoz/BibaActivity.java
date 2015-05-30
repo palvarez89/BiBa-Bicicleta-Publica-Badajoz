@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
+import biba.bicicleta.publica.badajoz.fragments.ListaEstacionesFavs;
 import biba.bicicleta.publica.badajoz.fragments.Map;
 import biba.bicicleta.publica.badajoz.utils.Analytics;
 import biba.bicicleta.publica.badajoz.utils.AppDonate;
@@ -77,6 +78,9 @@ public class BibaActivity extends ActionBarActivity {
             else if (getSupportFragmentManager().findFragmentByTag("list_fragment") != null) {
                 mainFragment = getSupportFragmentManager().findFragmentByTag("list_fragment");
             }
+            else if (getSupportFragmentManager().findFragmentByTag("list_fragment_favourites") != null) {
+                mainFragment = getSupportFragmentManager().findFragmentByTag("list_fragment_favourites");
+            }
         }
     }
 
@@ -110,6 +114,10 @@ public class BibaActivity extends ActionBarActivity {
             case 1:
                 mainFragment = new Map();
                 tag = "map_fragment";
+                break;
+            case 2:
+                mainFragment = new ListaEstacionesFavs();
+                tag = "list_fragment_favourites";
                 break;
         }
 

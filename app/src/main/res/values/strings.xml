@@ -17,6 +17,7 @@
     <string-array name="drawer_menu_list">
         <item>List</item>
         <item>Map</item>
+        <item>Favourites</item>
     </string-array>
 
     <string name="RateNow">Puntuar</string>
