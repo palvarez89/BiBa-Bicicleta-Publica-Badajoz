@@ -5,15 +5,23 @@ import android.app.Application;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
+import biba.bicicleta.publica.badajoz.utils.EstacionList;
+
 
 public class BibaApp extends Application {
 
 
     private static final String PROPERTY_ID = "UA-41109565-1";
+    public EstacionList estaciones= null;
 
     public synchronized Tracker getTracker() {
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
         return analytics.newTracker(PROPERTY_ID);
     }
+
+    public void updateEstaciones(EstacionList estaciones){
+        this.estaciones = estaciones;
+    }
+
 
 }
