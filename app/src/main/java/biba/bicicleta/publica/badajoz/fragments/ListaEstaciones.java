@@ -1,6 +1,8 @@
 package biba.bicicleta.publica.badajoz.fragments;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -32,10 +34,17 @@ public class ListaEstaciones extends Fragment {
     RecyclerView recyclerView;
     ListaEstacionesAdapter adaptador = null;
     BibaApp bibaApp;
+    protected boolean showFavs;
+    boolean[] favList = null;
     private GeneralSwipeRefreshLayout swipeLayout;
+    int MAX_FAVS = 40;
 
     protected SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
 
+
+    public ListaEstaciones() {
+        super();
+    }
 
     @Override
     public void onStart() {
@@ -93,6 +102,7 @@ public class ListaEstaciones extends Fragment {
 
         initSwipeLayout();
         initRecyclerView();
+        initFavList();
     }
 
 
@@ -139,14 +149,27 @@ public class ListaEstaciones extends Fragment {
         });
     }
 
+    public void initFavList() {
+        if ( showFavs && favList == null) {
+            favList = new boolean[MAX_FAVS];
+            SharedPreferences prefs = getActivity().getSharedPreferences(
+                    "biba.bicicleta.publica.badajoz", Context.MODE_PRIVATE);
+            for (int i = 0; i < MAX_FAVS; i++) {
+                favList[i] = prefs.getBoolean("fav" + i, false);
+            }
+        }
+    }
+
     public void updateList(EstacionList estaciones) {
         if (isAdded()) {
             if (estaciones != null) {
                 if (adaptador == null) {
                     adaptador = new ListaEstacionesAdapter(estaciones);
+                    adaptador.filterFavs(favList);
                     recyclerView.setAdapter(adaptador);
                 } else {
                     adaptador.replaceItems(estaciones);
+                    adaptador.filterFavs(favList);
                 }
                 adaptador.notifyDataSetChanged();
             }
