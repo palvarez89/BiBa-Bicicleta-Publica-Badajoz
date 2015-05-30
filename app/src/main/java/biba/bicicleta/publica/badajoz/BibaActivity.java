@@ -8,14 +8,23 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.octo.android.robospice.JacksonSpringAndroidSpiceService;
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
 import biba.bicicleta.publica.badajoz.fragments.Map;
 import biba.bicicleta.publica.badajoz.utils.Analytics;
+import biba.bicicleta.publica.badajoz.utils.EstacionList;
+import biba.bicicleta.publica.badajoz.utils.StationsRequest;
 
 
 public class BibaActivity extends ActionBarActivity {
@@ -26,6 +35,27 @@ public class BibaActivity extends ActionBarActivity {
     ListView mDrawerList;
     DrawerLayout mDrawerLayout;
 
+    protected SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        spiceManager.start(this);
+    }
+
+    @Override
+    protected void onStop() {
+        spiceManager.shouldStop();
+        super.onStop();
+    }
+
+    private void performRequest() {
+
+        StationsRequest request = new StationsRequest();
+
+        spiceManager.execute(request, "cache", DurationInMillis.ONE_MINUTE, new ListFollowersRequestListener());
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +64,7 @@ public class BibaActivity extends ActionBarActivity {
         analytics = new Analytics(this);
         analytics.screenView(this.getClass().getSimpleName());
 
+        performRequest();
         initToolbar();
         initFragment(savedInstanceState);
     }
@@ -101,6 +132,7 @@ public class BibaActivity extends ActionBarActivity {
         switch (position) {
             case 0:
                 mainFragment = new ListaEstaciones();
+                performRequest();
                 tag = "list_fragment";
                 break;
             case 1:
@@ -121,4 +153,19 @@ public class BibaActivity extends ActionBarActivity {
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
+    //inner class of your spiced Activity
+    private class ListFollowersRequestListener implements RequestListener<EstacionList> {
+
+        @Override
+        public void onRequestFailure(SpiceException e) {
+            //update your UI
+            Log.w("ROBOSPICE", "FAILURE");
+        }
+
+        @Override
+        public void onRequestSuccess(EstacionList listFollowers) {
+            Log.w("ROBOSPICE", "SUCCESS");
+            //update your UI
+        }
+    }
 }
