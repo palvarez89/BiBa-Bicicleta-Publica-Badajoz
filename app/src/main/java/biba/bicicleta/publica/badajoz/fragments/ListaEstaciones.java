@@ -19,9 +19,9 @@ import com.octo.android.robospice.request.listener.RequestListener;
 
 import biba.bicicleta.publica.badajoz.BibaApp;
 import biba.bicicleta.publica.badajoz.R;
-import biba.bicicleta.publica.badajoz.adapters.ListaEstacionesAdapter2;
+import biba.bicicleta.publica.badajoz.adapters.ListaEstacionesAdapter;
 import biba.bicicleta.publica.badajoz.utils.Analytics;
-import biba.bicicleta.publica.badajoz.utils.EstacionList;
+import biba.bicicleta.publica.badajoz.objects.EstacionList;
 import biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout;
 import biba.bicicleta.publica.badajoz.utils.StationsRequest;
 
@@ -30,7 +30,7 @@ public class ListaEstaciones extends Fragment {
     Analytics analytics;
     Activity activity;
     RecyclerView recyclerView;
-    ListaEstacionesAdapter2 adaptador = null;
+    ListaEstacionesAdapter adaptador = null;
     BibaApp bibaApp;
     private GeneralSwipeRefreshLayout swipeLayout;
 
@@ -143,7 +143,7 @@ public class ListaEstaciones extends Fragment {
         if (isAdded()) {
             if (estaciones != null) {
                 if (adaptador == null) {
-                    adaptador = new ListaEstacionesAdapter2(estaciones);
+                    adaptador = new ListaEstacionesAdapter(estaciones);
                     recyclerView.setAdapter(adaptador);
                 } else {
                     adaptador.replaceItems(estaciones);

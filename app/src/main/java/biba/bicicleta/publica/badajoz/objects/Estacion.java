@@ -1,6 +1,6 @@
 package biba.bicicleta.publica.badajoz.objects;
 
-public class Estacion2 {
+public class Estacion {
 
 
     int n;
@@ -12,7 +12,7 @@ public class Estacion2 {
     int total;
 
 
-    public Estacion2() {
+    public Estacion() {
     }
 
     public int getN() {

@@ -5,7 +5,7 @@ import android.app.Application;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
-import biba.bicicleta.publica.badajoz.utils.EstacionList;
+import biba.bicicleta.publica.badajoz.objects.EstacionList;
 
 
 public class BibaApp extends Application {

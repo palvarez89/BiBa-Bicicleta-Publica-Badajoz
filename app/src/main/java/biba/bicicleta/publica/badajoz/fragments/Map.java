@@ -23,8 +23,8 @@ import com.octo.android.robospice.request.listener.RequestListener;
 
 import biba.bicicleta.publica.badajoz.BibaApp;
 import biba.bicicleta.publica.badajoz.R;
-import biba.bicicleta.publica.badajoz.objects.Estacion2;
-import biba.bicicleta.publica.badajoz.utils.EstacionList;
+import biba.bicicleta.publica.badajoz.objects.Estacion;
+import biba.bicicleta.publica.badajoz.objects.EstacionList;
 import biba.bicicleta.publica.badajoz.utils.StationsRequest;
 
 public class Map extends Fragment {
@@ -120,7 +120,7 @@ public class Map extends Fragment {
         }
     }
 
-    private void showPoint(Estacion2 station) {
+    private void showPoint(Estacion station) {
         if (map != null) {
             map.addMarker(new MarkerOptions()
                     .position(

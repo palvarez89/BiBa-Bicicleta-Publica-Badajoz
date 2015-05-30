@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import biba.bicicleta.publica.badajoz.R;
-import biba.bicicleta.publica.badajoz.utils.EstacionList;
+import biba.bicicleta.publica.badajoz.objects.EstacionList;
 import biba.bicicleta.publica.badajoz.views.EstacionViewHolder;
 
-public class ListaEstacionesAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ListaEstacionesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private EstacionList mListaEstaciones;
 
-    public ListaEstacionesAdapter2(EstacionList listaEstaciones) {
+    public ListaEstacionesAdapter(EstacionList listaEstaciones) {
         mListaEstaciones = listaEstaciones;
     }
 
