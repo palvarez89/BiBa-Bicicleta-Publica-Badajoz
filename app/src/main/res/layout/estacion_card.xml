@@ -4,22 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="8dp"
+    android:layout_margin="6dp"
     card_view:cardCornerRadius="4dp">
-
-    <!--<TextView-->
-        <!--android:id="@+id/itemTextView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="?attr/listPreferredItemHeight"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:padding="8dp"-->
-        <!--style="@style/Base.TextAppearance.AppCompat.Body2"/>-->
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:minHeight="55dip"
         android:orientation="horizontal"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/numero"
@@ -27,9 +19,16 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
             android:textSize="19dp"
             android:textStyle="bold" />
+
+        <!-- icon -->
+        <ImageView
+            android:id="@+id/fav_star"
+            android:gravity="center"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical" />
 
         <TextView
             android:id="@+id/nombre"

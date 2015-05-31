@@ -1,6 +1,8 @@
 package biba.bicicleta.publica.badajoz.fragments;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -32,10 +34,19 @@ public class ListaEstaciones extends Fragment {
     RecyclerView recyclerView;
     ListaEstacionesAdapter adaptador = null;
     BibaApp bibaApp;
+    protected boolean showFavs;
+    boolean[] favList = null;
     private GeneralSwipeRefreshLayout swipeLayout;
+    int MAX_FAVS = 40;
 
+    SharedPreferences prefs = null;
     protected SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
 
+
+    public ListaEstaciones() {
+        super();
+
+    }
 
     @Override
     public void onStart() {
@@ -64,7 +75,7 @@ public class ListaEstaciones extends Fragment {
     }
 
     private void performRequest(boolean force) {
-        if (!force && bibaApp.estaciones != null){
+        if (!force && bibaApp.estaciones != null) {
             updateList(bibaApp.estaciones);
             return;
         }
@@ -88,11 +99,15 @@ public class ListaEstaciones extends Fragment {
                 R.id.activity_main_swipe_refresh_layout);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
+        prefs = getActivity().getSharedPreferences(
+                "biba.bicicleta.publica.badajoz", Context.MODE_PRIVATE);
+
         analytics = new Analytics(activity);
         analytics.screenView(this.getClass().getSimpleName());
 
         initSwipeLayout();
         initRecyclerView();
+        initFavList();
     }
 
 
@@ -112,7 +127,7 @@ public class ListaEstaciones extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
     }
 
-    private void initSwipeLayout(){
+    private void initSwipeLayout() {
         // Setup swipeLayout colors
         swipeLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
 
@@ -139,14 +154,25 @@ public class ListaEstaciones extends Fragment {
         });
     }
 
+    public void initFavList() {
+        if (showFavs && favList == null) {
+            favList = new boolean[MAX_FAVS];
+            for (int i = 0; i < MAX_FAVS; i++) {
+                favList[i] = prefs.getBoolean("fav" + i, false);
+            }
+        }
+    }
+
     public void updateList(EstacionList estaciones) {
         if (isAdded()) {
             if (estaciones != null) {
                 if (adaptador == null) {
-                    adaptador = new ListaEstacionesAdapter(estaciones);
+                    adaptador = new ListaEstacionesAdapter(estaciones, prefs);
+                    adaptador.filterFavs(favList);
                     recyclerView.setAdapter(adaptador);
                 } else {
                     adaptador.replaceItems(estaciones);
+                    adaptador.filterFavs(favList);
                 }
                 adaptador.notifyDataSetChanged();
             }
