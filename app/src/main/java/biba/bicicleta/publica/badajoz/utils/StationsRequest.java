@@ -13,7 +13,7 @@ public class StationsRequest extends SpringAndroidSpiceRequest<EstacionList> {
     int intento=0;
     String urls[] = { "http://biba2.hol.es/4/getEstaciones.php",
             "http://biba.w.pw/4/getEstaciones.php",
-            "http://biba.webuda.com/4/getEstaciones.php" };
+            "http://biba3.hol.es/4/getEstaciones.php" };
 
     public StationsRequest() {
         super(EstacionList.class);

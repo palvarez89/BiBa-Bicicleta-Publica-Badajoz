@@ -132,8 +132,8 @@ public class Map extends Fragment {
                                     .getLon()))
                     .title(station.getName())
                     .snippet(
-                            "Bicis: " + station.getAvail()
-                                    + " Parkings: " + station.getSpace()));
+                            activity.getString(R.string.bikes) + ": " + station.getAvail() + " "
+                                    + activity.getString(R.string.parkings) + ": " + station.getSpace()));
         }
     }
 
