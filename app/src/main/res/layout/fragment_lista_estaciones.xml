@@ -41,7 +41,7 @@
                     android:layout_weight="6"
                     android:gravity="center"
                     android:lines="1"
-                    android:text="ESTACIÓN"
+                    android:text="@string/station"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -52,7 +52,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
-                    android:contentDescription="Bicis"
+                    android:contentDescription="@string/bikes"
                     android:gravity="center"
                     android:src="@drawable/bike" />
 
@@ -62,7 +62,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
-                    android:contentDescription="Parking"
+                    android:contentDescription="@string/parkings"
                     android:gravity="center"
                     android:src="@drawable/parking" />
             </LinearLayout>

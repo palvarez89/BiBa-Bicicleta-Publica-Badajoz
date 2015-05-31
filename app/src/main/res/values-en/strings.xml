@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">BiBa Bicicleta Publica Badajoz</string>
+
+    <string name="failed_update">Falied to update</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string-array name="drawer_menu_list">
+        <item>List</item>
+        <item>Map</item>
+        <item>Favourites</item>
+        <item>Incident</item>
+        <item>Donate</item>
+    </string-array>
+
+    <string name="RateNow">Rate now!</string>
+    <string name="Later">Later</string>
+    <string name="NoThanks">No, thanks.</string>
+    <string name="RateDialog">If you enjoyed the App, take a second to rate it. Your opinions is important to us. Thanks!</string>
+    <string name="RateTitle">Rate the App</string>
+    <string name="DonateDialog">Hey! You are using the App frequently. Would you like to make a little donation?</string>
+    <string name="DonateNow">Donate</string>
+    <string name="DonateTitle">Donation</string>
+    <string name="bikes">"Bikes"</string>
+    <string name="parkings">"Parkings"</string>
+    <string name="station">Station</string>
+
+</resources>
+
+
