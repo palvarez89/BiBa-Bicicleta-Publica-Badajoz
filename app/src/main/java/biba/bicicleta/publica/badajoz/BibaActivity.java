@@ -137,9 +137,11 @@ public class BibaActivity extends AppCompatActivity {
                 tag = "list_fragment_favourites";
                 break;
             case 3:
+                mDrawerLayout.closeDrawer(mDrawerList);
                 openCallIncident(this);
                 return;
             case 4:
+                mDrawerLayout.closeDrawer(mDrawerList);
                 openDonateVersion(this);
                 return;
         }
