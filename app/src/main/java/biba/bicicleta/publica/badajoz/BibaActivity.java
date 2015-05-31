@@ -1,6 +1,9 @@
 package biba.bicicleta.publica.badajoz;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,6 +31,9 @@ public class BibaActivity extends AppCompatActivity {
     ActionBarDrawerToggle mDrawerToggle;
     ListView mDrawerList;
     DrawerLayout mDrawerLayout;
+
+    private final static String APP_DONATE_PACKAGE_NAME = "biba.bicicleta.publica.badajoz.donate";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +80,9 @@ public class BibaActivity extends AppCompatActivity {
         } else {
             if (getSupportFragmentManager().findFragmentByTag("map_fragment") != null) {
                 mainFragment = getSupportFragmentManager().findFragmentByTag("map_fragment");
-            }
-            else if (getSupportFragmentManager().findFragmentByTag("list_fragment") != null) {
+            } else if (getSupportFragmentManager().findFragmentByTag("list_fragment") != null) {
                 mainFragment = getSupportFragmentManager().findFragmentByTag("list_fragment");
-            }
-            else if (getSupportFragmentManager().findFragmentByTag("list_fragment_favourites") != null) {
+            } else if (getSupportFragmentManager().findFragmentByTag("list_fragment_favourites") != null) {
                 mainFragment = getSupportFragmentManager().findFragmentByTag("list_fragment_favourites");
             }
         }
@@ -119,6 +123,12 @@ public class BibaActivity extends AppCompatActivity {
                 mainFragment = new ListaEstacionesFavs();
                 tag = "list_fragment_favourites";
                 break;
+            case 3:
+                openCallIncident(this);
+                return;
+            case 4:
+                openDonateVersion(this);
+                return;
         }
 
 
@@ -131,6 +141,22 @@ public class BibaActivity extends AppCompatActivity {
         // Highlight the selected item, update the title, and close the drawer
         mDrawerList.setItemChecked(position, true);
         mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    public static void openDonateVersion(Context context) {
+        context.startActivity(new Intent(
+                Intent.ACTION_VIEW, Uri
+                .parse("market://details?id="
+                        + APP_DONATE_PACKAGE_NAME)));
+    }
+
+    public static void openCallIncident(Context context) {
+        String url = "tel:666500114";
+        if (url.startsWith("tel:")) {
+            Intent intent = new Intent(Intent.ACTION_DIAL,
+                    Uri.parse(url));
+            context.startActivity(intent);
+        }
     }
 
 }

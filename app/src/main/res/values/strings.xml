@@ -18,6 +18,8 @@
         <item>List</item>
         <item>Map</item>
         <item>Favourites</item>
+        <item>Report Incident</item>
+        <item>Donate</item>
     </string-array>
 
     <string name="RateNow">Puntuar</string>
