@@ -1,5 +1,6 @@
 package biba.bicicleta.publica.badajoz.views;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,6 +41,19 @@ public class EstacionViewHolder extends RecyclerView.ViewHolder {
         mNombre.setText(nombre);
         mBicis.setText(Integer.toString(bicis));
         mParkings.setText(Integer.toString(parkings));
+
+        int red = Color.argb(230, 187, 0, 25);
+        if (!estado) {
+            mNombre.setTextColor(red);
+            mNumero.setTextColor(red);
+        }
+        if (bicis == 0 ) {
+            mBicis.setTextColor(red);
+        }
+        if (parkings == 0 ) {
+            mParkings.setTextColor(red);
+        }
+
     }
 
     public void setFavStar(boolean active) {
