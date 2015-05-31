@@ -1,5 +1,7 @@
 package biba.bicicleta.publica.badajoz.adapters;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +11,13 @@ import biba.bicicleta.publica.badajoz.R;
 import biba.bicicleta.publica.badajoz.objects.EstacionList;
 import biba.bicicleta.publica.badajoz.views.EstacionViewHolder;
 
-public class ListaEstacionesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHolder> {
     private EstacionList mListaEstaciones;
+    SharedPreferences prefs;
 
-    public ListaEstacionesAdapter(EstacionList listaEstaciones) {
+    public ListaEstacionesAdapter(EstacionList listaEstaciones, SharedPreferences prefs) {
         mListaEstaciones = listaEstaciones;
+        this.prefs = prefs;
     }
 
     public void filterFavs(boolean[] favList) {
@@ -29,20 +33,36 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EstacionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.estacion_card, parent, false);
         return EstacionViewHolder.newInstance(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        EstacionViewHolder holder = (EstacionViewHolder) viewHolder;
+    public void onBindViewHolder(EstacionViewHolder viewHolder, final int position) {
+
+        final EstacionViewHolder holder = viewHolder;
         int numero = mListaEstaciones.get(position).getN();
         String nombre = toLowerCase(mListaEstaciones.get(position).getName());
         int bicis = mListaEstaciones.get(position).getAvail();
         int parkings = mListaEstaciones.get(position).getSpace();
         boolean estado = mListaEstaciones.get(position).getStateBool();
         holder.setEstacionInfo(numero, nombre, bicis, parkings, estado);
+
+        final int realPosition = numero - 1;
+
+        boolean isFav = prefs.getBoolean("fav" + realPosition, false);
+        holder.setFavStar(isFav);
+
+        viewHolder.mFavStar.setOnClickListener(new CardClickListener(isFav) {
+            @Override
+            public void onClick(View v) {
+                isFav = !isFav;
+                holder.setFavStar(isFav);
+                prefs.edit().putBoolean("fav" + realPosition, isFav).commit();
+
+            }
+        });
     }
 
     @Override
@@ -77,4 +97,14 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
         }
     }
+
+    public abstract class CardClickListener implements View.OnClickListener {
+        boolean isFav;
+
+        public CardClickListener(boolean isFav) {
+            this.isFav = isFav;
+        }
+    }
+
+    ;
 }

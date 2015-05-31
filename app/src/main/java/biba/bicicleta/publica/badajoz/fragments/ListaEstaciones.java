@@ -39,11 +39,13 @@ public class ListaEstaciones extends Fragment {
     private GeneralSwipeRefreshLayout swipeLayout;
     int MAX_FAVS = 40;
 
+    SharedPreferences prefs = null;
     protected SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
 
 
     public ListaEstaciones() {
         super();
+
     }
 
     @Override
@@ -73,7 +75,7 @@ public class ListaEstaciones extends Fragment {
     }
 
     private void performRequest(boolean force) {
-        if (!force && bibaApp.estaciones != null){
+        if (!force && bibaApp.estaciones != null) {
             updateList(bibaApp.estaciones);
             return;
         }
@@ -96,6 +98,9 @@ public class ListaEstaciones extends Fragment {
         swipeLayout = (GeneralSwipeRefreshLayout) view.findViewById(
                 R.id.activity_main_swipe_refresh_layout);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+
+        prefs = getActivity().getSharedPreferences(
+                "biba.bicicleta.publica.badajoz", Context.MODE_PRIVATE);
 
         analytics = new Analytics(activity);
         analytics.screenView(this.getClass().getSimpleName());
@@ -122,7 +127,7 @@ public class ListaEstaciones extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
     }
 
-    private void initSwipeLayout(){
+    private void initSwipeLayout() {
         // Setup swipeLayout colors
         swipeLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
 
@@ -150,10 +155,8 @@ public class ListaEstaciones extends Fragment {
     }
 
     public void initFavList() {
-        if ( showFavs && favList == null) {
+        if (showFavs && favList == null) {
             favList = new boolean[MAX_FAVS];
-            SharedPreferences prefs = getActivity().getSharedPreferences(
-                    "biba.bicicleta.publica.badajoz", Context.MODE_PRIVATE);
             for (int i = 0; i < MAX_FAVS; i++) {
                 favList[i] = prefs.getBoolean("fav" + i, false);
             }
@@ -164,7 +167,7 @@ public class ListaEstaciones extends Fragment {
         if (isAdded()) {
             if (estaciones != null) {
                 if (adaptador == null) {
-                    adaptador = new ListaEstacionesAdapter(estaciones);
+                    adaptador = new ListaEstacionesAdapter(estaciones, prefs);
                     adaptador.filterFavs(favList);
                     recyclerView.setAdapter(adaptador);
                 } else {
