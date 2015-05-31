@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "biba.bicicleta.publica.badajoz"
-        minSdkVersion 9
+        minSdkVersion 7
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"

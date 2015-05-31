@@ -3,6 +3,7 @@ package biba.bicicleta.publica.badajoz.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -102,8 +103,10 @@ public class ListaEstaciones extends Fragment {
         prefs = getActivity().getSharedPreferences(
                 "biba.bicicleta.publica.badajoz", Context.MODE_PRIVATE);
 
-        analytics = new Analytics(activity);
-        analytics.screenView(this.getClass().getSimpleName());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            analytics = new Analytics(activity);
+            analytics.screenView(this.getClass().getSimpleName());
+        }
 
         initSwipeLayout();
         initRecyclerView();

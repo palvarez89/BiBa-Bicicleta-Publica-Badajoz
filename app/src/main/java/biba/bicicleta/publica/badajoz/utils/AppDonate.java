@@ -43,7 +43,7 @@ public class AppDonate {
                 showDonateDialog(mContext, editor);
             }
         }
-        editor.apply();
+        editor.commit();
     }
 
     public static void openDonateVersion(Context mContext) {
