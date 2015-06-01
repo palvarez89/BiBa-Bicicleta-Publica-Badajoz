@@ -4,6 +4,8 @@
 
     <color name="black">#000</color>
     <color name="blacktrans">#a0000000</color>
+    <color name="redtrans">#e6bb0019</color>
+
     <color name="blue">#00f</color>
     <color name="red">#f00</color>
     <color name="green">#f2089f0c</color>
