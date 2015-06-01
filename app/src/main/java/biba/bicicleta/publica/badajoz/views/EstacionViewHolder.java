@@ -11,8 +11,8 @@ import biba.bicicleta.publica.badajoz.R;
 public class EstacionViewHolder extends RecyclerView.ViewHolder {
     private final TextView mNumero;
     private final TextView mNombre;
-    private final TextView mBicis;
-    private final TextView mParkings;
+    private TextView mBicis;
+    private TextView mParkings;
     public final ImageView mFavStar;
 
     public EstacionViewHolder(final View parent, TextView numeroTextView, TextView nombreTextView,
@@ -42,18 +42,25 @@ public class EstacionViewHolder extends RecyclerView.ViewHolder {
         mBicis.setText(Integer.toString(bicis));
         mParkings.setText(Integer.toString(parkings));
 
-        int red = Color.argb(230, 187, 0, 25);
+        int red = Color.parseColor("#e6bb0019");
+        int black = Color.parseColor("#a0000000");
+
+        int statusColor = black;
+        int bikesColor = black;
+        int parkingsColor = black;
         if (!estado) {
-            mNombre.setTextColor(red);
-            mNumero.setTextColor(red);
+            statusColor = red;
         }
         if (bicis == 0 ) {
-            mBicis.setTextColor(red);
+            bikesColor = red;
         }
         if (parkings == 0 ) {
-            mParkings.setTextColor(red);
+            parkingsColor = red;
         }
-
+        mNombre.setTextColor(statusColor);
+        mNumero.setTextColor(statusColor);
+        mBicis.setTextColor(bikesColor);
+        mParkings.setTextColor(parkingsColor);
     }
 
     public void setFavStar(boolean active) {
