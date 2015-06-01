@@ -24,6 +24,9 @@
     <string name="bikes">"Bicis"</string>
     <string name="parkings">"Aparcamientos"</string>
     <string name="station">Estación</string>
+    <string name="versionNotCompatible">Vaya! Tu version de Android no es compatible con esta utilidad</string>
+    <string name="compatibilityError">Error de compatibilidad</string>
+    <string name="understood">Entendido</string>
 
 </resources>
 

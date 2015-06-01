@@ -44,7 +44,7 @@ public class AppRater {
 
         }
 
-        editor.apply();
+        editor.commit();
 
     }
 

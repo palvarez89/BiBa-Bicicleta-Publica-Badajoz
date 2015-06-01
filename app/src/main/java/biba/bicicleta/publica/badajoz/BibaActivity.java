@@ -1,14 +1,18 @@
 package biba.bicicleta.publica.badajoz;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -40,8 +44,10 @@ public class BibaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.biba_main);
 
-        analytics = new Analytics(this);
-        analytics.screenView(this.getClass().getSimpleName());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            analytics = new Analytics(this);
+            analytics.screenView(this.getClass().getSimpleName());
+        }
 
         initToolbar();
         initFragment(savedInstanceState);
@@ -116,17 +122,26 @@ public class BibaActivity extends AppCompatActivity {
                 tag = "list_fragment";
                 break;
             case 1:
-                mainFragment = new Map();
-                tag = "map_fragment";
-                break;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+                    mainFragment = new Map();
+                    tag = "map_fragment";
+                    break;
+                }
+                else {
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                    versionNotCompatibleDialog(this);
+                    return;
+                }
             case 2:
                 mainFragment = new ListaEstacionesFavs();
                 tag = "list_fragment_favourites";
                 break;
             case 3:
+                mDrawerLayout.closeDrawer(mDrawerList);
                 openCallIncident(this);
                 return;
             case 4:
+                mDrawerLayout.closeDrawer(mDrawerList);
                 openDonateVersion(this);
                 return;
         }
@@ -157,6 +172,24 @@ public class BibaActivity extends AppCompatActivity {
                     Uri.parse(url));
             context.startActivity(intent);
         }
+    }
+
+    public void versionNotCompatibleDialog (Context context) {
+        Dialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(context.getString(R.string.versionNotCompatible))
+                .setTitle(context.getString(R.string.compatibilityError))
+                .setPositiveButton(context.getString(R.string.understood),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+
+                                dialog.dismiss();
+                            }
+                        });
+        dialog = builder.create();
+        dialog.show();
+
     }
 
 }

@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="biba.bicicleta.publica.badajoz"
-    android:installLocation="auto" >
+    android:installLocation="auto">
+
+    <!--To make it run in API 7-->
+    <uses-sdk tools:overrideLibrary="com.google.android.gms.all,
+                                     com.google.android.gms.ads,
+                                     com.google.android.gms.wearable,
+                                     com.google.android.gms.wallet,
+                                     com.google.android.gms.safetynet,
+                                     com.google.android.gms.plus,
+                                     com.google.android.gms.panorama,
+                                     com.google.android.gms.nearby,
+                                     com.google.android.gms.identity,
+                                     com.google.android.gms.gcm,
+                                     com.google.android.gms.games,
+                                     com.google.android.gms.maps,
+                                     com.google.android.gms.location,
+                                     com.google.android.gms.fitness,
+                                     com.google.android.gms.drive,
+                                     com.google.android.gms.cast,
+                                     com.google.android.gms.appstate,
+                                     com.google.android.gms.appinvite,
+                                     com.google.android.gms.appindexing,
+                                     com.google.android.gms.analytics,
+                                     com.google.android.gms" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -14,14 +38,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <application android:name=".BibaApp"
+    <application
+        android:name=".BibaApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".BibaActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,12 +62,12 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <!--<meta-data-->
-            <!--android:name="com.google.android.maps.v2.API_KEY"-->
-            <!--android:value="AIzaSyAqRncQUIZQXh7hfEi9aiO1Ene4-uCLX8s" />-->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyARwJjJHXK0YuJ3OaRiWOa4P5o0hPFtc2Q" />
+            android:value="AIzaSyAqRncQUIZQXh7hfEi9aiO1Ene4-uCLX8s" />
+        <!--<meta-data-->
+            <!--android:name="com.google.android.maps.v2.API_KEY"-->
+            <!--android:value="AIzaSyARwJjJHXK0YuJ3OaRiWOa4P5o0hPFtc2Q" />-->
     </application>
 
 </manifest>
