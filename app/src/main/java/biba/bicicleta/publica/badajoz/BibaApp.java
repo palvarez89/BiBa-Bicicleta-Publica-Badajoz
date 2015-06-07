@@ -11,7 +11,7 @@ import biba.bicicleta.publica.badajoz.objects.EstacionList;
 public class BibaApp extends Application {
 
 
-    private static final String PROPERTY_ID = "UA-41109565-1";
+    private static final String PROPERTY_ID = "UA-4eeee1109565-1";
     public EstacionList estaciones= null;
 
     public synchronized Tracker getTracker() {
