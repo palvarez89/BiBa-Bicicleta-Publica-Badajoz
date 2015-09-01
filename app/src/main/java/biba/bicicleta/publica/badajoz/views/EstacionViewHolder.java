@@ -65,9 +65,9 @@ public class EstacionViewHolder extends RecyclerView.ViewHolder {
 
     public void setFavStar(boolean active) {
         if (active) {
-            mFavStar.setBackgroundResource(android.R.drawable.btn_star_big_on);
+            mFavStar.setBackgroundResource(R.drawable.btn_star_big_on);
         } else {
-            mFavStar.setBackgroundResource(android.R.drawable.btn_star_big_off);
+            mFavStar.setBackgroundResource(R.drawable.btn_star_big_off);
         }
     }
 
