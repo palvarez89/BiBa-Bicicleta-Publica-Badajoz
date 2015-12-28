@@ -23,14 +23,12 @@ import android.widget.ListView;
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
 import biba.bicicleta.publica.badajoz.fragments.ListaEstacionesFavs;
 import biba.bicicleta.publica.badajoz.fragments.Map;
-import biba.bicicleta.publica.badajoz.utils.Analytics;
 import biba.bicicleta.publica.badajoz.utils.AppDonate;
 import biba.bicicleta.publica.badajoz.utils.AppRater;
 
 
 public class BibaActivity extends AppCompatActivity {
 
-    Analytics analytics;
     Fragment mainFragment;
     ActionBarDrawerToggle mDrawerToggle;
     ListView mDrawerList;
@@ -43,11 +41,6 @@ public class BibaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.biba_main);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            analytics = new Analytics(this);
-            analytics.screenView(this.getClass().getSimpleName());
-        }
 
         initToolbar();
         initFragment(savedInstanceState);
