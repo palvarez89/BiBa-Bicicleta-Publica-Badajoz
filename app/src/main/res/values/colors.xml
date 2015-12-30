@@ -13,6 +13,7 @@
     <color name="grisoscuro">#FF414141</color>
     <color name="grisclaro">#FF505050</color>
     <color name="grispressed">#FF965050</color>
+    <color name="greywhite">#dadada</color>
 
     <color name="c50">#E0F2F1</color>
     <color name="c100">#B2DFDB</color>

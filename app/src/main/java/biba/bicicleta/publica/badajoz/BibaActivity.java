@@ -10,31 +10,46 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
+import biba.bicicleta.publica.badajoz.adapters.DrawerAdapter;
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
 import biba.bicicleta.publica.badajoz.fragments.ListaEstacionesFavs;
 import biba.bicicleta.publica.badajoz.fragments.Map;
-import biba.bicicleta.publica.badajoz.utils.Analytics;
 import biba.bicicleta.publica.badajoz.utils.AppDonate;
 import biba.bicicleta.publica.badajoz.utils.AppRater;
 
 
 public class BibaActivity extends AppCompatActivity {
 
-    Analytics analytics;
     Fragment mainFragment;
     ActionBarDrawerToggle mDrawerToggle;
-    ListView mDrawerList;
     DrawerLayout mDrawerLayout;
+
+    RecyclerView mDrawerRecycler;
+    DrawerAdapter mAdapter;
+    int ICONS[] = new int[]{
+            R.drawable.ic_list,
+            R.drawable.ic_map,
+            R.drawable.ic_star,
+            R.drawable.ic_call,
+            R.drawable.ic_donate
+    };
+
+    int PROFILE = R.mipmap.ic_launcher;
+    String NAME = "BiBa";
+    String TEXT = "Badajoz, mejor en bici!";
+
 
     private final static String APP_DONATE_PACKAGE_NAME = "biba.bicicleta.publica.badajoz.donate";
 
@@ -43,11 +58,6 @@ public class BibaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.biba_main);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            analytics = new Analytics(this);
-            analytics.screenView(this.getClass().getSimpleName());
-        }
 
         initToolbar();
         initFragment(savedInstanceState);
@@ -63,19 +73,50 @@ public class BibaActivity extends AppCompatActivity {
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerToggle.syncState();
+
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        mDrawerRecycler = (RecyclerView) findViewById(R.id.left_drawer);
+        mDrawerRecycler.setHasFixedSize(true);
+        mAdapter = new DrawerAdapter(getResources().getStringArray(R.array.drawer_menu_list), ICONS, NAME, TEXT, PROFILE, ContextCompat.getColor(this, R.color.c50));
+        mDrawerRecycler.setAdapter(mAdapter);
+        mDrawerRecycler.setLayoutManager(new LinearLayoutManager(this));
 
-        String[] drawerList = getResources().getStringArray(R.array.drawer_menu_list);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        final GestureDetector mGestureDetector = new GestureDetector(BibaActivity.this, new GestureDetector.SimpleOnGestureListener() {
 
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, drawerList));
-        // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+            @Override public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+
+        });
+
+        mDrawerRecycler.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+                View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+
+                if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
+                    mDrawerLayout.closeDrawer(mDrawerRecycler);
+                    selectItem(recyclerView.getChildLayoutPosition(child) -1);
+                    return true;
+                }
+
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
     }
 
@@ -107,15 +148,8 @@ public class BibaActivity extends AppCompatActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
-
     private void selectItem(int position) {
-        String tag = "void";
+        String tag;
         switch (position) {
             case 0:
                 mainFragment = new ListaEstaciones();
@@ -128,7 +162,6 @@ public class BibaActivity extends AppCompatActivity {
                     break;
                 }
                 else {
-                    mDrawerLayout.closeDrawer(mDrawerList);
                     versionNotCompatibleDialog(this);
                     return;
                 }
@@ -137,12 +170,12 @@ public class BibaActivity extends AppCompatActivity {
                 tag = "list_fragment_favourites";
                 break;
             case 3:
-                mDrawerLayout.closeDrawer(mDrawerList);
                 openCallIncident(this);
                 return;
             case 4:
-                mDrawerLayout.closeDrawer(mDrawerList);
                 openDonateVersion(this);
+                return;
+            default:
                 return;
         }
 
@@ -153,9 +186,7 @@ public class BibaActivity extends AppCompatActivity {
                 .replace(R.id.listaestaciones_f_container, mainFragment, tag)
                 .commit();
 
-        // Highlight the selected item, update the title, and close the drawer
-        mDrawerList.setItemChecked(position, true);
-        mDrawerLayout.closeDrawer(mDrawerList);
+        mAdapter.setSelected(position);
     }
 
     public static void openDonateVersion(Context context) {
@@ -189,7 +220,5 @@ public class BibaActivity extends AppCompatActivity {
                         });
         dialog = builder.create();
         dialog.show();
-
     }
-
 }
