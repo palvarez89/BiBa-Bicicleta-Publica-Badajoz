@@ -5,7 +5,7 @@
     android:paddingBottom="8dp"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:background="?attr/selectableItemBackground"
+    android:background="@drawable/drawer_selector"
     android:orientation="horizontal">
 
 

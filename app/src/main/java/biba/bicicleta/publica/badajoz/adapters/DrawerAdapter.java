@@ -23,12 +23,13 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
     private String name;        //String Resource for header View Name
     private int profile;        //int Resource for header view profile picture
     private String email;       //String Resource for header view email
-
+    private int selectedPosition = -1;
+    int selectedColour;
 
     // Creating a ViewHolder which extends the RecyclerView View Holder
     // ViewHolder are used to to store the inflated views in order to recycle them
 
-    public DrawerAdapter(String Titles[], int Icons[], String Name, String Email, int Profile) { // MyAdapter Constructor with titles and icons parameter
+    public DrawerAdapter(String Titles[], int Icons[], String Name, String Email, int Profile, int SelectedColour) { // MyAdapter Constructor with titles and icons parameter
         // titles, icons, name, email, profile pic are passed from the main activity as we
         mNavTitles = Titles;                //have seen earlier
         mIcons = Icons;
@@ -36,7 +37,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
         email = Email;
         profile = Profile;                     //here we assign those passed values to the values we declared here
         //in adapter
-
+        selectedColour = SelectedColour;
 
     }
 
@@ -81,6 +82,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
             // position by 1 and pass it to the holder while setting the text and image
             holder.textView.setText(mNavTitles[position - 1]); // Setting the Text with the array of our Titles
             holder.imageView.setImageResource(mIcons[position - 1]);// Settimg the image with array of our icons
+            holder.itemView.setSelected(selectedPosition == position - 1);
         } else {
 
             holder.profile.setImageResource(profile);           // Similarly we set the resources for header view
@@ -102,6 +104,11 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
             return TYPE_HEADER;
 
         return TYPE_ITEM;
+    }
+
+    public void setSelected (int position){
+        selectedPosition = position;
+        this.notifyDataSetChanged();
     }
 
     private boolean isPositionHeader(int position) {

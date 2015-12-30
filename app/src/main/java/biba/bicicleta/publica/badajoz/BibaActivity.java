@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -36,7 +37,7 @@ public class BibaActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
 
     RecyclerView mDrawerRecycler;
-    RecyclerView.Adapter mAdapter;
+    DrawerAdapter mAdapter;
     int ICONS[] = new int[]{
             R.drawable.ic_list,
             R.drawable.ic_map,
@@ -80,7 +81,7 @@ public class BibaActivity extends AppCompatActivity {
 
         mDrawerRecycler = (RecyclerView) findViewById(R.id.left_drawer);
         mDrawerRecycler.setHasFixedSize(true);
-        mAdapter = new DrawerAdapter(getResources().getStringArray(R.array.drawer_menu_list), ICONS, NAME, TEXT, PROFILE);
+        mAdapter = new DrawerAdapter(getResources().getStringArray(R.array.drawer_menu_list), ICONS, NAME, TEXT, PROFILE, ContextCompat.getColor(this, R.color.c50));
         mDrawerRecycler.setAdapter(mAdapter);
         mDrawerRecycler.setLayoutManager(new LinearLayoutManager(this));
 
@@ -185,7 +186,7 @@ public class BibaActivity extends AppCompatActivity {
                 .replace(R.id.listaestaciones_f_container, mainFragment, tag)
                 .commit();
 
-        // TODO: Highlight the selected item, update the title, and close the drawer
+        mAdapter.setSelected(position);
     }
 
     public static void openDonateVersion(Context context) {
