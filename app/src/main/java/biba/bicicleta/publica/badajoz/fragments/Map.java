@@ -3,10 +3,13 @@ package biba.bicicleta.publica.badajoz.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,6 +39,8 @@ public class Map extends Fragment {
     private CameraPosition camerePosition;
     private BibaApp bibaApp;
     private final SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
+    FloatingActionButton fab;
+    private Animation fab_refresh;
 
 
     @Override
@@ -60,6 +65,9 @@ public class Map extends Fragment {
             return;
         }
         StationsRequest request = new StationsRequest();
+        if (fab != null) {
+            fab.startAnimation(fab_refresh);
+        }
         spiceManager.execute(request, "cache", DurationInMillis.ONE_MINUTE, new EstacionListRequestListener());
     }
 
@@ -70,6 +78,16 @@ public class Map extends Fragment {
         setUpMapIfNeeded();
         Analytics analytics = new Analytics(activity);
         analytics.screenView(this.getClass().getSimpleName());
+        if (map != null) {
+            fab = ((FloatingActionButton) getView().findViewById(R.id.fab));
+            fab_refresh = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.fab_refresh);
+            fab.setVisibility(View.VISIBLE);
+            fab.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    performRequest(true);
+                }
+            });
+        }
     }
 
     @Override
@@ -119,6 +137,9 @@ public class Map extends Fragment {
 
     public void onResume() {
         super.onResume();
+        fab = ((FloatingActionButton) getView().findViewById(R.id.fab));
+        fab_refresh = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.fab_refresh);
+        fab.startAnimation(fab_refresh);
         setUpMapIfNeeded();
         if (camerePosition != null) {
             map.moveCamera(CameraUpdateFactory.newCameraPosition(camerePosition));
@@ -152,6 +173,7 @@ public class Map extends Fragment {
     private class EstacionListRequestListener implements RequestListener<EstacionList> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
+            fab.clearAnimation();
             Toast.makeText(activity.getApplicationContext(), R.string.failed_update,
                     Toast.LENGTH_LONG).show();
             updateMap(null);
@@ -159,6 +181,7 @@ public class Map extends Fragment {
 
         @Override
         public void onRequestSuccess(EstacionList estaciones) {
+            fab.clearAnimation();
             bibaApp.updateEstaciones(estaciones);
             updateMap(estaciones);
         }
