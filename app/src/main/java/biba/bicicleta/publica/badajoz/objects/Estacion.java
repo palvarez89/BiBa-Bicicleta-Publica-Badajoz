@@ -52,10 +52,7 @@ public class Estacion {
     }
 
     public boolean getStateBool() {
-        if (this.state.indexOf("FUERA") != -1) {
-            return false;
-        }
-        return true;
+        return !this.state.contains("FUERA");
     }
 
 
