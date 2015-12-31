@@ -1,6 +1,7 @@
 <resources>
 
     <string name="failed_update">Fallo al actualizar</string>
+    <string name="app_name">BiBa Bicicleta Pública Badajoz</string>
 
     <string name="navigation_drawer_open">Abirir Menúr</string>
     <string name="navigation_drawer_close">Cerrar Menú</string>

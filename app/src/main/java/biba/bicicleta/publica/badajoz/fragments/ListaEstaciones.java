@@ -121,9 +121,11 @@ public class ListaEstaciones extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof Activity){
+            this.activity = (Activity) context;
+        }
     }
 
     private void initRecyclerView() {

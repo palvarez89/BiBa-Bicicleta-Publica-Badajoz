@@ -37,10 +37,10 @@ public class EstacionViewHolder extends RecyclerView.ViewHolder {
 
     public void setEstacionInfo(int numero, CharSequence nombre, int bicis,
                                 int parkings, boolean estado) {
-        mNumero.setText(Integer.toString(numero));
+        mNumero.setText(String.format("%d", numero));
         mNombre.setText(nombre);
-        mBicis.setText(Integer.toString(bicis));
-        mParkings.setText(Integer.toString(parkings));
+        mBicis.setText(String.format("%d", bicis));
+        mParkings.setText(String.format("%d", parkings));
 
         int red = Color.parseColor("#e6bb0019");
         int black = Color.parseColor("#a0000000");
