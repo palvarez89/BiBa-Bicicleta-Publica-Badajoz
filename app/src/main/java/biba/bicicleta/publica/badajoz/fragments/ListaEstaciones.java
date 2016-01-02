@@ -30,18 +30,16 @@ import biba.bicicleta.publica.badajoz.utils.StationsRequest;
 
 public class ListaEstaciones extends Fragment {
 
-    Analytics analytics;
-    Activity activity;
-    RecyclerView recyclerView;
-    ListaEstacionesAdapter adaptador = null;
-    BibaApp bibaApp;
-    protected boolean showFavs;
-    boolean[] favList = null;
+    private Activity activity;
+    private RecyclerView recyclerView;
+    private ListaEstacionesAdapter adaptador = null;
+    private BibaApp bibaApp;
+    boolean showFavs;
+    private boolean[] favList = null;
     private GeneralSwipeRefreshLayout swipeLayout;
-    int MAX_FAVS = 40;
 
-    SharedPreferences prefs = null;
-    protected SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
+    private SharedPreferences prefs = null;
+    private final SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
 
 
     public ListaEstaciones() {
@@ -104,7 +102,7 @@ public class ListaEstaciones extends Fragment {
                 "biba.bicicleta.publica.badajoz", Context.MODE_PRIVATE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            analytics = new Analytics(activity);
+            Analytics analytics = new Analytics(activity);
             analytics.screenView(this.getClass().getSimpleName());
         }
 
@@ -159,8 +157,9 @@ public class ListaEstaciones extends Fragment {
         });
     }
 
-    public void initFavList() {
+    private void initFavList() {
         if (showFavs && favList == null) {
+            int MAX_FAVS = 40;
             favList = new boolean[MAX_FAVS];
             for (int i = 0; i < MAX_FAVS; i++) {
                 favList[i] = prefs.getBoolean("fav" + i, false);
@@ -168,7 +167,7 @@ public class ListaEstaciones extends Fragment {
         }
     }
 
-    public void updateList(EstacionList estaciones) {
+    private void updateList(EstacionList estaciones) {
         if (isAdded()) {
             if (estaciones != null) {
                 if (adaptador == null) {

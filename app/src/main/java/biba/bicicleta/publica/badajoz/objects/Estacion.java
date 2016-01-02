@@ -3,13 +3,13 @@ package biba.bicicleta.publica.badajoz.objects;
 public class Estacion {
 
 
-    int n;
-    String name;
-    float lat;
-    float lon;
-    String state;
-    int avail;
-    int total;
+    private int n;
+    private String name;
+    private float lat;
+    private float lon;
+    private String state;
+    private int avail;
+    private int total;
 
 
     public Estacion() {

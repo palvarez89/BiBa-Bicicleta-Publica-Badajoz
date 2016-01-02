@@ -28,6 +28,8 @@
     <string name="versionNotCompatible">Vaya! Tu version de Android no es compatible con esta utilidad</string>
     <string name="compatibilityError">Error de compatibilidad</string>
     <string name="understood">Entendido</string>
+    <string name="fav_star">Estacion favorita</string>
+
 
 </resources>
 

@@ -10,7 +10,7 @@ import biba.bicicleta.publica.badajoz.BibaApp;
 
 public class Analytics {
 
-    Activity activity;
+    private final Activity activity;
 
     public Analytics (Activity activity){
         this.activity = activity;

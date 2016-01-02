@@ -10,8 +10,8 @@ import java.util.Collections;
 import biba.bicicleta.publica.badajoz.objects.EstacionList;
 
 public class StationsRequest extends SpringAndroidSpiceRequest<EstacionList> {
-    int intento=0;
-    String urls[] = { "http://biba2.hol.es/4/getEstaciones.php",
+    private int intento=0;
+    private final String[] urls = { "http://biba2.hol.es/4/getEstaciones.php",
             "http://biba.w.pw/4/getEstaciones.php",
             "http://biba3.hol.es/4/getEstaciones.php" };
 

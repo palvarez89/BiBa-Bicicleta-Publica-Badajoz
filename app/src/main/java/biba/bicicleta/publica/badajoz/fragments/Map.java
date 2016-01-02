@@ -34,9 +34,8 @@ public class Map extends Fragment {
     private GoogleMap map = null;
     private Activity activity;
     private CameraPosition camerePosition;
-    BibaApp bibaApp;
-    Analytics analytics;
-    protected SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
+    private BibaApp bibaApp;
+    private final SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
 
 
     @Override
@@ -69,7 +68,7 @@ public class Map extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setUpMapIfNeeded();
-        analytics = new Analytics(activity);
+        Analytics analytics = new Analytics(activity);
         analytics.screenView(this.getClass().getSimpleName());
     }
 
@@ -140,7 +139,7 @@ public class Map extends Fragment {
         }
     }
 
-    public void updateMap(EstacionList estaciones) {
+    private void updateMap(EstacionList estaciones) {
         if (isAdded()) {
             if (estaciones != null) {
                 for (int i = 0; i < estaciones.size(); i++) {

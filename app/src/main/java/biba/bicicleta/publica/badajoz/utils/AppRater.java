@@ -48,8 +48,8 @@ public class AppRater {
 
     }
 
-    public static void showRateDialog(final Context mContext,
-                                      final SharedPreferences.Editor editor) {
+    private static void showRateDialog(final Context mContext,
+                                       final SharedPreferences.Editor editor) {
         Dialog dialog;
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         String message = mContext.getString(R.string.RateDialog);

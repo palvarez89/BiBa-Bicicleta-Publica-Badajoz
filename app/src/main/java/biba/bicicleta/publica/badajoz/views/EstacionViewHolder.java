@@ -11,11 +11,11 @@ import biba.bicicleta.publica.badajoz.R;
 public class EstacionViewHolder extends RecyclerView.ViewHolder {
     private final TextView mNumero;
     private final TextView mNombre;
-    private TextView mBicis;
-    private TextView mParkings;
+    private final TextView mBicis;
+    private final TextView mParkings;
     public final ImageView mFavStar;
 
-    public EstacionViewHolder(final View parent, TextView numeroTextView, TextView nombreTextView,
+    private EstacionViewHolder(final View parent, TextView numeroTextView, TextView nombreTextView,
                               TextView bicisTextView, TextView parkingsTextView, ImageView favStar) {
         super(parent);
         mNumero = numeroTextView;

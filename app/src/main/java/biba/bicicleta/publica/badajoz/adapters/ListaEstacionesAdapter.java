@@ -12,7 +12,7 @@ import biba.bicicleta.publica.badajoz.views.EstacionViewHolder;
 
 public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHolder> {
     private EstacionList mListaEstaciones;
-    SharedPreferences prefs;
+    private final SharedPreferences prefs;
 
     public ListaEstacionesAdapter(EstacionList listaEstaciones, SharedPreferences prefs) {
         mListaEstaciones = listaEstaciones;
@@ -104,6 +104,4 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
             this.isFav = isFav;
         }
     }
-
-    ;
 }
