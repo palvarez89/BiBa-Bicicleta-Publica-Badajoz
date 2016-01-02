@@ -17,19 +17,18 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
     // IF the view under inflation and population is header or Item
     private static final int TYPE_ITEM = 1;
 
-    private String mNavTitles[]; // String Array to store the passed titles Value from MainActivity.java
-    private int mIcons[];       // Int Array to store the passed icons resource value from MainActivity.java
+    private final String[] mNavTitles; // String Array to store the passed titles Value from MainActivity.java
+    private final int[] mIcons;       // Int Array to store the passed icons resource value from MainActivity.java
 
-    private String name;        //String Resource for header View Name
-    private int profile;        //int Resource for header view profile picture
-    private String email;       //String Resource for header view email
+    private final String name;        //String Resource for header View Name
+    private final int profile;        //int Resource for header view profile picture
+    private final String email;       //String Resource for header view email
     private int selectedPosition = -1;
-    int selectedColour;
 
     // Creating a ViewHolder which extends the RecyclerView View Holder
     // ViewHolder are used to to store the inflated views in order to recycle them
 
-    public DrawerAdapter(String Titles[], int Icons[], String Name, String Email, int Profile, int SelectedColour) { // MyAdapter Constructor with titles and icons parameter
+    public DrawerAdapter(String Titles[], int Icons[], String Name, String Email, int Profile) { // MyAdapter Constructor with titles and icons parameter
         // titles, icons, name, email, profile pic are passed from the main activity as we
         mNavTitles = Titles;                //have seen earlier
         mIcons = Icons;
@@ -37,7 +36,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
         email = Email;
         profile = Profile;                     //here we assign those passed values to the values we declared here
         //in adapter
-        selectedColour = SelectedColour;
 
     }
 
@@ -47,9 +45,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.drawer_item, parent, false); //Inflating the layout
 
-            ViewHolder vhItem = new ViewHolder(v, viewType); //Creating ViewHolder and passing the object of type view
-
-            return vhItem; // Returning the created object
+            return  new ViewHolder(v, viewType); //Creating ViewHolder and passing the object of type view
 
             //inflate your layout and pass it to view holder
 
@@ -57,10 +53,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
 
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.drawer_header, parent, false); //Inflating the layout
 
-            ViewHolder vhHeader = new ViewHolder(v, viewType); //Creating ViewHolder and passing the object of type view
-
-            return vhHeader; //returning the object created
-
+            return new ViewHolder(v, viewType); //Creating ViewHolder and passing the object of type view
 
         }
         return null;
@@ -116,7 +109,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        int Holderid;
+        final int Holderid;
 
         TextView textView;
         ImageView imageView;

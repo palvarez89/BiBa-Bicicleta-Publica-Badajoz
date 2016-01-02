@@ -9,8 +9,8 @@ import android.util.Log;
 public class GeneralSwipeRefreshLayout extends SwipeRefreshLayout {
     private OnChildScrollUpListener mScrollListenerNeeded;
 
-    public static interface OnChildScrollUpListener {
-        public boolean canChildScrollUp();
+    public interface OnChildScrollUpListener {
+        boolean canChildScrollUp();
     }
 
     public GeneralSwipeRefreshLayout(Context context) {

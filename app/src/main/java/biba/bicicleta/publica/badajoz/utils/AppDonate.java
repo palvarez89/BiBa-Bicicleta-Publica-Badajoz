@@ -46,15 +46,15 @@ public class AppDonate {
         editor.commit();
     }
 
-    public static void openDonateVersion(Context mContext) {
+    private static void openDonateVersion(Context mContext) {
         mContext.startActivity(new Intent(
                 Intent.ACTION_VIEW, Uri
                 .parse("market://details?id="
                         + APP_PACKAGE_NAME)));
     }
 
-    public static void showDonateDialog(final Context mContext,
-                                        final SharedPreferences.Editor editor) {
+    private static void showDonateDialog(final Context mContext,
+                                         final SharedPreferences.Editor editor) {
         Dialog dialog;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);

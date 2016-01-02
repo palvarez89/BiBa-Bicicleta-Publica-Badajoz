@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -32,24 +31,19 @@ import biba.bicicleta.publica.badajoz.utils.AppRater;
 
 public class BibaActivity extends AppCompatActivity {
 
-    Fragment mainFragment;
-    ActionBarDrawerToggle mDrawerToggle;
-    DrawerLayout mDrawerLayout;
+    private Fragment mainFragment;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
 
-    RecyclerView mDrawerRecycler;
-    DrawerAdapter mAdapter;
-    int ICONS[] = new int[]{
+    private RecyclerView mDrawerRecycler;
+    private DrawerAdapter mAdapter;
+    private final int[] ICONS = new int[]{
             R.drawable.ic_list,
             R.drawable.ic_map,
             R.drawable.ic_star,
             R.drawable.ic_call,
             R.drawable.ic_donate
     };
-
-    int PROFILE = R.mipmap.ic_launcher;
-    String NAME = "BiBa";
-    String TEXT = "Badajoz, mejor en bici!";
-
 
     private final static String APP_DONATE_PACKAGE_NAME = "biba.bicicleta.publica.badajoz.donate";
 
@@ -81,7 +75,13 @@ public class BibaActivity extends AppCompatActivity {
 
         mDrawerRecycler = (RecyclerView) findViewById(R.id.left_drawer);
         mDrawerRecycler.setHasFixedSize(true);
-        mAdapter = new DrawerAdapter(getResources().getStringArray(R.array.drawer_menu_list), ICONS, NAME, TEXT, PROFILE, ContextCompat.getColor(this, R.color.c50));
+
+        int PROFILE = R.mipmap.ic_launcher;
+        String NAME = "BiBa";
+        String TEXT = "Badajoz, mejor en bici!";
+
+        mAdapter = new DrawerAdapter(getResources().getStringArray(R.array.drawer_menu_list),
+                ICONS, NAME, TEXT, PROFILE);
         mDrawerRecycler.setAdapter(mAdapter);
         mDrawerRecycler.setLayoutManager(new LinearLayoutManager(this));
 
