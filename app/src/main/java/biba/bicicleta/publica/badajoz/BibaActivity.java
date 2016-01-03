@@ -20,6 +20,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
+
+import java.lang.reflect.Field;
 
 import biba.bicicleta.publica.badajoz.adapters.DrawerAdapter;
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
@@ -27,6 +30,10 @@ import biba.bicicleta.publica.badajoz.fragments.ListaEstacionesFavs;
 import biba.bicicleta.publica.badajoz.fragments.Map;
 import biba.bicicleta.publica.badajoz.utils.AppDonate;
 import biba.bicicleta.publica.badajoz.utils.AppRater;
+import tourguide.tourguide.Overlay;
+import tourguide.tourguide.Pointer;
+import tourguide.tourguide.ToolTip;
+import tourguide.tourguide.TourGuide;
 
 
 public class BibaActivity extends AppCompatActivity {
@@ -68,6 +75,13 @@ public class BibaActivity extends AppCompatActivity {
                 this, mDrawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerToggle.syncState();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            TourGuide mTourGuideHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
+                    .setPointer(new Pointer())
+                    .setToolTip(new ToolTip().setTitle("Welcome!").setDescription("Click on Get Started to begin..."))
+                    .setOverlay(new Overlay())
+                    .playOn(getNavButtonView(toolbar));
+        }
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -220,5 +234,24 @@ public class BibaActivity extends AppCompatActivity {
                         });
         dialog = builder.create();
         dialog.show();
+    }
+
+    private ImageButton getNavButtonView(Toolbar toolbar) {
+        try {
+            Class<?> toolbarClass = Toolbar.class;
+            Field navButtonField = toolbarClass.getDeclaredField("mNavButtonView");
+            navButtonField.setAccessible(true);
+            ImageButton navButtonView = (ImageButton) navButtonField.get(toolbar);
+
+            return navButtonView;
+        }
+        catch ( IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

@@ -46,4 +46,13 @@ dependencies {
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
     compile 'com.octo.android.robospice:robospice:1.4.14'
     compile 'com.octo.android.robospice:robospice-spring-android:1.4.14'
+    repositories {
+        mavenCentral()
+        maven(){
+            url "https://oss.sonatype.org/content/repositories/snapshots"
+        }
+    }
+    compile ('com.github.worker8:tourguide:1.0.16-SNAPSHOT@aar'){
+        transitive=true
+    }
 }
