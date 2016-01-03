@@ -110,8 +110,9 @@
 -keep class android.support.v7.widget.RoundRectDrawable { *; }
 
 # http://stackoverflow.com/questions/29715460/google-play-services-v23-proguard-configuration
+# http://stackoverflow.com/questions/18646899/proguard-cant-find-referenced-class-com-google-android-gms-r
 
--keep class com.google.android.gms.** { *; }
+-keep public class com.google.android.gms.* { public *; }
 -dontwarn com.google.android.gms.**
 
 # From http://stackoverflow.com/questions/24057167/resttemplate-jackson-and-proguard
