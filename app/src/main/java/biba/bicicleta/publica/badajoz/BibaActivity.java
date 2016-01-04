@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -20,6 +21,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+
+import java.lang.reflect.Field;
 
 import biba.bicicleta.publica.badajoz.adapters.DrawerAdapter;
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
@@ -35,6 +44,7 @@ public class BibaActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
 
+    private ShowcaseView sv;
     private RecyclerView mDrawerRecycler;
     private DrawerAdapter mAdapter;
     private final int[] ICONS = new int[]{
@@ -57,10 +67,12 @@ public class BibaActivity extends AppCompatActivity {
         initFragment(savedInstanceState);
         AppRater.app_launched(this);
         AppDonate.app_launched(this);
+
+
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
@@ -79,6 +91,30 @@ public class BibaActivity extends AppCompatActivity {
         int PROFILE = R.mipmap.ic_launcher;
         String NAME = "BiBa";
         String TEXT = "Badajoz, mejor en bici!";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            Target viewTarget = new ViewTarget(getNavButtonView(toolbar));
+            sv = new ShowcaseView.Builder(this)
+                    .setTarget(viewTarget)
+                    .setContentTitle(R.string.DonateTitle)
+                    .setContentText(R.string.RateTitle)
+                    .withMaterialShowcase()
+                    .setStyle(R.style.CustomShowcaseTheme2)
+//                    .singleShot(41)
+                    .build();
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                    }
+                    else {
+                        mDrawerLayout.openDrawer(GravityCompat.START);
+                    }
+                    sv.hide();
+                }
+            });
+        }
 
         mAdapter = new DrawerAdapter(getResources().getStringArray(R.array.drawer_menu_list),
                 ICONS, NAME, TEXT, PROFILE);
@@ -119,6 +155,27 @@ public class BibaActivity extends AppCompatActivity {
         });
 
     }
+
+
+    private ImageButton getNavButtonView(Toolbar toolbar) {
+        try {
+            Class<?> toolbarClass = Toolbar.class;
+            Field navButtonField = toolbarClass.getDeclaredField("mNavButtonView");
+            navButtonField.setAccessible(true);
+            ImageButton navButtonView = (ImageButton) navButtonField.get(toolbar);
+
+            return navButtonView;
+        }
+        catch ( IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     private void initFragment(Bundle savedInstanceState) {
 

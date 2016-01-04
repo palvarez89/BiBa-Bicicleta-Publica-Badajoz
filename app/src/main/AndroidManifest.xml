@@ -25,7 +25,8 @@
                                      com.google.android.gms.appinvite,
                                      com.google.android.gms.appindexing,
                                      com.google.android.gms.analytics,
-                                     com.google.android.gms" />
+                                     com.google.android.gms,
+                                     com.github.amlcurran.showcaseview" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
