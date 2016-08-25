@@ -1,11 +1,17 @@
 package biba.bicicleta.publica.badajoz.adapters;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import biba.bicicleta.publica.badajoz.EstacionDetallesActivity;
 import biba.bicicleta.publica.badajoz.R;
 import biba.bicicleta.publica.badajoz.objects.EstacionList;
 import biba.bicicleta.publica.badajoz.views.EstacionViewHolder;
@@ -48,6 +54,15 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
         boolean estado = mListaEstaciones.get(position).getStateBool();
         holder.setEstacionInfo(numero, nombre, bicis, parkings, estado);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Context context = holder.itemView.getContext();
+//                versionNotCompatibleDialog(context, numero);
+                context.startActivity(new Intent(context, EstacionDetallesActivity.class));
+            }
+        });
         final int realPosition = numero - 1;
 
         boolean isFav = prefs.getBoolean("fav" + realPosition, false);
