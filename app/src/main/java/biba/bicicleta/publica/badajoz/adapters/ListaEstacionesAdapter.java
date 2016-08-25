@@ -1,11 +1,8 @@
 package biba.bicicleta.publica.badajoz.adapters;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +56,6 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
             public void onClick(View v) {
 
                 Context context = holder.itemView.getContext();
-//                versionNotCompatibleDialog(context, numero);
                 context.startActivity(new Intent(context, EstacionDetallesActivity.class));
             }
         });
