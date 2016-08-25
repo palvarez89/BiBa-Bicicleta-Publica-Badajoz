@@ -63,11 +63,14 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyARwJjJHXK0YuJ3OaRiWOa4P5o0hPFtc2Q" />
+
+        <activity
+            android:name=".EstacionDetallesActivity"
+            android:label="@string/title_activity_estacion_detalles"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
