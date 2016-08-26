@@ -14,7 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.octo.android.robospice.JacksonSpringAndroidSpiceService;
+import com.octo.android.robospice.Jackson2SpringAndroidSpiceService;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -37,7 +37,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
 
     RecyclerView messagesRecycler;
     private GeneralSwipeRefreshLayout swipeLayout;
-    private final SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
+    private final SpiceManager spiceManager = new SpiceManager(Jackson2SpringAndroidSpiceService.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

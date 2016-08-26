@@ -31,7 +31,7 @@
 -dontwarn android.support.**
 -dontwarn com.sun.xml.internal.**
 -dontwarn com.sun.istack.internal.**
--dontwarn org.codehaus.jackson.**
+-dontwarn com.fasterxml.jackson.**
 -dontwarn org.springframework.**
 -dontwarn java.awt.**
 -dontwarn javax.security.**
@@ -122,4 +122,4 @@
 
 -dontwarn com.octo.android.robospice.**
 -keep class com.octo.android.robospice.** { *; }
--keep class org.codehaus.jackson.** { *; }
+-keep class com.fasterxml.jackson.** { *; }
