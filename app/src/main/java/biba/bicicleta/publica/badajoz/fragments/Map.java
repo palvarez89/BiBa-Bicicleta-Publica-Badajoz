@@ -1,9 +1,12 @@
 package biba.bicicleta.publica.badajoz.fragments;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -32,14 +36,14 @@ import biba.bicicleta.publica.badajoz.objects.EstacionList;
 import biba.bicicleta.publica.badajoz.utils.Analytics;
 import biba.bicicleta.publica.badajoz.utils.StationsRequest;
 
-public class Map extends Fragment {
+public class Map extends Fragment implements OnMapReadyCallback {
 
+    private final SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
+    FloatingActionButton fab;
     private GoogleMap map = null;
     private Activity activity;
     private CameraPosition camerePosition;
     private BibaApp bibaApp;
-    private final SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
-    FloatingActionButton fab;
     private Animation fab_refresh;
 
 
@@ -104,25 +108,43 @@ public class Map extends Fragment {
 
     private void setUpMapIfNeeded() {
         if (map == null) {
-            map = ((SupportMapFragment) getChildFragmentManager()
-                    .findFragmentById(R.id.map)).getMap();
-            if (map != null) {
-                map.setMyLocationEnabled(true);
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-                        38.874463, -6.974258), 12.0f));
-                GoogleMapOptions options = new GoogleMapOptions();
-                options.mapType(GoogleMap.MAP_TYPE_TERRAIN)
-                        .compassEnabled(false).rotateGesturesEnabled(false)
-                        .tiltGesturesEnabled(false).zoomControlsEnabled(true);
-                performRequest(true);
-            }
+            SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager()
+                    .findFragmentById(R.id.map));
+            mapFragment.getMapAsync(this);
+
         }
     }
 
     @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        if (googleMap != null) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+            } else {
+                googleMap.setMyLocationEnabled(true);
+            }
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
+                    38.874463, -6.974258), 12.0f));
+            GoogleMapOptions options = new GoogleMapOptions();
+            options.mapType(GoogleMap.MAP_TYPE_TERRAIN)
+                    .compassEnabled(false).rotateGesturesEnabled(false)
+                    .tiltGesturesEnabled(false).zoomControlsEnabled(true);
+            performRequest(true);
+        }
+    }
+
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof Activity){
+        if (context instanceof Activity) {
             this.activity = (Activity) context;
         }
     }
