@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import biba.bicicleta.publica.badajoz.adapters.DrawerAdapter;
 import biba.bicicleta.publica.badajoz.fragments.ListaEstaciones;
@@ -63,6 +64,8 @@ public class BibaActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        LinearLayout dp;
+//        dp = (LinearLayout) findViewById(R.id.drawer_parent);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, toolbar,
@@ -207,7 +210,7 @@ public class BibaActivity extends AppCompatActivity {
 
     public void versionNotCompatibleDialog (Context context) {
         Dialog dialog;
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(context.getString(R.string.versionNotCompatible))
                 .setTitle(context.getString(R.string.compatibilityError))
                 .setPositiveButton(context.getString(R.string.understood),

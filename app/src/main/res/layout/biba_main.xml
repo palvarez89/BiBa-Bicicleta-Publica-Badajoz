@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BibaActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    style="@style/Theme.AppCompat"
+    android:theme="@style/Theme.AppCompat">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:elevation="4dp"
         android:layout_width="match_parent"
-        style="@style/Toolbar"
-        android:theme="@style/Toolbar" />
+        style="@style/Toolbar" />
 
     <android.support.v4.widget.DrawerLayout
         android:layout_width="match_parent"
@@ -28,8 +29,7 @@
             android:layout_width="240dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="@color/white"
-            style="@style/Drawer" />
+            android:background="@color/white" />
 
     </android.support.v4.widget.DrawerLayout>
 
