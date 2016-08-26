@@ -28,7 +28,7 @@ public class EstacionDetallesAdapter extends RecyclerView.Adapter<EstacionDetall
     @Override
     public void onBindViewHolder(EstacionDetallesViewHolder estacionDetallesViewHolder, int i) {
         Message msg = messageList.get(i);
-        estacionDetallesViewHolder.setDetails(msg.getMessage(), msg.getDate().toString());
+        estacionDetallesViewHolder.setDetails(msg.getMessage(), msg.getTime().toString());
     }
 
     @Override

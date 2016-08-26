@@ -13,6 +13,7 @@
         android:theme="@style/Toolbar" />
 
     <biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout
+        android:id="@+id/activity_estacion_detalles_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
