@@ -1,12 +1,16 @@
 package biba.bicicleta.publica.badajoz.objects;
 
-import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.sql.Date;
 
 public class Message {
     private String message;
-    private Timestamp date;
 
-    public Message(String msg, Timestamp time) {
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss")
+    private Date date;
+
+    public Message(String msg, Date time) {
         message = msg;
         date = time;
     }
@@ -15,7 +19,15 @@ public class Message {
         return message;
     }
 
-    public Timestamp getDate() {
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Date getDate() {
         return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
