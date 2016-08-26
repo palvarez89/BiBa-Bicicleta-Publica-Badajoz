@@ -44,7 +44,7 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
     public void onBindViewHolder(EstacionViewHolder viewHolder, final int position) {
 
         final EstacionViewHolder holder = viewHolder;
-        int numero = mListaEstaciones.get(position).getN();
+        final int numero = mListaEstaciones.get(position).getN();
         String nombre = toLowerCase(mListaEstaciones.get(position).getName());
         int bicis = mListaEstaciones.get(position).getAvail();
         int parkings = mListaEstaciones.get(position).getSpace();
@@ -56,7 +56,9 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
             public void onClick(View v) {
 
                 Context context = holder.itemView.getContext();
-                context.startActivity(new Intent(context, EstacionDetallesActivity.class));
+                Intent detailsActivity = new Intent(context, EstacionDetallesActivity.class);
+                detailsActivity.putExtra("estacion", Integer.toString(numero));
+                context.startActivity(detailsActivity);
             }
         });
         final int realPosition = numero - 1;

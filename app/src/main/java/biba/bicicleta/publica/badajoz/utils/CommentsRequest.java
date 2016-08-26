@@ -4,24 +4,22 @@ import android.util.Log;
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
-import java.util.Arrays;
-import java.util.Collections;
-
-import biba.bicicleta.publica.badajoz.objects.EstacionList;
 import biba.bicicleta.publica.badajoz.objects.MessageList;
 
 public class CommentsRequest extends SpringAndroidSpiceRequest<MessageList> {
     private int intento=0;
-    private final String baseurl = "http://bibanotes.alvarezpiedehierro.com/";
+    private final String baseurl = "http://bibanotes.alvarezpiedehierro.com";
+    private int number;
 
-    public CommentsRequest() {
+    public CommentsRequest(int number) {
         super(MessageList.class);
+        this.number = number;
     }
 
     @Override
     public MessageList loadDataFromNetwork() throws Exception {
         int intentoActual = intento ++;
-        String url = baseurl + "/list-comments/3";
+        String url = baseurl + "/list-comments/" + number;
         Log.w("CommentsRequest", url + " intento: " + intentoActual);
         return getRestTemplate().getForObject(url, MessageList.class);
     }

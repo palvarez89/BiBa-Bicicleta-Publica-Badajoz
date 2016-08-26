@@ -1,11 +1,7 @@
 package biba.bicicleta.publica.badajoz;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,28 +16,24 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
 import biba.bicicleta.publica.badajoz.adapters.EstacionDetallesAdapter;
-import biba.bicicleta.publica.badajoz.objects.EstacionList;
-import biba.bicicleta.publica.badajoz.objects.Message;
 import biba.bicicleta.publica.badajoz.objects.MessageList;
 import biba.bicicleta.publica.badajoz.utils.CommentsRequest;
 import biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout;
-import biba.bicicleta.publica.badajoz.utils.StationsRequest;
 
 public class EstacionDetallesActivity extends AppCompatActivity {
 
     RecyclerView messagesRecycler;
     private GeneralSwipeRefreshLayout swipeLayout;
     private final SpiceManager spiceManager = new SpiceManager(Jackson2SpringAndroidSpiceService.class);
+    private int stationNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        stationNumber = Integer.valueOf(getIntent().getExtras().getString("estacion"));
+
         setContentView(R.layout.activity_estacion_detalles);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -57,6 +49,8 @@ public class EstacionDetallesActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        initSwipeLayout();
 //
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -72,9 +66,6 @@ public class EstacionDetallesActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         messagesRecycler.setLayoutManager(llm);
-
-        EstacionDetallesAdapter eda = new EstacionDetallesAdapter(createList(30));
-        messagesRecycler.setAdapter(eda);
     }
 
     @Override
@@ -86,7 +77,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
 
     private void initSwipeLayout() {
         swipeLayout = (GeneralSwipeRefreshLayout) findViewById(
-                R.id.activity_main_swipe_refresh_layout);
+                R.id.activity_estacion_detalles_swipe_refresh_layout);
 
         // Setup swipeLayout colors
         swipeLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
@@ -108,9 +99,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.w("EstacionDetallesAct", "puuuuuuuled");
-
-                        EstacionDetallesAdapter eda = new EstacionDetallesAdapter(createList(30));
-                        messagesRecycler.setAdapter(eda);
+                        performRequest(true);
                     }
                 });
             }
@@ -123,26 +112,14 @@ public class EstacionDetallesActivity extends AppCompatActivity {
 //            return;
 //        }
 
-        CommentsRequest request = new CommentsRequest();
+        CommentsRequest request = new CommentsRequest(stationNumber);
         swipeLayout.post(new Runnable() {
             @Override
             public void run() {
                 swipeLayout.setRefreshing(true);
             }
         });
-        spiceManager.execute(request, "cache", DurationInMillis.ONE_MINUTE, new MessageListRequestListener());
-    }
-
-    public List<Message> createList(int number) {
-        ArrayList<Message> msgList = new ArrayList<Message>();
-        Date dat;
-        dat = Date.valueOf("2007-09-23 10:10:10.0");
-
-        for (int i = 0; i < number; i++) {
-            msgList.add(new Message("something", dat));
-        }
-
-        return msgList;
+        spiceManager.execute(request, "comments-cache" + stationNumber, DurationInMillis.ONE_SECOND, new MessageListRequestListener());
     }
 
     private class MessageListRequestListener implements RequestListener<MessageList> {
@@ -159,8 +136,15 @@ public class EstacionDetallesActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onRequestSuccess(MessageList estaciones) {
-
+        public void onRequestSuccess(MessageList messageList) {
+            swipeLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    swipeLayout.setRefreshing(false);
+                }
+            });
+            EstacionDetallesAdapter eda = new EstacionDetallesAdapter(messageList);
+            messagesRecycler.setAdapter(eda);
         }
     }
 }
