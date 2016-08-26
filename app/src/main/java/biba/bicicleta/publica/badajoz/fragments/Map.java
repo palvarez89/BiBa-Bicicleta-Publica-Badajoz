@@ -23,7 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.octo.android.robospice.JacksonSpringAndroidSpiceService;
+import com.octo.android.robospice.Jackson2SpringAndroidSpiceService;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -38,7 +38,7 @@ import biba.bicicleta.publica.badajoz.utils.StationsRequest;
 
 public class Map extends Fragment implements OnMapReadyCallback {
 
-    private final SpiceManager spiceManager = new SpiceManager(JacksonSpringAndroidSpiceService.class);
+    private final SpiceManager spiceManager = new SpiceManager(Jackson2SpringAndroidSpiceService.class);
     FloatingActionButton fab;
     private GoogleMap map = null;
     private Activity activity;
