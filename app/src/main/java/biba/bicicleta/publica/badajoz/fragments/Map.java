@@ -64,14 +64,20 @@ public class Map extends Fragment implements OnMapReadyCallback {
     }
 
     private void performRequest(boolean force) {
+        if (map == null) return;
         if (!force && bibaApp.estaciones != null) {
             updateMap(bibaApp.estaciones);
             return;
         }
         StationsRequest request = new StationsRequest();
-        if (fab != null) {
-            fab.startAnimation(fab_refresh);
+        if (fab == null) {
+            fab = ((FloatingActionButton) getView().findViewById(R.id.fab));
         }
+        if (fab_refresh == null) {
+            fab_refresh = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.fab_refresh);
+        }
+        fab.startAnimation(fab_refresh);
+
         spiceManager.execute(request, "cache", DurationInMillis.ONE_MINUTE, new EstacionListRequestListener());
     }
 
@@ -79,19 +85,9 @@ public class Map extends Fragment implements OnMapReadyCallback {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setUpMapIfNeeded();
         Analytics analytics = new Analytics(activity);
         analytics.screenView(this.getClass().getSimpleName());
-        if (map != null) {
-            fab = ((FloatingActionButton) getView().findViewById(R.id.fab));
-            fab_refresh = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.fab_refresh);
-            fab.setVisibility(View.VISIBLE);
-            fab.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    performRequest(true);
-                }
-            });
-        }
+
     }
 
     @Override
@@ -111,7 +107,6 @@ public class Map extends Fragment implements OnMapReadyCallback {
             SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager()
                     .findFragmentById(R.id.map));
             mapFragment.getMapAsync(this);
-
         }
     }
 
@@ -136,7 +131,15 @@ public class Map extends Fragment implements OnMapReadyCallback {
             options.mapType(GoogleMap.MAP_TYPE_TERRAIN)
                     .compassEnabled(false).rotateGesturesEnabled(false)
                     .tiltGesturesEnabled(false).zoomControlsEnabled(true);
-            performRequest(true);
+            if (map != null) {
+                fab.setVisibility(View.VISIBLE);
+                fab.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        performRequest(true);
+                    }
+                });
+            }
+            performRequest(false);
         }
     }
 
@@ -159,13 +162,13 @@ public class Map extends Fragment implements OnMapReadyCallback {
 
     public void onResume() {
         super.onResume();
-        fab = ((FloatingActionButton) getView().findViewById(R.id.fab));
-        fab_refresh = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.fab_refresh);
-        fab.startAnimation(fab_refresh);
         setUpMapIfNeeded();
         if (camerePosition != null) {
             map.moveCamera(CameraUpdateFactory.newCameraPosition(camerePosition));
             camerePosition = null;
+        }
+        if (map != null) {
+            performRequest(false);
         }
     }
 
