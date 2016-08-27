@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import biba.bicicleta.publica.badajoz.EstacionDetallesActivity;
 import biba.bicicleta.publica.badajoz.R;
+import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.objects.EstacionList;
 import biba.bicicleta.publica.badajoz.views.EstacionViewHolder;
 
@@ -43,12 +44,13 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
     @Override
     public void onBindViewHolder(EstacionViewHolder viewHolder, final int position) {
 
+        final Estacion e = mListaEstaciones.get(position);
         final EstacionViewHolder holder = viewHolder;
-        final int numero = mListaEstaciones.get(position).getN();
-        String nombre = toLowerCase(mListaEstaciones.get(position).getName());
-        int bicis = mListaEstaciones.get(position).getAvail();
-        int parkings = mListaEstaciones.get(position).getSpace();
-        boolean estado = mListaEstaciones.get(position).getStateBool();
+        int numero = e.getN();
+        String nombre = toLowerCase(e.getName());
+        int bicis = e.getAvail();
+        int parkings = e.getSpace();
+        boolean estado = e.getStateBool();
         holder.setEstacionInfo(numero, nombre, bicis, parkings, estado);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +59,7 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
 
                 Context context = holder.itemView.getContext();
                 Intent detailsActivity = new Intent(context, EstacionDetallesActivity.class);
-                detailsActivity.putExtra("estacion", Integer.toString(numero));
+                detailsActivity.putExtra("estacion", e);
                 context.startActivity(detailsActivity);
             }
         });

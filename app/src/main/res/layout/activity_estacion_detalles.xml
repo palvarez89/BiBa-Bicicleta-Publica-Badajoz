@@ -12,17 +12,27 @@
         style="@style/Toolbar"
         android:theme="@style/Toolbar" />
 
-    <biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout
-        android:id="@+id/activity_estacion_detalles_swipe_refresh_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/messageList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:background="@color/greywhite" />
-    </biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout>
+        <include layout="@layout/header_lista_estaciones"/>
 
+        <include layout="@layout/estacion_card"
+            android:id="@+id/top_card_detalles"/>
+
+        <biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout
+            android:id="@+id/activity_estacion_detalles_swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/messageList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:background="@color/greywhite" />
+        </biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout>
+    </LinearLayout>
 </LinearLayout>
