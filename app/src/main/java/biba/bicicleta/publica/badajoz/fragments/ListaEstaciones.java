@@ -101,10 +101,8 @@ public class ListaEstaciones extends Fragment {
         prefs = getActivity().getSharedPreferences(
                 "biba.bicicleta.publica.badajoz", Context.MODE_PRIVATE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            Analytics analytics = new Analytics(activity);
-            analytics.screenView(this.getClass().getSimpleName());
-        }
+        Analytics analytics = new Analytics(activity);
+        analytics.screenView(this.getClass().getSimpleName());
 
         initSwipeLayout();
         initRecyclerView();

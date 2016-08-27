@@ -159,15 +159,9 @@ public class BibaActivity extends AppCompatActivity {
                 tag = "list_fragment";
                 break;
             case 1:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-                    mainFragment = new Map();
-                    tag = "map_fragment";
-                    break;
-                }
-                else {
-                    versionNotCompatibleDialog(this);
-                    return;
-                }
+                mainFragment = new Map();
+                tag = "map_fragment";
+                break;
             case 2:
                 mainFragment = new ListaEstacionesFavs();
                 tag = "list_fragment_favourites";
@@ -206,22 +200,5 @@ public class BibaActivity extends AppCompatActivity {
                     Uri.parse(url));
             context.startActivity(intent);
         }
-    }
-
-    public void versionNotCompatibleDialog (Context context) {
-        Dialog dialog;
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(context.getString(R.string.versionNotCompatible))
-                .setTitle(context.getString(R.string.compatibilityError))
-                .setPositiveButton(context.getString(R.string.understood),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-
-                                dialog.dismiss();
-                            }
-                        });
-        dialog = builder.create();
-        dialog.show();
     }
 }
