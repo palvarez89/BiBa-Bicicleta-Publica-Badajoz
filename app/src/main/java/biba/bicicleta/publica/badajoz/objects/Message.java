@@ -1,10 +1,8 @@
 package biba.bicicleta.publica.badajoz.objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Message {
