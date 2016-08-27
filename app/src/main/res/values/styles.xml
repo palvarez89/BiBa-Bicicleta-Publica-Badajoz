@@ -5,6 +5,10 @@
         <item name="actionBarTheme">@style/Toolbar</item>
     </style>
 
+    <style name="AppThemeDrawer" parent="AppTheme">
+        <item name="android:textColorPrimary">@color/c500</item>
+    </style>
+
     <style name="Drawer.base" parent="AppTheme">
         <item name="android:choiceMode">singleChoice</item>
         <item name="android:divider">@android:color/transparent</item>
