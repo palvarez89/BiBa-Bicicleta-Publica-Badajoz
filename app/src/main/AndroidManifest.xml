@@ -68,9 +68,10 @@
             android:value="AIzaSyARwJjJHXK0YuJ3OaRiWOa4P5o0hPFtc2Q" />
 
         <activity
+            android:configChanges="orientation|screenSize"
             android:name=".EstacionDetallesActivity"
             android:label="@string/title_activity_estacion_detalles"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
