@@ -1,52 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="4dp"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    card_view:cardCornerRadius="4dp">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/txtMessage"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="10"
-            android:text="@string/example_card_message"
-            android:gravity="center_vertical"
-            android:textSize="15dp"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtTime"
-                android:layout_width="match_parent"
+                android:id="@+id/txtMessage"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
-                android:text="Hace 3m"
+                android:layout_weight="16"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
-                android:textSize="10dp"/>
+                android:text="@string/example_card_message"
+                android:textSize="15dp" />
 
-            <ImageView
-                android:id="@+id/imgArchive"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Email"
-                android:textSize="10dp"
-                android:src="@drawable/parking" />
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
+                <ImageView
+                    android:id="@+id/imgArchive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:gravity="top"
+                    android:src="@drawable/ic_delete" />
+
+            </LinearLayout>
         </LinearLayout>
 
-
-
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_marginRight="5dp"
+            android:text="Hace 3m"
+            android:textSize="10dp" />
     </LinearLayout>
 </android.support.v7.widget.CardView>
