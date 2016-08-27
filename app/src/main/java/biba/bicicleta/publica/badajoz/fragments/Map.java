@@ -52,7 +52,9 @@ public class Map extends Fragment implements OnMapReadyCallback {
         bibaApp = (BibaApp) activity.getApplicationContext();
         super.onStart();
         spiceManager.start(activity);
-        performRequest(false);
+        fab = ((FloatingActionButton) getView().findViewById(R.id.fab));
+        fab_refresh = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.fab_refresh);
+
     }
 
     @Override
@@ -131,13 +133,15 @@ public class Map extends Fragment implements OnMapReadyCallback {
             options.mapType(GoogleMap.MAP_TYPE_TERRAIN)
                     .compassEnabled(false).rotateGesturesEnabled(false)
                     .tiltGesturesEnabled(false).zoomControlsEnabled(true);
-            if (map != null) {
-                fab.setVisibility(View.VISIBLE);
-                fab.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        performRequest(true);
-                    }
-                });
+            fab.setVisibility(View.VISIBLE);
+            fab.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    performRequest(true);
+                }
+            });
+            if (camerePosition != null) {
+                map.moveCamera(CameraUpdateFactory.newCameraPosition(camerePosition));
+                camerePosition = null;
             }
             performRequest(false);
         }
@@ -162,13 +166,14 @@ public class Map extends Fragment implements OnMapReadyCallback {
 
     public void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
-        if (camerePosition != null) {
-            map.moveCamera(CameraUpdateFactory.newCameraPosition(camerePosition));
-            camerePosition = null;
-        }
         if (map != null) {
             performRequest(false);
+            if (camerePosition != null) {
+                map.moveCamera(CameraUpdateFactory.newCameraPosition(camerePosition));
+                camerePosition = null;
+            }
+        } else {
+            setUpMapIfNeeded();
         }
     }
 
