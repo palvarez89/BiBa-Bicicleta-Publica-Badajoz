@@ -1,18 +1,25 @@
 package biba.bicicleta.publica.badajoz;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -32,7 +39,9 @@ import biba.bicicleta.publica.badajoz.views.EstacionViewHolder;
 
 public class EstacionDetallesActivity extends AppCompatActivity {
 
+    final Context context = this;
     RecyclerView messagesRecycler;
+    FloatingActionButton fab;
     private GeneralSwipeRefreshLayout swipeLayout;
     private final SpiceManager spiceManager = new SpiceManager(Jackson2SpringAndroidSpiceService.class);
     private int stationNumber;
@@ -62,16 +71,8 @@ public class EstacionDetallesActivity extends AppCompatActivity {
         });
 
         initSwipeLayout();
-//
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
+        initFab();
         initTopCard(e);
 
 
@@ -145,6 +146,96 @@ public class EstacionDetallesActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void initFab() {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // get prompts.xml view
+                LayoutInflater li = LayoutInflater.from(context);
+                View promptsView = li.inflate(R.layout.new_comment, null);
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
+
+                // set prompts.xml to alertdialog builder
+                alertDialogBuilder.setView(promptsView);
+
+                final EditText userInput = (EditText) promptsView
+                        .findViewById(R.id.editTextDialogUserInput);
+
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        // get user input and set it to result
+                                        // edit text
+                                        Log.w("EstacionDetallesAct", userInput.getText().toString());
+                                        Toast.makeText(context, userInput.getText().toString(),
+                                                Toast.LENGTH_LONG).show();
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog
+                final AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // disable positive button sometimes
+
+                alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        ((AlertDialog)dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    }
+                });
+
+                userInput.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before,
+                                              int count) {
+                    }
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count,
+                                                  int after) {
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        int length = s.length();
+                        // Check if edittext is empty
+                        if (length <= 0) {
+                            // Disable ok button
+                            ((AlertDialog) alertDialog).getButton(
+                                    AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                        } else if (length > 140){
+                            // edit text larger than maximum
+                            ((AlertDialog) alertDialog).getButton(
+                                    AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                        } else {
+                            // Something into edit text. Enable the button.
+                            ((AlertDialog) alertDialog).getButton(
+                                    AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                        }
+                    }
+                });
+                // show it
+                alertDialog.show();
+
+            }
+        });
+    }
+
     private void initSwipeLayout() {
         swipeLayout = (GeneralSwipeRefreshLayout) findViewById(
                 R.id.activity_estacion_detalles_swipe_refresh_layout);

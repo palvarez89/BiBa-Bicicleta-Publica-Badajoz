@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false"
-                    android:paddingBottom="45dp"
+                    android:paddingBottom="50dp"
                     android:background="@color/greywhite" />
             </biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout>
         </LinearLayout>
