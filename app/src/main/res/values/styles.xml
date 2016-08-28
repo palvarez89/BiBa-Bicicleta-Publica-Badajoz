@@ -35,4 +35,8 @@
         <item name="android:background">@color/c500</item>
         <item name="android:textColorPrimary">@color/white</item>
     </style>
+
+    <style name="AppTheme.EditTextOverflow">
+        <item name="android:textColor">#ff0000</item>
+    </style>
 </resources>
