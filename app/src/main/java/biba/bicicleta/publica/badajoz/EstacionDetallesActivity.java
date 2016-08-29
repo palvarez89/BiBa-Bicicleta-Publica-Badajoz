@@ -60,7 +60,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        toolbar.setNavigationIcon(R.drawable.arrow_left);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_left_white_24dp);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
