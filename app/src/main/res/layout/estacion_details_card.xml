@@ -25,8 +25,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/example_card_message"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="0px"
@@ -50,7 +49,6 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:layout_marginRight="5dp"
-            android:text="Hace 3m"
-            android:textSize="10dp" />
+            android:textSize="12sp" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

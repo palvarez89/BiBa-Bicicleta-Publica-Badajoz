@@ -30,9 +30,9 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 import biba.bicicleta.publica.badajoz.adapters.EstacionDetallesAdapter;
-import biba.bicicleta.publica.badajoz.adapters.ListaEstacionesAdapter;
 import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.objects.MessageList;
+import biba.bicicleta.publica.badajoz.utils.CommentPut;
 import biba.bicicleta.publica.badajoz.utils.CommentsRequest;
 import biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout;
 import biba.bicicleta.publica.badajoz.views.EstacionViewHolder;
@@ -45,13 +45,12 @@ public class EstacionDetallesActivity extends AppCompatActivity {
     private GeneralSwipeRefreshLayout swipeLayout;
     private final SpiceManager spiceManager = new SpiceManager(Jackson2SpringAndroidSpiceService.class);
     private int stationNumber;
-    private CardView topCardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Estacion e = (Estacion) getIntent().getParcelableExtra("estacion");
+        Estacion e = getIntent().getParcelableExtra("estacion");
         stationNumber = e.getN();
 
         setContentView(R.layout.activity_estacion_detalles);
@@ -61,7 +60,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
+        toolbar.setNavigationIcon(R.drawable.arrow_left);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +86,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         spiceManager.start(this);
-        performRequest(false);
+        performRequest();
     }
 
     @Override
@@ -109,10 +108,10 @@ public class EstacionDetallesActivity extends AppCompatActivity {
     }
 
     private void initTopCard(Estacion e) {
-        topCardView = (CardView) findViewById(R.id.top_card_detalles);
+        CardView topCardView = (CardView) findViewById(R.id.top_card_detalles);
 
         topCardView.setRadius(0);
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)topCardView.getLayoutParams();
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) topCardView.getLayoutParams();
         params.setMargins(0, 0, 0, 0); //substitute parameters for left, top, right, bottom
         topCardView.setLayoutParams(params);
         Resources r = getResources();
@@ -120,7 +119,6 @@ public class EstacionDetallesActivity extends AppCompatActivity {
         topCardView.setCardElevation(px);
 
         final EstacionViewHolder evh = EstacionViewHolder.newInstance(topCardView);
-        final EstacionViewHolder evhFinal = evh;
         int numero = e.getN();
         String nombre = toLowerCase(e.getName());
         int bicis = e.getAvail();
@@ -140,8 +138,8 @@ public class EstacionDetallesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 isFav = !isFav;
-                evhFinal.setFavStar(isFav);
-                prefs.edit().putBoolean("fav" + realPosition, isFav).commit();
+                evh.setFavStar(isFav);
+                prefs.edit().putBoolean("fav" + realPosition, isFav).apply();
 
             }
         });
@@ -153,8 +151,9 @@ public class EstacionDetallesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // get prompts.xml view
+                LinearLayout mLinearLayout = new LinearLayout(getApplicationContext());
                 LayoutInflater li = LayoutInflater.from(context);
-                View promptsView = li.inflate(R.layout.new_comment, null);
+                View promptsView = li.inflate(R.layout.new_comment, mLinearLayout);
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         context);
@@ -172,11 +171,8 @@ public class EstacionDetallesActivity extends AppCompatActivity {
                         .setPositiveButton("OK",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,int id) {
-                                        // get user input and set it to result
-                                        // edit text
-                                        Log.w("EstacionDetallesAct", userInput.getText().toString());
-                                        Toast.makeText(context, userInput.getText().toString(),
-                                                Toast.LENGTH_LONG).show();
+                                        CommentPut request = new CommentPut(stationNumber, userInput.getText().toString());
+                                        spiceManager.execute(request, "add-comment-cache" + stationNumber, DurationInMillis.ONE_SECOND, new MessagePutRequestListener());
                                     }
                                 })
                         .setNegativeButton("Cancel",
@@ -216,15 +212,15 @@ public class EstacionDetallesActivity extends AppCompatActivity {
                         // Check if edittext is empty
                         if (length <= 0) {
                             // Disable ok button
-                            ((AlertDialog) alertDialog).getButton(
+                            alertDialog.getButton(
                                     AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                         } else if (length > 140){
                             // edit text larger than maximum
-                            ((AlertDialog) alertDialog).getButton(
+                            alertDialog.getButton(
                                     AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                         } else {
                             // Something into edit text. Enable the button.
-                            ((AlertDialog) alertDialog).getButton(
+                            alertDialog.getButton(
                                     AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                         }
                     }
@@ -260,19 +256,14 @@ public class EstacionDetallesActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.w("EstacionDetallesAct", "puuuuuuuled");
-                        performRequest(true);
+                        performRequest();
                     }
                 });
             }
         });
     }
 
-    private void performRequest(boolean force) {
-//        if (!force && bibaApp.estaciones != null) {
-//            updateList(bibaApp.estaciones);
-//            return;
-//        }
-
+    private void performRequest() {
         CommentsRequest request = new CommentsRequest(stationNumber);
         swipeLayout.post(new Runnable() {
             @Override
@@ -343,4 +334,16 @@ public class EstacionDetallesActivity extends AppCompatActivity {
         }
     }
 
+    private class MessagePutRequestListener implements RequestListener<String> {
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            Toast.makeText(getApplicationContext(), R.string.failed_update,
+                    Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onRequestSuccess(String result) {
+            performRequest();
+        }
+    }
 }
