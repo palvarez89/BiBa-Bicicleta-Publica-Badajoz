@@ -76,6 +76,9 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
                 prefs.edit().putBoolean("fav" + realPosition, isFav).commit();
 
             }
+
+//            backgroudn when empty?
+
         });
     }
 

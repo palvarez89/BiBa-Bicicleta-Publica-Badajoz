@@ -39,4 +39,9 @@
     <style name="AppTheme.EditTextOverflow">
         <item name="android:textColor">#ff0000</item>
     </style>
+
+    <style name="AlertDialogCustom">
+        <item name="android:textColor">@color/c500</item>
+        <item name="android:textColorPrimary">@color/blacktrans</item>
+    </style>
 </resources>

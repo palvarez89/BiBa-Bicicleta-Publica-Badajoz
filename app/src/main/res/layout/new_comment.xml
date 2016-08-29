@@ -18,8 +18,7 @@
             android:id="@+id/editTextDialogUserInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/blacktrans"
-            android:hint="@string/comment_here"/>
+            android:textColor="@color/blacktrans"/>
 
     </android.support.design.widget.TextInputLayout>
 

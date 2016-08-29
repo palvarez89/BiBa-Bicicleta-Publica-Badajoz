@@ -3,10 +3,16 @@ package biba.bicicleta.publica.badajoz.adapters;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.octo.android.robospice.SpiceManager;
@@ -19,7 +25,6 @@ import biba.bicicleta.publica.badajoz.EstacionDetallesActivity;
 import biba.bicicleta.publica.badajoz.R;
 import biba.bicicleta.publica.badajoz.objects.Message;
 import biba.bicicleta.publica.badajoz.utils.CommentArchive;
-import biba.bicicleta.publica.badajoz.utils.CommentPut;
 import biba.bicicleta.publica.badajoz.views.EstacionDetallesViewHolder;
 
 public class EstacionDetallesAdapter extends RecyclerView.Adapter<EstacionDetallesViewHolder> {
@@ -45,10 +50,36 @@ public class EstacionDetallesAdapter extends RecyclerView.Adapter<EstacionDetall
 
         estacionDetallesViewHolder.setDetails(msg);
         estacionDetallesViewHolder.vArchive.setOnClickListener(new ArchiveClickListener(msg.getId()) {
+
             @Override
             public void onClick(View v) {
-                CommentArchive request = new CommentArchive(msg.getId());
-                spiceManager.execute(request, "archive-comment-cache" + msg.getId(), DurationInMillis.ONE_SECOND, new MessageArchiveRequestListener());
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(edActivity, R.style.AlertDialogCustom));
+
+                // set dialog message
+                alertDialogBuilder
+                        .setTitle(R.string.delete_comment)
+                        .setMessage(R.string.delete_dialog_msg)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.delete,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        CommentArchive request = new CommentArchive(msg.getId());
+                                        spiceManager.execute(request, "archive-comment-cache" + msg.getId(), DurationInMillis.ONE_SECOND, new MessageArchiveRequestListener());
+                                    }
+                                })
+                        .setNegativeButton(R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog
+                final AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
             }
         });
     }
@@ -83,6 +114,4 @@ public class EstacionDetallesAdapter extends RecyclerView.Adapter<EstacionDetall
             ((EstacionDetallesActivity) edActivity).performRequest();
         }
     }
-
-
 }
