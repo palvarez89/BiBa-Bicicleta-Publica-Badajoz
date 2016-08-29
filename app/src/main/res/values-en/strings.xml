@@ -29,6 +29,7 @@
     <string name="compatibilityError">Compatibility error</string>
     <string name="understood">Understood</string>
     <string name="fav_star">Favourite station</string>
+    <string name="comment_here">Add comment</string>
 
 
 </resources>

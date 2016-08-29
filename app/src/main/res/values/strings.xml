@@ -30,7 +30,7 @@
     <string name="fav_star">Estacion favorita</string>
     <string name="title_activity_estacion_detalles">EstacionDetallesActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="example_card_message">Estos son 140 caracteres que es lo que he establecido como maximo para los mensajes. Igual es demasiado, pero twitter es el estandard. no??</string>
+    <string name="comment_here">Añadir comentario</string>
 
 </resources>
 

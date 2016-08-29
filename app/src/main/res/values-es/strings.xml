@@ -28,6 +28,7 @@
     <string name="compatibilityError">Error de compatibilidad</string>
     <string name="understood">Entendido</string>
     <string name="fav_star">Estacion favorita</string>
+    <string name="comment_here">Añadir comentario</string>
 
 
 </resources>
