@@ -30,6 +30,8 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import biba.bicicleta.publica.badajoz.adapters.EstacionDetallesAdapter;
 import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.objects.MessageList;
@@ -172,7 +174,8 @@ public class EstacionDetallesActivity extends AppCompatActivity {
                         .setPositiveButton("OK",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,int id) {
-                                        CommentPut request = new CommentPut(stationNumber, userInput.getText().toString());
+                                        String newComment = StringEscapeUtils.escapeJava(userInput.getText().toString());
+                                        CommentPut request = new CommentPut(stationNumber, newComment);
                                         spiceManager.execute(request, "add-comment-cache" + stationNumber, DurationInMillis.ONE_SECOND, new MessagePutRequestListener());
                                     }
                                 })
