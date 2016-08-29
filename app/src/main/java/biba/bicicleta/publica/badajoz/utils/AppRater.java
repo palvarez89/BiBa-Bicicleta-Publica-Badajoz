@@ -44,7 +44,7 @@ public class AppRater {
 
         }
 
-        editor.commit();
+        editor.apply();
 
     }
 
@@ -62,7 +62,7 @@ public class AppRater {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 editor.putBoolean("dontshowagain", true);
-                                editor.commit();
+                                editor.apply();
                                 mContext.startActivity(new Intent(
                                         Intent.ACTION_VIEW, Uri
                                         .parse("market://details?id="
@@ -75,7 +75,7 @@ public class AppRater {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 editor.putLong("launch_count", 0);
-                                editor.commit();
+                                editor.apply();
                                 dialog.dismiss();
 
                             }
@@ -86,7 +86,7 @@ public class AppRater {
                                                 int which) {
                                 if (editor != null) {
                                     editor.putBoolean("dontshowagain", true);
-                                    editor.commit();
+                                    editor.apply();
                                 }
                                 dialog.dismiss();
 

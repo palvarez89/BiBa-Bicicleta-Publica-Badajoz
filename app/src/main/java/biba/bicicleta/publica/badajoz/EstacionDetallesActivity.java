@@ -38,6 +38,7 @@ import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.objects.MessageList;
 import biba.bicicleta.publica.badajoz.utils.CommentPut;
 import biba.bicicleta.publica.badajoz.utils.CommentsRequest;
+import biba.bicicleta.publica.badajoz.utils.Common;
 import biba.bicicleta.publica.badajoz.utils.GeneralSwipeRefreshLayout;
 import biba.bicicleta.publica.badajoz.views.EstacionViewHolder;
 
@@ -124,7 +125,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
 
         final EstacionViewHolder evh = EstacionViewHolder.newInstance(topCardView);
         int numero = e.getN();
-        String nombre = toLowerCase(e.getName());
+        String nombre = Common.toLowerCase(e.getName());
         int bicis = e.getAvail();
         int parkings = e.getSpace();
         boolean estado = e.getStateBool();
@@ -306,29 +307,6 @@ public class EstacionDetallesActivity extends AppCompatActivity {
 
 
 
-    private String toLowerCase(String str) {
-        String[] words = str.split("\\s");
-        String out = "";
-
-        for (int i = 0; i < words.length - 1; i++) {
-            out = out + toLowerCaseWord(words[i]) + " ";
-        }
-        out = out + toLowerCaseWord(words[words.length - 1]);
-        return out;
-    }
-
-    private String toLowerCaseWord(String str) {
-
-        if (str.length() == 0) return "";
-
-        if (str.length() == 1) return str.toUpperCase();
-
-        if (!Character.isLetter(str.charAt(0))) {
-            return str.substring(0, 1) + str.substring(1, 2).toUpperCase() + str.substring(2).toLowerCase();
-        } else {
-            return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
-        }
-    }
 
     public abstract class CardClickListener implements View.OnClickListener {
         boolean isFav;

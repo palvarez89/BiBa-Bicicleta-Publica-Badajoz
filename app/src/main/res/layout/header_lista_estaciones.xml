@@ -21,7 +21,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:padding="5dp"
-            android:text="Nº"
+            android:text="@string/number"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />

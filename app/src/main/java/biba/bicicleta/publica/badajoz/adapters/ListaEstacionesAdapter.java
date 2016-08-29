@@ -12,6 +12,7 @@ import biba.bicicleta.publica.badajoz.EstacionDetallesActivity;
 import biba.bicicleta.publica.badajoz.R;
 import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.objects.EstacionList;
+import biba.bicicleta.publica.badajoz.utils.Common;
 import biba.bicicleta.publica.badajoz.views.EstacionViewHolder;
 
 public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHolder> {
@@ -47,7 +48,7 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
         final Estacion e = mListaEstaciones.get(position);
         final EstacionViewHolder holder = viewHolder;
         int numero = e.getN();
-        String nombre = toLowerCase(e.getName());
+        String nombre = Common.toLowerCase(e.getName());
         int bicis = e.getAvail();
         int parkings = e.getSpace();
         boolean estado = e.getStateBool();
@@ -73,7 +74,7 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
             public void onClick(View v) {
                 isFav = !isFav;
                 holder.setFavStar(isFav);
-                prefs.edit().putBoolean("fav" + realPosition, isFav).commit();
+                prefs.edit().putBoolean("fav" + realPosition, isFav).apply();
 
             }
 
@@ -89,30 +90,6 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
 
     public void replaceItems(EstacionList listaEstaciones) {
         mListaEstaciones = listaEstaciones;
-    }
-
-    private String toLowerCase(String str) {
-        String[] words = str.split("\\s");
-        String out = "";
-
-        for (int i = 0; i < words.length - 1; i++) {
-            out = out + toLowerCaseWord(words[i]) + " ";
-        }
-        out = out + toLowerCaseWord(words[words.length - 1]);
-        return out;
-    }
-
-    private String toLowerCaseWord(String str) {
-
-        if (str.length() == 0) return "";
-
-        if (str.length() == 1) return str.toUpperCase();
-
-        if (!Character.isLetter(str.charAt(0))) {
-            return str.substring(0, 1) + str.substring(1, 2).toUpperCase() + str.substring(2).toLowerCase();
-        } else {
-            return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
-        }
     }
 
     public abstract class CardClickListener implements View.OnClickListener {
