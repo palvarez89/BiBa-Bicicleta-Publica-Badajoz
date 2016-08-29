@@ -35,6 +35,7 @@
     <string name="delete">Borrar</string>
     <string name="delete_comment">Borrar comentario</string>
     <string name="delete_dialog_msg">¿Seguro que desea borrar el comentario?</string>
+    <string name="number">Nº</string>
 
 </resources>
 
