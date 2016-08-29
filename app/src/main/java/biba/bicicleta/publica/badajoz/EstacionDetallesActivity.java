@@ -1,5 +1,6 @@
 package biba.bicicleta.publica.badajoz;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -263,7 +264,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
         });
     }
 
-    private void performRequest() {
+    public void performRequest() {
         CommentsRequest request = new CommentsRequest(stationNumber);
         swipeLayout.post(new Runnable() {
             @Override
@@ -295,7 +296,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
                     swipeLayout.setRefreshing(false);
                 }
             });
-            EstacionDetallesAdapter eda = new EstacionDetallesAdapter(messageList);
+            EstacionDetallesAdapter eda = new EstacionDetallesAdapter(messageList, spiceManager, (Activity) context);
             messagesRecycler.setAdapter(eda);
         }
     }
