@@ -49,6 +49,10 @@ public class Message {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setEstacionId(int estacionId) {
         this.estacionId = estacionId;
     }
