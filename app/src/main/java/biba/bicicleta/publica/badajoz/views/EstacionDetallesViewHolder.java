@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.sql.Timestamp;
 
 import biba.bicicleta.publica.badajoz.R;
@@ -25,7 +27,8 @@ public class EstacionDetallesViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setDetails(Message msg) {
-        vMessage.setText(msg.getMessage());
+        String message = StringEscapeUtils.unescapeJava(msg.getMessage());
+        vMessage.setText(message);
         Timestamp ts = msg.getTime();
         long currentTime = System.currentTimeMillis();
         String date = (String) DateUtils.getRelativeTimeSpanString(ts.getTime(), currentTime, DateUtils.MINUTE_IN_MILLIS);
