@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -158,8 +159,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
                 LayoutInflater li = LayoutInflater.from(context);
                 View promptsView = li.inflate(R.layout.new_comment, mLinearLayout);
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.AlertDialogCustom));
 
                 // set prompts.xml to alertdialog builder
                 alertDialogBuilder.setView(promptsView);
@@ -170,8 +170,9 @@ public class EstacionDetallesActivity extends AppCompatActivity {
 
                 // set dialog message
                 alertDialogBuilder
+                        .setTitle(R.string.comment_here)
                         .setCancelable(false)
-                        .setPositiveButton("OK",
+                        .setPositiveButton(R.string.add,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,int id) {
                                         String newComment = StringEscapeUtils.escapeJava(userInput.getText().toString());
@@ -179,7 +180,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
                                         spiceManager.execute(request, "add-comment-cache" + stationNumber, DurationInMillis.ONE_SECOND, new MessagePutRequestListener());
                                     }
                                 })
-                        .setNegativeButton("Cancel",
+                        .setNegativeButton(R.string.cancel,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,int id) {
                                         dialog.cancel();
@@ -259,7 +260,6 @@ public class EstacionDetallesActivity extends AppCompatActivity {
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
-                        Log.w("EstacionDetallesAct", "puuuuuuuled");
                         performRequest();
                     }
                 });

@@ -28,7 +28,13 @@
     <string name="compatibilityError">Error de compatibilidad</string>
     <string name="understood">Entendido</string>
     <string name="fav_star">Estacion favorita</string>
+    <string name="title_activity_estacion_detalles">Comentarios de estación</string>
     <string name="comment_here">Añadir comentario</string>
+    <string name="cancel">Cancelar</string>
+    <string name="add">Añadir</string>
+    <string name="delete">Borrar</string>
+    <string name="delete_comment">Borrar comentario</string>
+    <string name="delete_dialog_msg">¿Seguro que desea borrar el comentario?</string>
 
 
 </resources>
