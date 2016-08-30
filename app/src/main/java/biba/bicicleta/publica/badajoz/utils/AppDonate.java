@@ -43,7 +43,7 @@ public class AppDonate {
                 showDonateDialog(mContext, editor);
             }
         }
-        editor.commit();
+        editor.apply();
     }
 
     private static void openDonateVersion(Context mContext) {
@@ -68,7 +68,7 @@ public class AppDonate {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 editor.putBoolean("dontshowagain", true);
-                                editor.commit();
+                                editor.apply();
                                 openDonateVersion(mContext);
                                 dialog.dismiss();
                             }
@@ -78,7 +78,7 @@ public class AppDonate {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 editor.putLong("launch_count", 0);
-                                editor.commit();
+                                editor.apply();
                                 dialog.dismiss();
 
                             }
@@ -89,7 +89,7 @@ public class AppDonate {
                                                 int which) {
                                 if (editor != null) {
                                     editor.putBoolean("dontshowagain", true);
-                                    editor.commit();
+                                    editor.apply();
                                 }
                                 dialog.dismiss();
 

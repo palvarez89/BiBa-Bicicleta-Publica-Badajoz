@@ -1,0 +1,5 @@
+<lint>
+  <issue id="InvalidPackage">
+    <ignore regexp="jackson-databind-2.8.1.jar" />
+  </issue>
+</lint>

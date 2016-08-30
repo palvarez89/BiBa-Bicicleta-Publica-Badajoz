@@ -1,6 +1,9 @@
 package biba.bicicleta.publica.badajoz.objects;
 
-public class Estacion {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Estacion  implements Parcelable {
 
 
     private int n;
@@ -78,5 +81,41 @@ public class Estacion {
 
     public int getSpace() {
         return this.total - this.avail;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(n);
+        parcel.writeString(name);
+        parcel.writeFloat(lat);
+        parcel.writeFloat(lon);
+        parcel.writeString(state);
+        parcel.writeInt(avail);
+        parcel.writeInt(total);
+    }
+
+    public static final Parcelable.Creator<Estacion> CREATOR = new Parcelable.Creator<Estacion>() {
+        public Estacion createFromParcel(Parcel in) {
+            return new Estacion(in);
+        }
+
+        public Estacion[] newArray(int size) {
+            return new Estacion[size];
+        }
+    };
+
+    private Estacion(Parcel in) {
+        n = in.readInt();
+        name = in.readString();
+        lat = in.readFloat();
+        lon = in.readFloat();
+        state = in.readString();
+        avail = in.readInt();
+        total = in.readInt();
     }
 }

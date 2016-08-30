@@ -25,10 +25,20 @@
     <string name="bikes">"Bicis"</string>
     <string name="parkings">"Aparcamientos"</string>
     <string name="station">Estación</string>
-    <string name="versionNotCompatible">Vaya! Tu version de Android no es compatible con esta utilidad</string>
     <string name="compatibilityError">Error de compatibilidad</string>
     <string name="understood">Entendido</string>
     <string name="fav_star">Estacion favorita</string>
+    <string name="title_activity_estacion_detalles">Comentarios de estación</string>
+    <string name="comment_here">Añadir comentario</string>
+    <string name="cancel">Cancelar</string>
+    <string name="add">Añadir</string>
+    <string name="delete">Borrar</string>
+    <string name="delete_comment">Borrar comentario</string>
+    <string name="delete_dialog_msg">¿Seguro que desea borrar el comentario?</string>
+    <string name="number">Nº</string>
+    <string name="failed_fetch_comments">Fallo al obtener comentarios</string>
+    <string name="failed_add_comment">Fallo al añadir comentario</string>
+    <string name="failed_delete_comment">Fallo al borrar comentario</string>
 
 </resources>
 

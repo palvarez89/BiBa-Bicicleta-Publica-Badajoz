@@ -5,6 +5,10 @@
         <item name="actionBarTheme">@style/Toolbar</item>
     </style>
 
+    <style name="AppThemeDrawer" parent="AppTheme">
+        <item name="android:textColorPrimary">@color/c500</item>
+    </style>
+
     <style name="Drawer.base" parent="AppTheme">
         <item name="android:choiceMode">singleChoice</item>
         <item name="android:divider">@android:color/transparent</item>
@@ -30,5 +34,14 @@
     <style name="Toolbar" parent="Toolbar.base">
         <item name="android:background">@color/c500</item>
         <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <style name="AppTheme.EditTextOverflow">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="AlertDialogCustom">
+        <item name="android:textColor">@color/c500</item>
+        <item name="android:textColorPrimary">@color/blacktrans</item>
     </style>
 </resources>

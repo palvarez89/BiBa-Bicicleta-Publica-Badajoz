@@ -26,10 +26,20 @@
     <string name="bikes">"Bikes"</string>
     <string name="parkings">"Parkings"</string>
     <string name="station">Station</string>
-    <string name="versionNotCompatible">Oops! Your Android version is not compatible with this utility.</string>
     <string name="compatibilityError">Compatibility error</string>
     <string name="understood">Understood</string>
     <string name="fav_star">Favourite station</string>
+    <string name="title_activity_estacion_detalles">Station comments</string>
+    <string name="comment_here">Add comment</string>
+    <string name="cancel">Cancel</string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
+    <string name="delete_comment">Delete comment</string>
+    <string name="delete_dialog_msg">Are you sure you want to delete this comment?</string>
+    <string name="number">No.</string>
+    <string name="failed_fetch_comments">Failed to fetch comments</string>
+    <string name="failed_add_comment">Failed to add comment</string>
+    <string name="failed_delete_comment">Failed to delete comment</string>
 
 
 </resources>

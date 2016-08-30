@@ -24,6 +24,7 @@
 
 #RoboSpice requests should be preserved in most cases
 -keepclassmembers class biba.bicicleta.publica.badajoz.objects.Estacion** { *; }
+-keepclassmembers class biba.bicicleta.publica.badajoz.objects.Message** { *; }
 
 #-keep class biba.bicicleta.publica.badajoz.** { *; }
 
@@ -31,7 +32,7 @@
 -dontwarn android.support.**
 -dontwarn com.sun.xml.internal.**
 -dontwarn com.sun.istack.internal.**
--dontwarn org.codehaus.jackson.**
+-dontwarn com.fasterxml.jackson.**
 -dontwarn org.springframework.**
 -dontwarn java.awt.**
 -dontwarn javax.security.**
@@ -122,4 +123,4 @@
 
 -dontwarn com.octo.android.robospice.**
 -keep class com.octo.android.robospice.** { *; }
--keep class org.codehaus.jackson.** { *; }
+-keep class com.fasterxml.jackson.** { *; }
