@@ -17,7 +17,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +35,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import biba.bicicleta.publica.badajoz.adapters.EstacionDetallesAdapter;
 import biba.bicicleta.publica.badajoz.objects.Estacion;
 import biba.bicicleta.publica.badajoz.objects.MessageList;
+import biba.bicicleta.publica.badajoz.utils.Analytics;
 import biba.bicicleta.publica.badajoz.utils.CommentPut;
 import biba.bicicleta.publica.badajoz.utils.CommentsRequest;
 import biba.bicicleta.publica.badajoz.utils.Common;
@@ -73,6 +73,9 @@ public class EstacionDetallesActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Analytics analytics = new Analytics(this);
+        analytics.screenView(this.getClass().getSimpleName());
 
         initSwipeLayout();
 
@@ -179,6 +182,8 @@ public class EstacionDetallesActivity extends AppCompatActivity {
                                         String newComment = StringEscapeUtils.escapeJava(userInput.getText().toString());
                                         CommentPut request = new CommentPut(stationNumber, newComment);
                                         spiceManager.execute(request, "add-comment-cache" + stationNumber, DurationInMillis.ONE_SECOND, new MessagePutRequestListener());
+                                        Analytics analytics = new Analytics((Activity) context);
+                                        analytics.screenView("Comment add");
                                     }
                                 })
                         .setNegativeButton(R.string.cancel,

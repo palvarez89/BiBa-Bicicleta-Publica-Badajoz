@@ -22,7 +22,7 @@ public class Analytics {
         t.setScreenName(path);
 
         // Send a screen view.
-        t.send(new HitBuilders.AppViewBuilder().build());
+        t.send(new HitBuilders.ScreenViewBuilder().build());
 
     }
 }

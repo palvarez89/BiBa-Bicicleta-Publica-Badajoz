@@ -2,17 +2,13 @@ package biba.bicicleta.publica.badajoz.adapters;
 
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.octo.android.robospice.SpiceManager;
@@ -24,6 +20,7 @@ import java.util.List;
 import biba.bicicleta.publica.badajoz.EstacionDetallesActivity;
 import biba.bicicleta.publica.badajoz.R;
 import biba.bicicleta.publica.badajoz.objects.Message;
+import biba.bicicleta.publica.badajoz.utils.Analytics;
 import biba.bicicleta.publica.badajoz.utils.CommentArchive;
 import biba.bicicleta.publica.badajoz.views.EstacionDetallesViewHolder;
 
@@ -66,6 +63,8 @@ public class EstacionDetallesAdapter extends RecyclerView.Adapter<EstacionDetall
                                     public void onClick(DialogInterface dialog,int id) {
                                         CommentArchive request = new CommentArchive(msg.getId());
                                         spiceManager.execute(request, "archive-comment-cache" + msg.getId(), DurationInMillis.ONE_SECOND, new MessageArchiveRequestListener());
+                                        Analytics analytics = new Analytics(edActivity);
+                                        analytics.screenView("Comment deleted");
                                     }
                                 })
                         .setNegativeButton(R.string.cancel,
