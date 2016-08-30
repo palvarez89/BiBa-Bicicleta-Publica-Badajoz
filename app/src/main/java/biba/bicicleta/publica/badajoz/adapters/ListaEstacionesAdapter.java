@@ -78,8 +78,6 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
 
             }
 
-//            backgroudn when empty?
-
         });
     }
 

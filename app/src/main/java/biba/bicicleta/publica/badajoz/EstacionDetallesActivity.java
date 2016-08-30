@@ -282,7 +282,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
     private class MessageListRequestListener implements RequestListener<MessageList> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
-            Toast.makeText(getApplicationContext(), R.string.failed_update,
+            Toast.makeText(getApplicationContext(), R.string.failed_fetch_comments,
                     Toast.LENGTH_LONG).show();
             swipeLayout.post(new Runnable() {
                 @Override
@@ -305,9 +305,6 @@ public class EstacionDetallesActivity extends AppCompatActivity {
         }
     }
 
-
-
-
     public abstract class CardClickListener implements View.OnClickListener {
         boolean isFav;
 
@@ -319,7 +316,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
     private class MessagePutRequestListener implements RequestListener<String> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
-            Toast.makeText(getApplicationContext(), R.string.failed_update,
+            Toast.makeText(getApplicationContext(), R.string.failed_add_comment,
                     Toast.LENGTH_LONG).show();
         }
 

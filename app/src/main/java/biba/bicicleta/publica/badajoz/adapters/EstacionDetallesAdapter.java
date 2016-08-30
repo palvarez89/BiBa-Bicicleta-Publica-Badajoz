@@ -105,7 +105,7 @@ public class EstacionDetallesAdapter extends RecyclerView.Adapter<EstacionDetall
     public class MessageArchiveRequestListener implements com.octo.android.robospice.request.listener.RequestListener<String> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
-            Toast.makeText(edActivity, R.string.failed_update,
+            Toast.makeText(edActivity, R.string.failed_delete_comment,
                     Toast.LENGTH_LONG).show();
         }
 

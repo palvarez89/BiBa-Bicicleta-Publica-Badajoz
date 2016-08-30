@@ -36,6 +36,9 @@
     <string name="delete_comment">Borrar comentario</string>
     <string name="delete_dialog_msg">¿Seguro que desea borrar el comentario?</string>
     <string name="number">Nº</string>
+    <string name="failed_fetch_comments">Fallo al obtener comentarios</string>
+    <string name="failed_add_comment">Fallo al añadir comentario</string>
+    <string name="failed_delete_comment">Fallo al borrar comentario</string>
 
 </resources>
 
