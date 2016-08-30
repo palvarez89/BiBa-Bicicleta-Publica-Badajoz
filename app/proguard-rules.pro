@@ -24,6 +24,7 @@
 
 #RoboSpice requests should be preserved in most cases
 -keepclassmembers class biba.bicicleta.publica.badajoz.objects.Estacion** { *; }
+-keepclassmembers class biba.bicicleta.publica.badajoz.objects.Message** { *; }
 
 #-keep class biba.bicicleta.publica.badajoz.** { *; }
 
