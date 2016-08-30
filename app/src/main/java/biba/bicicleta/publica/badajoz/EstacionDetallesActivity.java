@@ -139,7 +139,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
 
         evh.setFavStar(isFav);
 
-        evh.mFavStar.setOnClickListener(new CardClickListener(isFav) {
+        evh.mFavStar.setOnClickListener(new FavClickListener(isFav) {
             @Override
             public void onClick(View v) {
                 isFav = !isFav;
@@ -305,10 +305,10 @@ public class EstacionDetallesActivity extends AppCompatActivity {
         }
     }
 
-    public abstract class CardClickListener implements View.OnClickListener {
+    public abstract class FavClickListener implements View.OnClickListener {
         boolean isFav;
 
-        public CardClickListener(boolean isFav) {
+        public FavClickListener(boolean isFav) {
             this.isFav = isFav;
         }
     }

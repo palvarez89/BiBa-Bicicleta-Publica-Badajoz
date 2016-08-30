@@ -69,7 +69,7 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
         boolean isFav = prefs.getBoolean("fav" + realPosition, false);
         holder.setFavStar(isFav);
 
-        viewHolder.mFavStar.setOnClickListener(new CardClickListener(isFav) {
+        viewHolder.mFavStar.setOnClickListener(new FavClickListener(isFav) {
             @Override
             public void onClick(View v) {
                 isFav = !isFav;
@@ -90,10 +90,10 @@ public class ListaEstacionesAdapter extends RecyclerView.Adapter<EstacionViewHol
         mListaEstaciones = listaEstaciones;
     }
 
-    public abstract class CardClickListener implements View.OnClickListener {
+    public abstract class FavClickListener implements View.OnClickListener {
         boolean isFav;
 
-        public CardClickListener(boolean isFav) {
+        public FavClickListener(boolean isFav) {
             this.isFav = isFav;
         }
     }
