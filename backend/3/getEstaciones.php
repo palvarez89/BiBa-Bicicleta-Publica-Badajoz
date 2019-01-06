@@ -24,7 +24,7 @@ $homepage = file_get_contents('http://www.bicibadajoz.es/estado/EstadoactualBis.
 		$cols = $dom2->getElementsByTagName('td');
 
 		
-		list ($numero, $nombre, $estado) = split(" - ", $cols->item(1)->nodeValue);
+		list ($numero, $nombre, $estado) = explode(" - ", $cols->item(1)->nodeValue);
 		$i++;
 		
 		
@@ -36,8 +36,8 @@ $homepage = file_get_contents('http://www.bicibadajoz.es/estado/EstadoactualBis.
 		$xml = $obj->ownerDocument->saveXML($obj);
         $cadena = $items->item($i)->nodeValue;
 		
-		list ($basura, $cantidad) = split(" - ", utf8_decode( $cadena ));
-		list ($disp, $capac) = split("/", $cantidad);
+		list ($basura, $cantidad) = explode(" - ", utf8_decode( $cadena ));
+		list ($disp, $capac) = explode("/", $cantidad);
 		
 		$i = $i+2;
 		
