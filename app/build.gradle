@@ -7,9 +7,9 @@ android {
     defaultConfig {
         applicationId "biba.bicicleta.publica.badajoz"
         minSdkVersion 9
-        targetSdkVersion 24
-        versionCode 8500
-        versionName "5.0"
+        targetSdkVersion 26
+        versionCode 8510
+        versionName "5.1"
     }
 
     packagingOptions {
