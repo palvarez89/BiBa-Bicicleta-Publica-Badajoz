@@ -75,7 +75,7 @@ public class EstacionDetallesActivity extends AppCompatActivity {
         });
 
         Analytics analytics = new Analytics(this);
-        analytics.screenView(this.getClass().getSimpleName());
+        analytics.screenView("EstacionDetallesActivity.java");
 
         initSwipeLayout();
 

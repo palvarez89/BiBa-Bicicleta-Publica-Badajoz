@@ -102,7 +102,7 @@ public class ListaEstaciones extends Fragment {
                 "biba.bicicleta.publica.badajoz", Context.MODE_PRIVATE);
 
         Analytics analytics = new Analytics(activity);
-        analytics.screenView(this.getClass().getSimpleName());
+        analytics.screenView("ListaEstaciones.java");
 
         initSwipeLayout();
         initRecyclerView();

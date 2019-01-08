@@ -90,7 +90,7 @@ public class Map extends Fragment implements OnMapReadyCallback {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Analytics analytics = new Analytics(activity);
-        analytics.screenView(this.getClass().getSimpleName());
+        analytics.screenView("Map.java");
 
     }
 
