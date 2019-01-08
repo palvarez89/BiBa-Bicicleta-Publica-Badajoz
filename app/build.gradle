@@ -8,8 +8,8 @@ android {
         applicationId "biba.bicicleta.publica.badajoz"
         minSdkVersion 9
         targetSdkVersion 26
-        versionCode 8510
-        versionName "5.1"
+        versionCode 8520
+        versionName "5.2"
     }
 
     packagingOptions {
