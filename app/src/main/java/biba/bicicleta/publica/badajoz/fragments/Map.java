@@ -128,7 +128,7 @@ public class Map extends Fragment implements OnMapReadyCallback {
             options.mapType(GoogleMap.MAP_TYPE_TERRAIN)
                     .compassEnabled(false).rotateGesturesEnabled(false)
                     .tiltGesturesEnabled(false).zoomControlsEnabled(true);
-            fab.setVisibility(View.VISIBLE);
+            fab.show();
             fab.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     performRequest(true);

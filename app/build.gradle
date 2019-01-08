@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "biba.bicicleta.publica.badajoz"
-        minSdkVersion 9
-        targetSdkVersion 26
-        versionCode 8520
-        versionName "5.2"
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 8530
+        versionName "5.3"
     }
 
     packagingOptions {
@@ -36,18 +36,18 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:24.2.0'
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.google.android.gms:play-services-maps:9.4.0'
-    compile 'com.google.android.gms:play-services-analytics:9.4.0'
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
-    compile 'com.android.support:cardview-v7:24.2.0'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.8.1'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.1'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.1'
-    compile 'com.octo.android.robospice:robospice:1.4.14'
-    compile 'com.octo.android.robospice:robospice-spring-android:1.4.14'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    implementation 'com.google.android.gms:play-services-analytics:16.0.6'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.8'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
+    implementation 'com.octo.android.robospice:robospice:1.4.14'
+    implementation 'com.octo.android.robospice:robospice-spring-android:1.4.14'
 }
 
 configurations.all {
