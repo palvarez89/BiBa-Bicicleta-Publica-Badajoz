@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.support.v7.view.ContextThemeWrapper;
 
 import biba.bicicleta.publica.badajoz.R;
 
@@ -51,7 +52,8 @@ public class AppRater {
     private static void showRateDialog(final Context mContext,
                                        final SharedPreferences.Editor editor) {
         Dialog dialog;
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.AlertDialogCustom));
+
         String message = mContext.getString(R.string.RateDialog);
         builder.setMessage(message)
                 .setTitle(mContext.getString(R.string.RateTitle))
