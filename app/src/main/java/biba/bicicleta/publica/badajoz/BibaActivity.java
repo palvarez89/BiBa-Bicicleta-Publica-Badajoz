@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -65,8 +64,6 @@ public class BibaActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        LinearLayout dp;
-//        dp = (LinearLayout) findViewById(R.id.drawer_parent);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, toolbar,
@@ -221,10 +218,8 @@ public class BibaActivity extends AppCompatActivity {
 
     public static void openCallIncident(Context context) {
         String url = "tel:666500114";
-        if (url.startsWith("tel:")) {
-            Intent intent = new Intent(Intent.ACTION_DIAL,
-                    Uri.parse(url));
-            context.startActivity(intent);
-        }
+        Intent intent = new Intent(Intent.ACTION_DIAL,
+                Uri.parse(url));
+        context.startActivity(intent);
     }
 }
