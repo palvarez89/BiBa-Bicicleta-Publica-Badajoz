@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -186,11 +187,36 @@ public class BibaActivity extends AppCompatActivity {
         mAdapter.setSelected(position);
     }
 
-    public static void openDonateVersion(Context context) {
-        context.startActivity(new Intent(
-                Intent.ACTION_VIEW, Uri
-                .parse("market://details?id="
-                        + APP_DONATE_PACKAGE_NAME)));
+    public static void openDonateVersion(final Context context) {
+        Dialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.AlertDialogCustom));
+
+        String message = context.getString(R.string.DonateDialog);
+        builder.setMessage(message)
+                .setTitle(context.getString(R.string.DonateTitle))
+                .setIcon(context.getApplicationInfo().icon)
+                .setCancelable(false)
+                .setPositiveButton(context.getString(R.string.DonateNow),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                context.startActivity(new Intent(
+                                        Intent.ACTION_VIEW, Uri
+                                        .parse("market://details?id="
+                                                + APP_DONATE_PACKAGE_NAME)));
+                                dialog.dismiss();
+                            }
+                        })
+                .setNegativeButton(context.getString(R.string.NoThanks),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                dialog.dismiss();
+
+                            }
+                        });
+        dialog = builder.create();
+        dialog.show();
     }
 
     public static void openCallIncident(Context context) {
