@@ -1,7 +1,7 @@
 <resources>
 
-    <string name="failed_update">Fallo al actualizar</string>
     <string name="app_name">BiBa Bicicleta Pública Badajoz</string>
+    <string name="failed_update">Fallo al actualizar</string>
 
     <string name="navigation_drawer_open">Abirir Menúr</string>
     <string name="navigation_drawer_close">Cerrar Menú</string>
@@ -19,7 +19,8 @@
     <string name="NoThanks">No, gracias.</string>
     <string name="RateDialog">Si te gustó la aplicación, toma un minuto de tu tiempo para puntuarla. Tu opinión nos interesa. ¡Gracias!</string>
     <string name="RateTitle">Puntúame</string>
-    <string name="DonateDialog">¡Vaya! Usas a menudo la aplicación. ¿Quieres hacer una pequeña donación?</string>
+    <string name="DonateDialog">¡Vaya! Usas a menudo la aplicación. ¿Quieres comprarme un café? Puedes hacerlo comprando la versión de donación en Google Play. ¡Gracias!</string>
+    <string name="DonateVoluntarilyDialog">¿Quieres comprarme un café? Puedes hacerlo comprando la versión de donación en Google Play. ¡Gracias!</string>
     <string name="DonateNow">Donar</string>
     <string name="DonateTitle">Donación</string>
     <string name="bikes">"Bicis"</string>
@@ -40,7 +41,4 @@
     <string name="failed_add_comment">Fallo al añadir comentario</string>
     <string name="failed_delete_comment">Fallo al borrar comentario</string>
 
-
 </resources>
-
-

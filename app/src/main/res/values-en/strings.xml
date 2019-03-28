@@ -20,7 +20,8 @@
     <string name="NoThanks">No, thanks.</string>
     <string name="RateDialog">If you enjoyed the App, take a second to rate it. Your opinion is important for us. Thanks!</string>
     <string name="RateTitle">Rate the App</string>
-    <string name="DonateDialog">Hey! You are using the App frequently. Would you like to make a little donation?</string>
+    <string name="DonateDialog">Hey! You are using the App frequently. Would you like to make a small donation? You can do it by buying the donate version in Google Play. Thanks!</string>
+    <string name="DonateVoluntarilyDialog">Do you want to buy me a beer? You can do it by buying the donate version in Google Play. Thanks!</string>
     <string name="DonateNow">Donate</string>
     <string name="DonateTitle">Donation</string>
     <string name="bikes">"Bikes"</string>

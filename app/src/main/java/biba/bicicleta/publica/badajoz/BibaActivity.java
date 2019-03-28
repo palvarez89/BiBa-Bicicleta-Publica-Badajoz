@@ -188,7 +188,7 @@ public class BibaActivity extends AppCompatActivity {
         Dialog dialog;
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.AlertDialogCustom));
 
-        String message = context.getString(R.string.DonateDialog);
+        String message = context.getString(R.string.DonateVoluntarilyDialog);
         builder.setMessage(message)
                 .setTitle(context.getString(R.string.DonateTitle))
                 .setIcon(context.getApplicationInfo().icon)
