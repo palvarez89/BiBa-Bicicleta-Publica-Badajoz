@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "636397367969",
+    "firebase_url": "https://biba-2020-nueva-propiedad.firebaseio.com",
+    "project_id": "biba-2020-nueva-propiedad",
+    "storage_bucket": "biba-2020-nueva-propiedad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636397367969:android:a4edf72cbeac9e82fab6e0",
+        "android_client_info": {
+          "package_name": "biba.bicicleta.publica.badajoz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636397367969-jtedaqs8b9us1sn22lfjjbgbskg0dh72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1oW_Vm7l_d75gc1nGDqMV85S2v9ZGYL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636397367969-jtedaqs8b9us1sn22lfjjbgbskg0dh72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
